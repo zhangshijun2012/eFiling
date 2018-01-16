@@ -1,0 +1,600 @@
+package com.sinosoft.efiling.service;
+
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+
+import com.sinosoft.efiling.hibernate.entity.Document;
+import com.sinosoft.efiling.hibernate.entity.DocumentFile;
+import com.sinosoft.efiling.hibernate.entity.File;
+import com.sinosoft.efiling.hibernate.entity.FileBox;
+import com.sinosoft.efiling.hibernate.entity.FileType;
+import com.sinosoft.efiling.util.SystemUtils;
+import com.sinosoft.efiling.util.UserSessionEntity;
+import com.sinosoft.filenet.FileIndex;
+import com.sinosoft.util.FileHelper;
+import com.sinosoft.util.Helper;
+import com.sinosoft.util.HttpClientHelper;
+import com.sinosoft.util.NumberHelper;
+import com.sinosoft.util.StringHelper;
+import com.sinosoft.util.json.JSONArray;
+import com.sinosoft.util.json.JSONObject;
+
+/**
+ * 文档扫描处理类.eFiling的文件保存到FileIndex表时：
+ * property00:FileType.id
+ * property01:FileType.fileModel
+ * property02:DocumentFile.id
+ * property03:'upload'表示是使用承保资料上传菜单上传的文件
+ * 
+ * @author LuoGang
+ * 
+ */
+public class FileScanService extends DocumentService {
+	/** E000.扫描错误,未能识别业务号 */
+	public static final String ERROR_TYPE_DOCUMENT_NOT_IDENTIFIED = "E000";
+	/** E010.扫描错误,业务号不存在 */
+	public static final String ERROR_TYPE_DOCUMENT_NOT_EXISTS = "E010";
+	/** E100.扫描错误,未能识别文件类型 */
+	public static final String ERROR_TYPE_FILE_TYPE_NOT_IDENTIFIED = "E100";
+	/** E110.识别出的文件类型不在所需资料中 */
+	public static final String ERROR_TYPE_FILE_TYPE_NOT_NEED = "E110";
+	/** E111.识别出的文件类型不在设定的核保资料中 */
+	public static final String ERROR_TYPE_FILE_TYPE_NOT_EXISTS = "E111";
+	/** E112.业务号未能识别,无法判断是否在所需的核保资料中 */
+	public static final String ERROR_TYPE_FILE_TYPE_UNKNOWN = "E112";
+
+	// 'DOCUMENT_NOT_IDENTIFIED' : '0', // 单证号未能识别
+	// 'FILE_TYPE_NOT_IDENTIFIED' : '1', // 资料类型未能识别
+	// 'FILE_TYPE_NOT_NEED' : '2' // 识别出的资料类型不在核保所需
+
+	public static final Map<String, String> ERROR_TYPES = new HashMap<String, String>();
+	static {
+		ERROR_TYPES.put(ERROR_TYPE_DOCUMENT_NOT_IDENTIFIED, "file.scan.error.000");
+		ERROR_TYPES.put(ERROR_TYPE_DOCUMENT_NOT_EXISTS, "file.scan.error.010");
+		ERROR_TYPES.put(ERROR_TYPE_FILE_TYPE_NOT_IDENTIFIED, "file.scan.error.100");
+		ERROR_TYPES.put(ERROR_TYPE_FILE_TYPE_NOT_NEED, "file.scan.error.110");
+		ERROR_TYPES.put(ERROR_TYPE_FILE_TYPE_NOT_EXISTS, "file.scan.error.111");
+		ERROR_TYPES.put(ERROR_TYPE_FILE_TYPE_UNKNOWN, "file.scan.error.112");
+	}
+
+	// <!-- 批量扫描后返回的报文 -->
+	// <root>
+	// <document id="业务号，扫描到的二维码/或2张条码时的业务号条码,为空则表示未能识别">
+	// <!-- 一份文件一个file，必须按照扫描顺序依次返回 -->
+	// <file type="文件类型，即扫描的条码值。如果是二维码，没有帖条码的情况，则返回0,表示保单/投保单等.如果为空则表示无法识别">
+	// <id>文件id，核心系统用此ID到下载服务中下载文件,此ID有核心生成后返回</id>
+	// <name>上传后保存的文件名，必须包含文件后缀名</name>
+	// <count>整数，页数，即此份文件扫描时对应的纸张数量</count>
+	// <size>文件大小，单位B字节</size>
+	// </file>
+	// <file type="第2份资料">.....</file>
+	// </document>
+	// <document id="第二个业务号">
+	//
+	// </document>
+	// </root>
+	/**
+	 * 检查xml文件,并将该文档中的错误一一列出
+	 * 
+	 * @param xmlString
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public JSONObject read(String xmlString) {
+		JSONObject json = new JSONObject();
+		JSONArray errors = new JSONArray();
+		JSONObject error;
+		// boolean success = true;
+
+		json.put("xml", xmlString);
+		try {
+			org.dom4j.Document xml = DocumentHelper.parseText(xmlString);
+			Element root = xml.getRootElement();
+			Element e = root.element("exception");
+			if (e != null) {
+				// 有异常
+				json.put("success", false);
+				JSONObject ex = new JSONObject();
+				ex.put("code", e.attributeValue("code"));
+				ex.put("message", e.getTextTrim());
+				json.put("exception", ex);
+				return json;
+			}
+			// String rootName = "/" + root.getName();
+			List<Element> docs = root.elements("document");
+			int pageIndex = 1;
+			String documentNo;
+			int documentCount = -1;
+			int pageCount = 0;
+			String fileTypeId;
+			List<FileType> fileTypes;
+			String xpath;
+			int index = 1;
+			Document entity = null;
+			String fileName;
+			String visaNo;
+			boolean isVisa = false;
+			for (Element doc : docs) {
+				// System.out.println(index + "\t" + DateHelper.format(new Date(), "yyyy-MM-dd HH:mm:ss.SSS"));
+				xpath = doc.getPath() + "[" + index++ + "]";
+				documentNo = doc.attributeValue("id");
+				// fileName = doc.attributeValue("name"); // 文件名
+				List<Element> files = doc.elements("file"); // files不能为空，为空则有异常
+				Element firstFile = files.get(0);
+				fileTypeId = firstFile.attributeValue("type");
+				fileName = firstFile.elementText("name"); // 使用第一份资料的文件名
+				documentCount++;
+				visaNo = null; // 单证号
+				isVisa = false;
+				entity = null;
+				if (StringHelper.isEmpty(documentNo)) {
+					// 业务号未能识别
+					error = new JSONObject();
+					error.put("code", ERROR_TYPE_DOCUMENT_NOT_IDENTIFIED);
+					error.put("message", ERROR_TYPES.get(ERROR_TYPE_DOCUMENT_NOT_IDENTIFIED));
+					error.put("documentId", documentNo);
+					error.put("fileType", "业务号"); // 保单,包括投保单/批单,有业务号区分
+					error.put("pageIndex", pageIndex);
+					error.put("documentIndex", documentCount);
+					error.put("xpath", xpath);
+					error.put("fileName", fileName);
+					errors.put(error);
+				} else {
+					String no = documentNo.replaceAll("\\D", ""); // 删除所有非数字的文字
+					// 判断documentNo是否为有价单证号
+					// 8131015001201001131000 22位,7,8,9开头的为投保单/保单/批单
+					char c = no.charAt(0);
+					if (SystemUtils.FILE_TYPE_VISA_VOIDED.equals(fileTypeId)
+							|| SystemUtils.FILE_TYPE_VISA_LOST.equals(fileTypeId)) {
+						// 作废/遗失单证
+						visaNo = no;
+						no = StringHelper.trim(dao.uniqueResultSQL(
+								"SELECT V.VISASERIALNO FROM VSMARK V WHERE V.VISASERIALNO = ? AND ROWNUM = 1",
+								new String[] { no }));
+						doc.addAttribute("visa", fileTypeId);
+						isVisa = true;
+					} else if (SystemUtils.POLICY_NO_LENGTH == no.length() && '7' <= c && c <= '9') {
+						// 识别出的直接是投保单/保单/批单号,不需要处理.如果投保单/保单/批单号规则有变动，则需要修改代码
+					} else if (no.length() >= 10) {
+						// 仅可能是车险,在车险中,有价单证号不会重复
+						// 车险扫描的是有价单证号
+						visaNo = no;
+						no = "";
+						// select * from vsmark Where visastatus='04' // 04有效，05遗失，06作废
+
+						String[] args = new String[] { SystemUtils.RISK_CLASS_MOTOR, visaNo,
+								SystemUtils.VISA_STATUS_LOST, SystemUtils.VISA_STATUS_VOIDED };
+						String sql = "SELECT V.BUSINESSNO FROM VSMARK V INNER JOIN PRPCMAIN P ON P.POLICYNO = V.BUSINESSNO "
+								+ "WHERE P.CLASSCODE = ? AND V.VISASERIALNO = ? AND V.VISASTATUS NOT IN (?, ?)";
+						List<?> list = dao.querySQL(sql, args);
+						// 先通过保单表查询
+						// no = StringHelper.trim(dao.uniqueResultSQL(sql, args));
+						if (list != null && !list.isEmpty()) {
+							if (list.size() == 1) {
+								// 只有一个
+								no = StringHelper.trim(list.get(0));
+							} else {// if (list.size() > 1) {
+								// 不止一个单证，则只读取A0107。2015-10-16因为A0101和A0107有重复单证号，特殊处理，如果重复的单证都视为扫描A0107
+								sql = "SELECT V.BUSINESSNO FROM VSMARK V INNER JOIN PRPCMAIN P ON P.POLICYNO = V.BUSINESSNO "
+										+ "WHERE P.CLASSCODE = ? AND V.VISASERIALNO = ? AND V.VISASTATUS NOT IN (?, ?) AND V.VISACODE = 'A0107'";
+								no = StringHelper.trim(dao.uniqueResultSQL(sql, args));
+							}
+						} else {
+							// 如果不是保单，通过批单表查询
+							sql = "SELECT V.BUSINESSNO FROM VSMARK V INNER JOIN PRPPHEAD P ON P.ENDORSENO = V.BUSINESSNO "
+									+ "WHERE P.CLASSCODE = ? AND V.VISASERIALNO = ? AND V.VISASTATUS NOT IN (?, ?)";
+							// no = StringHelper.trim(dao.uniqueResultSQL(sql, args));
+
+							list = dao.querySQL(sql, args);
+							// 先通过保单表查询
+							// no = StringHelper.trim(dao.uniqueResultSQL(sql, args));
+							if (list != null && !list.isEmpty()) {
+								if (list.size() == 1) {
+									// 只有一个
+									no = StringHelper.trim(list.get(0));
+								} else {// if (list.size() > 1) {
+									// 不止一个单证，则只读取A0107。2015-10-16因为A0101和A0107有重复单证号，特殊处理，如果重复的单证都视为扫描A0107
+									sql = "SELECT V.BUSINESSNO FROM VSMARK V INNER JOIN PRPPHEAD P ON P.ENDORSENO = V.BUSINESSNO "
+											+ "WHERE P.CLASSCODE = ? AND V.VISASERIALNO = ? AND V.VISASTATUS NOT IN (?, ?) AND V.VISACODE = 'A0107'";
+									no = StringHelper.trim(dao.uniqueResultSQL(sql, args));
+								}
+							}
+						}
+						if (StringHelper.isEmpty(no)) {
+							no = "";
+							// 没有找到有效的单证号
+							sql = "SELECT V.VISASERIALNO, V.VISASTATUS FROM VSMARK V WHERE V.VISASERIALNO = ? ";
+							list = dao.querySQL(sql, new String[] { visaNo });
+							if (list != null && list.size() == 1) { // 只有是唯一单证号的才这样处理
+								Object[] visas = (Object[]) list.get(0);
+								String visaStatus = StringHelper.trim(visas[1]);
+								isVisa = SystemUtils.VISA_STATUS_LOST.equalsIgnoreCase(visaStatus)
+										|| SystemUtils.VISA_STATUS_VOIDED.equalsIgnoreCase(visaStatus);
+								if (isVisa) { // 作废或遗失单证
+									no = StringHelper.trim(visas[0]);
+									fileTypeId = SystemUtils.VISA_STATUS_LOST.equalsIgnoreCase(visaStatus) ? SystemUtils.FILE_TYPE_VISA_LOST
+											: SystemUtils.FILE_TYPE_VISA_VOIDED;
+									doc.addAttribute("visa", fileTypeId);
+									isVisa = true;
+								}
+							}
+						}
+					} else {
+						// 无法识别的单证号
+						no = "";
+					}
+
+					if (!StringHelper.isEmpty(visaNo)) {
+						// 增加单证号的属性
+						doc.addAttribute("visaNo", visaNo);
+					}
+					if (!StringHelper.isEmpty(no) && !isVisa) {
+						// 保/批单对象
+						entity = getDocument(no);
+
+						if (entity == null) {
+							// 如果此数据不存在,首先调用补数的业务
+							entity = documentAuditService.save(no);
+						}
+					}
+					if (StringHelper.isEmpty(no) || (!isVisa && entity == null)) {
+						// 业务号不存在
+						error = new JSONObject();
+						error.put("code", ERROR_TYPE_DOCUMENT_NOT_EXISTS);
+						error.put("message", ERROR_TYPES.get(ERROR_TYPE_DOCUMENT_NOT_EXISTS));
+						error.put("documentId", documentNo);
+						// error.put("fileType", SystemUtils.FILE_TYPE_POLICY); // 保单,包括投保单/批单,有业务号区分
+						error.put("fileType", "业务号"); // 保单,包括投保单/批单,有业务号区分
+						error.put("pageIndex", pageIndex);
+						error.put("documentIndex", documentCount);
+						error.put("visaNo", visaNo);
+						error.put("xpath", xpath);
+						error.put("fileName", fileName);
+						errors.put(error);
+					} else {
+						documentNo = no;
+						doc.attribute("id").setValue(documentNo); // 更改id
+					}
+				}
+
+				fileTypes = (List<FileType>) (entity == null ? Collections.EMPTY_LIST : getFileTypes(entity)); // 此单证下的可选文件
+				int i = 1;
+				int count = 0;
+				String parentXPath = xpath;
+				int firstPageIndex = pageIndex;
+				for (Element file : files) {
+					count = NumberHelper.intValue(file.elementText("count"));
+					firstPageIndex = pageIndex;
+					pageIndex += count;
+					pageCount += count;
+					fileTypeId = file.attributeValue("type");
+					fileName = file.elementText("name"); // 文件名
+					xpath = parentXPath + "/file[" + i++ + "]";
+					// 为每个文件生成id.生成的id必须是36位的uuid,在FileNet中的Id对象不接受32位字符串
+					file.element("id").setText(StringHelper.uuid());
+					if (StringHelper.isEmpty(fileTypeId)) {
+						// 资料类型未能识别
+						error = new JSONObject();
+						error.put("code", ERROR_TYPE_FILE_TYPE_NOT_IDENTIFIED);
+						error.put("message", ERROR_TYPES.get(ERROR_TYPE_FILE_TYPE_NOT_IDENTIFIED));
+						error.put("documentId", documentNo);
+						error.put("pageIndex", firstPageIndex);
+						error.put("documentIndex", documentCount);
+						error.put("fileType", fileTypeId);
+						// error.put("fileTypes", new JSONArray(fileTypes));
+						// if (entity != null) error.put("fileTypes", new JSONArray(fileTypes));
+						error.put("xpath", xpath);
+						error.put("fileName", fileName);
+						errors.put(error);
+						continue;
+					}
+					if (SystemUtils.FILE_TYPE_EMPTY.equals(fileTypeId)
+							|| SystemUtils.FILE_TYPE_COVER.equals(fileTypeId) || isVisa) {
+						// 第一份资料/条码纸/作废/遗失单证不继续处理
+						continue;
+					}
+
+					if (fileTypeService.get(fileTypeId) == null) {
+						// 不在任何设定的核保资料中
+						error = new JSONObject();
+						error.put("code", ERROR_TYPE_FILE_TYPE_NOT_EXISTS);
+						error.put("message", ERROR_TYPES.get(ERROR_TYPE_FILE_TYPE_NOT_EXISTS));
+						error.put("documentId", documentNo);
+						error.put("pageIndex", firstPageIndex);
+						error.put("documentIndex", documentCount);
+						// error.put("fileTypes", new JSONArray(fileTypes));
+						// if (entity != null) error.put("fileTypes", new JSONArray(fileTypes));
+						error.put("fileType", fileTypeId);
+						error.put("xpath", xpath);
+						error.put("fileName", fileName);
+						errors.put(error);
+						continue;
+					}
+
+					// 判断资料是否在所需资料中
+					boolean need = false;
+					for (FileType ft : fileTypes) {
+						if (ft.getId().equals(fileTypeId)) {
+							need = true;
+							break;
+						}
+					}
+					if (!need) {
+						// 不在承保所需资料中
+						error = new JSONObject();
+						error.put("code", ERROR_TYPE_FILE_TYPE_NOT_NEED);
+						error.put("message", ERROR_TYPES.get(ERROR_TYPE_FILE_TYPE_NOT_NEED));
+						error.put("documentId", documentNo);
+						error.put("pageIndex", firstPageIndex);
+						error.put("documentIndex", documentCount);
+						if (entity != null) error.put("fileTypes", new JSONArray(fileTypes));
+						error.put("fileType", fileTypeId);
+						error.put("xpath", xpath);
+						error.put("fileName", fileName);
+						errors.put(error);
+					}
+				}
+			}
+			json.put("success", true);
+			json.put("count", documentCount + 1); // 单证数量
+			json.put("pages", pageCount); // 页数
+			json.put("errors", errors);
+			json.put("xml", xml.asXML());
+
+			// System.out.println("XML = " + xml.asXML());
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return json;
+	}
+
+	/**
+	 * 
+	 * 将扫描识别后的文件数据保存
+	 * 
+	 * @param xmlString 扫描处理后的文件数据
+	 * @param batchId 扫描批次号,由扫描时自动生成
+	 * @param riskType 险种类型,险种类别(0车险/1非车险)
+	 * @param user 操作人
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public JSONObject save(String xmlString, String batchId, String riskType, UserSessionEntity user) {
+		JSONObject json = new JSONObject();
+		json.put("success", true);
+		String scanFileMsg = "";
+		try {
+			org.dom4j.Document xml = DocumentHelper.parseText(xmlString);
+			Element root = xml.getRootElement();
+
+			// String rootName = "/" + root.getName();
+			List<Element> docs = root.elements("document");
+			int pageIndex = 0;
+			int count = 0;
+			String documentNo;
+			Document entity = null;
+			Document anotherDoc = null;
+			String companyId = user.getCurrentCompany().getId();
+			FileBox fileBox = fileBoxService.getValidFileBox(companyId, riskType, 1);
+			JSONArray details = new JSONArray();
+			json.put("details", details);
+
+			JSONArray docFiles = new JSONArray(); // 用于保存生成的资料明细数据
+			json.put("files", docFiles);
+
+			boolean notFound = false; // 是否有业务号不存在的错误
+			StringBuilder notFoundMessage = new StringBuilder();
+			String visa;
+			String visaNo; // 单证号
+			boolean isVisa = false;
+			Set<String> visaNos = new HashSet<String>();
+			for (Element doc : docs) {
+				if (StringHelper.isTrue(doc.elementText("remove"))) continue; // 删除此数据
+				documentNo = doc.attributeValue("id");
+				visaNo = doc.attributeValue("visaNo");
+				if (!Helper.isEmpty(visaNo)) visaNos.add(visaNo);
+				visa = doc.attributeValue("visa");
+				List<Element> files = doc.elements("file");
+				Element firstFile = files.get(0);
+				isVisa = SystemUtils.FILE_TYPE_VISA_VOIDED.equals(visa) || SystemUtils.FILE_TYPE_VISA_LOST.equals(visa);
+				scanFileMsg += "\n" + documentNo + ",visaNo=" + visaNo;
+				if (isVisa) {
+					// 作废/遗失单证
+					// 调用单证系统的接口,使单证作废或者遗失
+					// 首先保存document表
+					entity = getDocument(visaNo);
+					if (entity == null) {
+						entity = new Document();
+						entity.setId(SystemUtils.DOCUMENT_TYPE_VISA + visaNo);
+						entity.setNo(visaNo);
+						entity.setApplicant(SystemUtils.FILE_TYPE_VISA_VOIDED.equals(visa) ? SystemUtils.APPLICANT_VISA_VOIDED
+								: SystemUtils.APPLICANT_VISA_LOST);
+						// 单证类型
+						entity.setType(SystemUtils.DOCUMENT_TYPE_VISA);
+						// 单证设置为已经归档
+						entity.setFileStatus(SystemUtils.DOCUMENT_STATUS_FILE);
+						// 设置单证生成时间
+						// entity.setCreateTime(new Date());
+						entity.setVisaNo(visaNo);
+						entity.setVisaStatus(visa);
+						entity.setStatus(SystemUtils.STATUS_VALID);
+						entity.setLent(SystemUtils.NO); // 设置为没被借出
+						entity.setBusinessCompany(user.getCurrentCompany());
+						entity.setBusinessDept(user.getCurrentDepartment());
+						// entity.setBusinessUser(user);
+						// entity.setSales(user);
+
+						Date now = new Date();
+						entity.setInsertTime(now);
+						entity.setUser(user.getInstance());
+						entity.setDepartment(user.getCurrentDepartment());
+						entity.setCompany(user.getCurrentCompany());
+						entity.setUpdateTime(now);
+						entity.setUpdateUser(user.getInstance());
+						entity.setUpdateDepartment(user.getCurrentDepartment());
+
+						save(entity);
+					} else {
+						entity.setApplicant(SystemUtils.FILE_TYPE_VISA_VOIDED.equals(visa) ? SystemUtils.APPLICANT_VISA_VOIDED
+								: SystemUtils.APPLICANT_VISA_LOST);
+						// 单证类型
+						entity.setType(SystemUtils.DOCUMENT_TYPE_VISA);
+						// 单证设置为已经归档
+						entity.setFileStatus(SystemUtils.DOCUMENT_STATUS_FILE);
+						entity.setVisaNo(visaNo);
+						entity.setVisaStatus(visa);
+						entity.setStatus(SystemUtils.STATUS_VALID);
+						update(entity);
+					}
+					// 强制更改file的类型,作废单证是按照车险扫描的模式，xmlString中type为0,这里更改为002
+					firstFile.attribute("type").setValue(visa);
+				} else {
+					entity = getDocument(documentNo);
+					if (entity == null) {
+						// 可能是手工补录的业务号不存在造成的
+						// json.put("success", false);
+						// json.put("message", StringHelper.trim(json.opt("message")) + "业务号" + documentNo + "不存在!\n");
+						// continue;
+						notFoundMessage.append("业务号\"").append(documentNo).append("\"不存在!\n");
+						notFound = true;
+					}
+
+					if (notFound) continue; // 有数据未找到则需要抛出异常，不保存数据库
+
+					entity.setVisaNo(visaNo);
+				}
+				anotherDoc = entity.getAnother();
+				FileType fileType;
+				for (Element fileElement : files) {
+					if (StringHelper.isTrue(fileElement.elementText("remove"))) continue; // 删除此数据
+
+					pageIndex += count;
+					count = NumberHelper.intValue(fileElement.elementText("count"));
+					String fileTypeId = fileElement.attributeValue("type");
+					if (SystemUtils.FILE_TYPE_EMPTY.equals(fileTypeId)) {
+						// 根据业务号自动识别
+						fileTypeId = getDocumentFileType(documentNo);
+					}
+					fileType = fileTypeService.get(fileTypeId);
+					scanFileMsg += ";pageIndex=" + pageIndex + ",fileTypeId=" + fileTypeId + ",fileTypeName="
+							+ fileType.getName();
+					String fileId = fileElement.elementText("id");
+					String fileName = fileElement.elementText("name");
+					int fileSize = NumberHelper.intValue(fileElement.elementText("size"));
+
+					String anotherId = fileElement.elementText("another");
+					DocumentFile another = null;
+					if (!StringHelper.isEmpty(anotherId)) { // 要被覆盖的文件
+						another = documentFileDao.get(anotherId);
+					}
+
+					File file = new File();
+					file.setFileModel(SystemUtils.FILE_MODEL_FILE); // 核保资料文件
+					file.setFileId(fileId);
+					file.setFileName(fileName);
+					file.setFileSize(fileSize);
+					file.setBatchNo(batchId);
+					file.setDocument(entity);
+					file.setPageCount(count);
+					file.setBatchPageIndex(pageIndex);
+					file.setLent(SystemUtils.FILE_LENT_NO);
+					file.setFileType(fileType);
+					// file.setEffectiveTime(docFile.getEffectiveTime());
+					// file.setDueTime(docFile.getDueTime());
+					file.setUser(user.getInstance());
+					file.setDepartment(user.getCurrentDepartment());
+					file.setCompany(user.getCurrentCompany());
+					file.setInsertTime(new Date());
+					// file.setPaperCode(docFile.getPaperCode());
+					// file.setPaperType(docFile.getPaperType());
+					fileBox = fileBoxService.save(fileBox, file);
+
+					// docFile.setFile(file);
+					// docFile.setFileTime(file.getInsertTime());
+					// docFile.setStatus(SystemUtils.DOCUMENT_FILE_STATUS_FILE);
+					// documentFileDao.update(docFile);
+
+					DocumentFile docFile = saveDocumentFile(entity, fileType, file, another);
+
+					// 每个文件一条装盒明细
+					details.put(new Object[] { fileBox.getId(), pageIndex, count, file.getNo(),
+							file.getFileType().getName(), entity.getNo(), entity.getApplicant(), file.getPageIndex() });
+
+					JSONObject docFileJSON = new JSONObject(docFile);
+					docFileJSON.put("fileType", docFile.getFileType());
+					docFileJSON.put("file", file);
+					docFiles.put(docFileJSON);
+
+					// 传到FileIndex临时库中
+					FileIndex fileIndex = new FileIndex();
+					fileIndex.setSystemCode(SystemUtils.SYSTEM_CODE);
+					fileIndex.setId(fileId);
+					fileIndex.setFileId(fileId);
+					fileIndex.setFileNo(fileId);
+					fileIndex.setBusinessNo(entity.getId());
+					fileIndex.setBatchNo(batchId);
+					fileIndex.setFileTitle(fileType.getName());
+					fileIndex.setFileContentType(FileHelper.getContentType(fileName));
+					fileIndex.setFileName(fileName);
+					fileIndex.setFileSize(fileSize);
+					fileIndex.setFileCount(1);
+					fileIndex.setPageCount(count);
+
+					fileIndex.setOperator(user.getId());
+					fileIndex.setOperateTime(file.getInsertTime());
+
+					fileIndex.setProperty00(fileTypeId);
+					fileIndex.setProperty01(SystemUtils.FILE_MODEL_FILE);
+					fileIndex.setProperty02(docFile.getId());
+
+					// property03 = upload表示上传的承保资料
+					// fileIndex.setProperty03(SystemUtils.NO);
+
+					fileIndexService.save(fileIndex);
+				}
+				if (!isVisa) { // 非单证
+					changeDocumentFileStatus(entity, user);
+					if (anotherDoc != null) changeDocumentFileStatus(anotherDoc, user);
+				}
+			}
+
+			if (notFound) {
+				// 有业务号不存在
+				json.put("success", false);
+				json.put("message", notFoundMessage.toString().trim());
+
+				getLogger().error("扫描数据保存失败:" + notFoundMessage);
+
+				rollback();
+			} else {
+				// 回调单证系统的接口
+				logger.debug("请求的单证号:" + StringHelper.join(visaNos));
+				if (!visaNos.isEmpty()) {
+					String url = configureDao.getProperty(SystemUtils.SYSTEM_CODE, "visa.resold");
+					Map<String, Object> parameters = new HashMap<String, Object>();
+					parameters.put("visaNos", visaNos.toArray());
+					String response = HttpClientHelper.get(url, parameters);
+					logger.debug("请求的单证号:" + StringHelper.join(visaNos) + ",单证系统返回的数据:" + response);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			json.put("success", false);
+			json.put("message", e.getMessage());
+			getLogger().error("扫描数据保存失败:" + e.getMessage() + "," + scanFileMsg, e);
+			rollback();
+		}
+
+		return json;
+	}
+}

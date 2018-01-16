@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+    <class name="com.sinosoft.efiling.hibernate.entity.FileType" table="T_F_FILE_TYPE">
+        <comment>&#206;&#196;&#181;&#181;&#192;&#224;&#208;&#205;</comment>
+        <id name="id" type="string">
+            <column name="ID" length="22" />
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="string">
+            <column name="NAME" length="200" />
+        </property>
+        <property name="code" type="string">
+            <column name="CODE" length="22" />
+        </property>
+        <property name="alias" type="string">
+            <column name="ALIAS" length="200" />
+        </property>
+        
+        <property name="status" type="string">
+            <column name="STATUS" length="2" not-null="true" />
+        </property>
+        
+        <property name="fileModel" type="string">
+            <column name="FILE_MODEL" length="2" not-null="true" />
+        </property>
+        
+        <property name="signed" type="string">
+            <column name="SIGNED" length="10" not-null="true" />
+        </property>
+        <property name="shared" type="string">
+            <column name="SHARED" length="10" not-null="true" />
+        </property>
+        
+        <many-to-one name="user" class="com.sinosoft.efiling.hibernate.entity.User" fetch="select">
+            <column name="USER_ID" length="10" />
+        </many-to-one>
+        <many-to-one name="department" class="com.sinosoft.efiling.hibernate.entity.Company" fetch="select">
+            <column name="DEPT_ID" length="8" />
+        </many-to-one>
+        <many-to-one name="updateUser" class="com.sinosoft.efiling.hibernate.entity.User" fetch="select">
+            <column name="UPDATE_USER_ID" length="10" />
+        </many-to-one>
+        <many-to-one name="updateDepartment" class="com.sinosoft.efiling.hibernate.entity.Company" fetch="select">
+            <column name="UPDATE_DEPT_ID" length="8" />
+        </many-to-one>
+        <property name="insertTime" type="timestamp">
+            <column name="INSERT_TIME" length="7" not-null="true" />
+        </property>
+        <property name="updateTime" type="timestamp">
+            <column name="UPDATE_TIME" length="7" />
+        </property>
+        
+        <property name="remarks" type="string">
+            <column name="REMARKS" length="2000" />
+        </property>
+    </class>
+</hibernate-mapping>

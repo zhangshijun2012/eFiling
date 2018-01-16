@@ -1,0 +1,549 @@
+package com.sinosoft.efiling.struts2.action;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.json.JSONObject;
+
+import com.opensymphony.xwork2.Action;
+import com.sinosoft.efiling.hibernate.entity.Document;
+import com.sinosoft.efiling.hibernate.entity.DocumentFile;
+import com.sinosoft.efiling.hibernate.entity.PrpdCode;
+import com.sinosoft.efiling.util.SystemUtils;
+import com.sinosoft.util.Helper;
+import com.sinosoft.util.ObjectHelper;
+import com.sinosoft.util.StringHelper;
+
+/**
+ * 档案资料管理action
+ * 
+ * @author LuoGang
+ * 
+ */
+public class FileManagerAction extends DocumentAction {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 484194717453543076L;
+
+	/**
+	 * 档案扫描
+	 * 
+	 * @return
+	 */
+	public String scan() {
+		return Action.SUCCESS;
+	}
+
+	@Override
+	public void validateIndex() {
+		// 业务部门
+		getRequest().setAttribute("departments", getCurrentInternalDepartments());
+		// 档案状态
+		Map<String, String> map = new ResourcesMap(SystemUtils.DOCUMENT_STATUS);
+		getRequest().setAttribute("documentStatus", map);
+
+		// 单证状态 002：作废单证 003：遗失单证
+		map = new ResourcesMap(SystemUtils.VISA_STATUS);
+		getRequest().setAttribute("filetypeStatus", map);
+
+		map = new ResourcesMap(SystemUtils.DOCUMENT_TYPES);
+		map.remove(SystemUtils.DOCUMENT_TYPE_VISA);
+		getRequest().setAttribute("documentTypes", map);
+		types = new String[] { SystemUtils.DOCUMENT_TYPE_POLICY, SystemUtils.DOCUMENT_TYPE_ENDOR };
+		// 产品线
+		getRequest().setAttribute("products", SystemUtils.PRODUCTS);
+		// 是否借出
+		map = new ResourcesMap();
+		map.put(SystemUtils.FILE_LENT_YES, "global.yes");
+		map.put(SystemUtils.FILE_LENT_NO, "global.no");
+		getRequest().setAttribute("loanStatus", map);
+	}
+
+	@Override
+	public void validateQuery() {
+		queryString = new StringBuilder(100);
+		queryParameters = new ArrayList<Object>();
+
+		// 业务号
+		// 类型
+		// 投保人
+		// 归档状态
+		// 差缺明细
+		// 出单员
+		// 业务关系代码
+		// 业务部门
+		// 代理人
+		// 业务员
+		// 电子商务
+		// 归档时间
+		// 是否借出
+		// 档案管理员
+
+		queryString.append("SELECT d.id, d.no, d.type, d.applicant, d.fileStatus, d.lacks, d.sales.name, ");
+		queryString.append("d.businessNo, b.name, d.agentName, bu.name, d.source, ");
+		queryString.append("d.insertTime, d.lent, u.name ");
+		queryString.append("FROM ").append(Document.class.getName()).append(" d ");
+		queryString.append("LEFT JOIN d.businessDept b ");
+		queryString.append("LEFT JOIN d.businessUser bu ");
+		queryString.append("LEFT JOIN d.user u ");
+		queryString.append("WHERE 1 = 1 ");
+		// 增加查询条件
+		this.addLikeQuery("d.proposalNo", proposalNo);
+		this.addLikeQuery("d.policyNo", policyNo);
+		this.addLikeQuery("d.endorNo", endorNo);
+		this.addLikeQuery("d.businessDept.id", departmentId);
+		this.addLikeQuery("d.agentName", agentName);
+		this.addLikeQuery("d.businessNo", businessNo);
+		this.addLikeQuery("bu.name", businessUser);
+		this.addLikeQuery("d.applicant", applicant);
+		this.addQuery("d.lent", loanStatus);
+		this.addQuery("d.product.id", productId);
+		this.addBetweenQuery("d.salesTime", salesTime, Date.class);
+		this.addBetweenQuery("d.insertTime", insertTime, Date.class);
+		this.addQuery("d.fileStatus", documentStatus);
+
+		this.addQuery("d.type", types);
+
+		// 按档案盒号查询
+		if (!StringHelper.isEmpty(boxId)) {
+			// addQueryString("AND EXISTS (SELECT f.id FROM " + File.class.getName()
+			// + " f WHERE f.document = d AND f.fileBox.id LIKE ?)", boxId.trim() + "%");
+
+			addQueryString("AND EXISTS (SELECT f.id FROM " + DocumentFile.class.getName()
+					+ " f WHERE f.document = d AND f.file.fileBox.id LIKE ?)", "%" + boxId.trim() + "%");
+		}
+
+		this.addCompanyQuery("d.businessCompany");
+
+		// 根据什么排序
+		// addOrderString("ORDER BY SUBSTR(d.policyNo, 11, 9) DESC NULLS LAST, d.endorNo NULLS LAST, d.proposalNo DESC, d.no");
+
+		// addOrderString("ORDER BY d.salesTime DESC, SUBSTR(d.policyNo, 11, 9) DESC NULLS LAST, d.endorNo NULLS LAST, d.proposalNo DESC, d.no");
+
+		StringBuilder order = new StringBuilder("ORDER BY ");
+		if (StringHelper.isEmpty(this.proposalNo) && StringHelper.isEmpty(this.policyNo)) {
+			// 按出单时间排序
+			order.append("d.salesTime DESC, d.proposalNo DESC, d.policyNo DESC NULLS LAST, d.endorNo NULLS FIRST ");
+		} else {
+			// 查询特殊的保单、投保单，第一位为保单，然后按批单顺序排序
+			order.append("d.proposalNo DESC, d.policyNo DESC NULLS LAST, d.endorNo NULLS FIRST");
+		}
+		addOrderString(order.toString());
+	}
+
+	/**
+	 * 单份文件上传
+	 * 
+	 * @return
+	 */
+	public String saveForUpload() {
+		JSONObject json = service.saveForUpload(xml, getCurrentUserSession());
+		return this.dispatchSuccess(json);
+	}
+
+	/**
+	 * 批量共享的时候
+	 * 
+	 * @return
+	 */
+	public String share() {
+		Document document = service.getDocument(id.trim());
+		JSONObject json = new JSONObject();
+		json.put("success", true);
+		json.put("no", document.getNo());
+		json.put("applicant", document.getApplicant());
+		Set<DocumentFile> documentFiles = document.getDocumentFiles();
+		Object[] list = new Object[documentFiles.size()];
+		int i = 0;
+		Iterator<DocumentFile> it = documentFiles.iterator();
+		while (it.hasNext()) {
+			DocumentFile documentFile = it.next();
+			JSONObject object = new JSONObject();
+			object.put("fileType", documentFile.getFile().getFileType().getName());
+			object.put("code", documentFile.getFile().getPaperCode());
+			object.put("operator", document.getUser().getName());
+			object.put("insertTime", document.getInsertTime());
+			object.put("id", documentFile.getFile().getId());
+			object.put("statu", documentFile.getStatus());
+			list[i++] = object;
+		}
+		json.put("list", list);
+		return dispatchSuccess(json.toString());
+	}
+
+	/**
+	 * 手动归档
+	 * 
+	 * @return
+	 */
+	public String manual() {
+		Document document = service.manual(id, manualReason);
+		JSONObject json = new JSONObject();
+		if (!ObjectHelper.isEmpty(document)) {
+			json.put("success", true);
+			json.put("message", document.getNo() + "手动归档成功");
+		}
+		/*
+		 * if (!Helper.isEmpty(documentFiles)) {
+		 * json.put("success", true);
+		 * StringBuffer fileName = new StringBuffer();
+		 * for (DocumentFile documentFile : documentFiles) {
+		 * fileName.append(documentFile.getFileType().getName());
+		 * fileName.append(";");
+		 * }
+		 * json.put("message", fileName + "手动归档成功！");
+		 * } else {
+		 * json.put("success", false);
+		 * json.put("message", "手动归档失败！");
+		 * }
+		 */
+		return dispatchSuccess(json.toString());
+	}
+
+	public String revokeDetail() {
+		JSONObject json = new JSONObject();
+		if (Helper.isEmpty(ids)) return dispatchException(new Exception("请选择资料类型？"));
+		List<DocumentFile> collectFiles = service.revokeDetail(ids, this.getCurrentUserSession());
+		list = collectFiles;
+		if (Helper.isEmpty(list)) json.put("success", false);
+		else  {
+			json.put("success", true);
+			StringBuffer message = new StringBuffer();
+			for (DocumentFile dFile : collectFiles) {
+				message.append(dFile.getFileType().getName() + "归档撤销成功 !\r");
+			}
+			json.put("message", message.toString());
+		}
+		return dispatchSuccess(json);
+	}
+	public String collectDetail() {
+		JSONObject json = new JSONObject();
+		if (Helper.isEmpty(ids)) return dispatchException(new Exception("请选择资料类型？"));
+		List<DocumentFile> collectFiles = service.collectDetail(ids, getCurrentUserSession());
+		list = collectFiles;
+		if (Helper.isEmpty(list)) json.put("success", false);
+		else {
+			json.put("success", true);
+			StringBuffer message = new StringBuffer();
+			for (DocumentFile dFile : collectFiles) {
+				//message.append(dFile.getFileType().getName() + "归档成功!档案编码：" + dFile.getFile().getNo() + "\r");
+				message.append("档案编码：" + dFile.getFile().getNo() + "! 资料类型:" + dFile.getFileType().getName() + " 归档成功\r");
+			}
+			json.put("message", message.toString());
+		}
+		return dispatchSuccess(json);
+	}
+	/**
+	 * 批量共享操作时查询要共享的数据
+	 * 
+	 * @return
+	 */
+	public String shareView() {
+		// 直接根据业务号查询数据
+		entity = service.getDocument(no);
+		// System.out.println(entity.getDocumentFiles().size());
+		return Action.SUCCESS;
+	}
+
+	/**
+	 * 保存批量共享的档案资料
+	 * 
+	 * @return
+	 */
+	public String shareSave() {
+		Object[] files = service.shareManually(documentIds, shareIds, getCurrentUserSession());
+		JSONObject json = new JSONObject();
+		json.put("success", true);
+		for (int i = 0; i < files.length; i++) {
+			json.put("" + i, files[i]);
+		}
+		json.put("amount", files.length);
+		return dispatchSuccess(json.toString());
+	}
+
+	/** 单份文件上传时传入的XML字符串 */
+	private String xml;
+
+	private List<PrpdCode> unsetFileTypes;
+
+	/** 档案盒号 */
+	protected String boxId;
+
+	protected String proposalNo;// 投保单号
+	protected String policyNo;// 保单号
+	protected String endorNo;// 批单号
+	protected String departmentId;// 业务部门
+	protected String agentName;// 代理人
+	// protected String businessNo;// 业务关系代码
+	protected String businessUser;// 业务员
+	protected String applicant;// 投保人
+	protected String[] documentStatus;// 归档状态
+	protected String[] salesTime;// 签单时间
+	protected String[] insertTime;// 归档时间
+	protected String loanStatus;// 是否借出
+	protected String [] productId;// 产品线
+	protected String [] visaNos;// 单证号流水号段
+	protected String[] visaStatus; // 单证状态
+	// protected String riskType; //险种对应批量档案处理所选择的
+	/** 业务类型:9投保单,8保单,7批单 */
+	protected String[] types;
+
+	private String xmlString; // 传入后台的xml报文字符串
+	// 传到后台来验证的单证号和所属单证的文件类型
+	// protected String no;// 业务号
+	// private String certifyType; //单证所属的文件类型
+	private String[] attchaNos; // 批量共享业务号
+	private String manualReason; // 手动归档原因
+	protected String[] businessNos; // 多个业务关系代码
+
+	private String[] documentIds;
+	private String[] shareIds;
+
+	/** 下载时使用的表头 */
+	protected String[] headers;
+
+	/** 是否下载全部 */
+	protected String all;
+
+	public String[] getBusinessNos() {
+		return businessNos;
+	}
+
+	public void setBusinessNos(String[] businessNos) {
+		this.businessNos = businessNos;
+	}
+
+	public String getManualReason() {
+		return manualReason;
+	}
+
+	public void setManualReason(String manualReason) {
+		this.manualReason = manualReason;
+	}
+
+	public String[] getAttchaNos() {
+		return attchaNos;
+	}
+
+	public void setAttchaNos(String[] attchaNos) {
+		this.attchaNos = attchaNos;
+	}
+
+	public List<PrpdCode> getUnsetFileTypes() {
+		return unsetFileTypes;
+	}
+
+	public void setUnsetFileTypes(List<PrpdCode> unsetFileTypes) {
+		this.unsetFileTypes = unsetFileTypes;
+	}
+
+	/*
+	 * public String getCertifyType() { return certifyType; }
+	 * 
+	 * public void setCertifyType(String certifyType) { this.certifyType = certifyType; }
+	 */
+
+	// public String getNo() {
+	// return no;
+	// }
+	//
+	// public void setNo(String no) {
+	// this.no = no;
+	// }
+
+	public String getXmlString() {
+		return xmlString;
+	}
+
+	public void setXmlString(String xmlString) {
+		this.xmlString = xmlString;
+	}
+
+	/*
+	 * public String getRiskType() { return riskType; }
+	 * 
+	 * public void setRiskType(String riskType) { this.riskType = riskType; }
+	 */
+	public String getProposalNo() {
+		return proposalNo;
+	}
+
+	public void setProposalNo(String proposalNo) {
+		this.proposalNo = proposalNo;
+	}
+
+	public String getPolicyNo() {
+		return policyNo;
+	}
+
+	public void setPolicyNo(String policyNo) {
+		this.policyNo = policyNo;
+	}
+
+	public String getEndorNo() {
+		return endorNo;
+	}
+
+	public void setEndorNo(String endorNo) {
+		this.endorNo = endorNo;
+	}
+
+	public String getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(String departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	public String getAgentName() {
+		return agentName;
+	}
+
+	public void setAgentName(String agentName) {
+		this.agentName = agentName;
+	}
+
+	// public String getBusinessNo() {
+	// return businessNo;
+	// }
+	//
+	// public void setBusinessNo(String businessNo) {
+	// this.businessNo = businessNo;
+	// }
+
+	public String getBusinessUser() {
+		return businessUser;
+	}
+
+	public void setBusinessUser(String businessUser) {
+		this.businessUser = businessUser;
+	}
+
+	public String getApplicant() {
+		return applicant;
+	}
+
+	public void setApplicant(String applicant) {
+		this.applicant = applicant;
+	}
+
+	public String[] getDocumentStatus() {
+		return documentStatus;
+	}
+
+	public void setDocumentStatus(String[] documentStatus) {
+		this.documentStatus = documentStatus;
+	}
+
+	public String[] getSalesTime() {
+		return salesTime;
+	}
+
+	public void setSalesTime(String[] salesTime) {
+		this.salesTime = salesTime;
+	}
+
+	public String[] getInsertTime() {
+		return insertTime;
+	}
+
+	public void setInsertTime(String[] insertTime) {
+		this.insertTime = insertTime;
+	}
+
+	public String getLoanStatus() {
+		return loanStatus;
+	}
+
+	public void setLoanStatus(String loanStatus) {
+		this.loanStatus = loanStatus;
+	}
+
+	public String[] getProductId() {
+		return productId;
+	}
+
+	public void setProductId(String[] productId) {
+		this.productId = productId;
+	}
+
+	public String getXml() {
+		return xml;
+	}
+
+	public void setXml(String xml) {
+		this.xml = xml;
+	}
+
+	public String[] getDocumentIds() {
+		return documentIds;
+	}
+
+	public void setDocumentIds(String[] documentIds) {
+		this.documentIds = documentIds;
+	}
+
+	public String[] getShareIds() {
+		return shareIds;
+	}
+
+	public void setShareIds(String[] shareIds) {
+		this.shareIds = shareIds;
+	}
+
+	public String getBoxId() {
+		return boxId;
+	}
+
+	public void setBoxId(String boxId) {
+		this.boxId = boxId;
+	}
+
+	public String[] getHeaders() {
+		return headers;
+	}
+
+	public void setHeaders(String[] headers) {
+		this.headers = headers;
+	}
+
+	public String[] getTypes() {
+		return types;
+	}
+
+	public void setTypes(String[] types) {
+		this.types = types;
+	}
+	
+	public String[] getVisaNos() {
+		return visaNos;
+	}
+
+	public void setVisaNos(String[] visaNos) {
+		this.visaNos = visaNos;
+	}
+
+	public String[] getVisaStatus() {
+		return visaStatus;
+	}
+
+	public void setVisaStatus(String[] visaStatus) {
+		this.visaStatus = visaStatus;
+	}
+
+	public String getAll() {
+		return all;
+	}
+
+	public void setAll(String all) {
+		this.all = all;
+	}
+
+}

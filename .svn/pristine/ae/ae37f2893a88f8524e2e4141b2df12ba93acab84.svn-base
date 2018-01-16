@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>e-Filing 电子档案管理系统</title>
+<style type="text/css">
+	html,body {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
+	
+	#mainFrame {
+		width: 100%;
+		height: 100%;
+		border: 0px;
+		overflow: hidden;
+	}
+</style>
+<script type="text/javascript">
+	var eFiling = true;	// eFiling系统的首页	
+	function init() {
+		document.getElementById('mainFrame').src = 'index.do' + (window.location.search || '');
+	}
+</script>
+</head>
+<body>
+	<!-- 使用在首页下内嵌iframe的原因是为了去掉滚动条 -->
+	<iframe src="about:blank" id="mainFrame" name="mainFrame" scrolling="no" frameborder="0"></iframe>
+</body>
+<script type="text/javascript">
+	init();
+</script>
+</html>

@@ -1,0 +1,32 @@
+[DEBUG][2017-10-20 09:38:17,728] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	系统启动!
+[DEBUG][2017-10-20 09:38:17,789] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	系统主目录:[E:\workspace\eFiling\eFiling\]
+[DEBUG][2017-10-20 09:38:18,805] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	初始化FileNet配置...
+[DEBUG][2017-10-20 09:38:18,838] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	{}
+[DEBUG][2017-10-20 09:38:18,865] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	初始化邮件配置...
+[DEBUG][2017-10-20 09:38:18,983] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	{mail.password=, mail.user=ARAP System, mail.smtp.host=10.132.1.168}
+[DEBUG][2017-10-20 09:38:18,985] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	初始化定时器配置...
+[INFO][2017-10-20 09:38:19,011] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.info(CommonsLogger.java:42)
+	配置timer.tasks=null
+[DEBUG][2017-10-20 10:21:41,537] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	系统启动!
+[DEBUG][2017-10-20 10:21:41,548] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	系统主目录:[E:\workspace\eFiling\eFiling\]
+[DEBUG][2017-10-20 10:21:42,460] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	初始化FileNet配置...
+[DEBUG][2017-10-20 10:21:42,508] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	{}
+[DEBUG][2017-10-20 10:21:42,511] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	初始化邮件配置...
+[DEBUG][2017-10-20 10:21:42,608] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	{mail.password=, mail.user=ARAP System, mail.smtp.host=10.132.1.168}
+[DEBUG][2017-10-20 10:21:42,610] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	初始化定时器配置...
+[INFO][2017-10-20 10:21:42,612] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.info(CommonsLogger.java:42)
+	配置timer.tasks=null

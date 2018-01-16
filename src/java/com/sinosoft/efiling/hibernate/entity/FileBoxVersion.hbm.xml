@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+    <class name="com.sinosoft.efiling.hibernate.entity.FileBoxVersion" table="T_F_FILE_BOX_VERSION">
+        <comment>档案盒版本信息.用于设置档案盒的可装盒份数</comment>
+        <id name="id" type="string">
+            <column name="ID" length="32" />
+            <generator class="uuid" />
+        </id>
+        <many-to-one name="user" class="com.sinosoft.efiling.hibernate.entity.User" fetch="select">
+            <column name="USER_ID" length="10" />
+        </many-to-one>
+        <many-to-one name="department" class="com.sinosoft.efiling.hibernate.entity.Company" fetch="select">
+            <column name="DEPT_ID" length="8" />
+        </many-to-one>
+        <many-to-one name="company" class="com.sinosoft.efiling.hibernate.entity.Company" fetch="select">
+            <column name="COMPANY_ID" length="8" not-null="true" />
+        </many-to-one>
+        <property name="capacity" type="int">
+            <column name="CAPACITY" precision="5" scale="0" not-null="true" />
+        </property>
+        <property name="status" type="string">
+            <column name="STATUS" length="2" not-null="true" />
+        </property>
+        <property name="insertTime" type="timestamp">
+            <column name="INSERT_TIME" length="7" not-null="true" />
+        </property>
+        <property name="remarks" type="string">
+            <column name="REMARKS" length="2000" />
+        </property>
+        <!-- <set name="fileBoxes" table="T_FILE_BOX" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="VERSION_ID" length="12" not-null="true" />
+            </key>
+            <one-to-many class="com.sinosoft.efiling.hibernate.entity.FileBox" />
+        </set> -->
+    </class>
+</hibernate-mapping>

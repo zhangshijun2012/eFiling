@@ -1,0 +1,80 @@
+[DEBUG][2017-12-01 09:23:43,976] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	系统启动!
+[DEBUG][2017-12-01 09:23:44,056] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	系统主目录:[E:\workspace\eFiling\eFiling\]
+[DEBUG][2017-12-01 09:23:45,052] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	初始化FileNet配置...
+[DEBUG][2017-12-01 09:23:45,101] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	{}
+[DEBUG][2017-12-01 09:23:45,129] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	初始化邮件配置...
+[DEBUG][2017-12-01 09:23:45,493] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	{mail.password=, mail.user=ARAP System, mail.smtp.host=10.132.1.168}
+[DEBUG][2017-12-01 09:23:45,495] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	初始化定时器配置...
+[INFO][2017-12-01 09:23:45,582] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.info(CommonsLogger.java:42)
+	配置timer.tasks=null
+[DEBUG][2017-12-01 09:39:19,962] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	系统启动!
+[DEBUG][2017-12-01 09:39:19,990] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	系统主目录:[E:\workspace\eFiling\eFiling\]
+[DEBUG][2017-12-01 09:39:20,851] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	初始化FileNet配置...
+[DEBUG][2017-12-01 09:39:20,884] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	{}
+[DEBUG][2017-12-01 09:39:20,887] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	初始化邮件配置...
+[DEBUG][2017-12-01 09:39:20,962] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	{mail.password=, mail.user=ARAP System, mail.smtp.host=10.132.1.168}
+[DEBUG][2017-12-01 09:39:20,963] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	初始化定时器配置...
+[INFO][2017-12-01 09:39:20,965] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.info(CommonsLogger.java:42)
+	配置timer.tasks=null
+[DEBUG][2017-12-01 10:59:15,267] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	系统启动!
+[DEBUG][2017-12-01 10:59:15,329] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	系统主目录:[E:\workspace\eFiling\eFiling\]
+[DEBUG][2017-12-01 10:59:17,655] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	初始化FileNet配置...
+[DEBUG][2017-12-01 10:59:17,718] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	{}
+[DEBUG][2017-12-01 10:59:17,718] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	初始化邮件配置...
+[DEBUG][2017-12-01 10:59:17,999] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	{mail.password=, mail.user=ARAP System, mail.smtp.host=10.132.1.168}
+[DEBUG][2017-12-01 10:59:17,999] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	初始化定时器配置...
+[INFO][2017-12-01 10:59:18,046] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.info(CommonsLogger.java:42)
+	配置timer.tasks=null
+[DEBUG][2017-12-01 11:05:42,718] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	系统启动!
+[DEBUG][2017-12-01 11:05:42,733] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	系统主目录:[E:\workspace\eFiling\eFiling\]
+[DEBUG][2017-12-01 11:05:43,702] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	初始化FileNet配置...
+[DEBUG][2017-12-01 11:05:43,733] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	{}
+[DEBUG][2017-12-01 11:05:43,748] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	初始化邮件配置...
+[DEBUG][2017-12-01 11:05:43,999] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	{mail.password=, mail.user=ARAP System, mail.smtp.host=10.132.1.168}
+[DEBUG][2017-12-01 11:05:44,015] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	初始化定时器配置...
+[INFO][2017-12-01 11:05:44,015] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.info(CommonsLogger.java:42)
+	配置timer.tasks=null
+[DEBUG][2017-12-01 12:50:41,392] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	系统启动!
+[DEBUG][2017-12-01 12:50:41,407] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	系统主目录:[E:\workspace\eFiling\eFiling\]
+[DEBUG][2017-12-01 12:50:42,516] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	初始化FileNet配置...
+[DEBUG][2017-12-01 12:50:42,564] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	{}
+[DEBUG][2017-12-01 12:50:42,564] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	初始化邮件配置...
+[DEBUG][2017-12-01 12:50:42,657] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	{mail.password=, mail.user=ARAP System, mail.smtp.host=10.132.1.168}
+[DEBUG][2017-12-01 12:50:42,657] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.debug(CommonsLogger.java:68)
+	初始化定时器配置...
+[INFO][2017-12-01 12:50:42,657] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.info(CommonsLogger.java:42)
+	配置timer.tasks=null

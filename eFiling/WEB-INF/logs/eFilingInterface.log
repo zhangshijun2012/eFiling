@@ -1,0 +1,208 @@
+[INFO][2017-11-03 14:02:28,158] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.info(CommonsLogger.java:42)
+	DocumentAuditServiceAction.save(),生成保单数据接口调用:9805085100170006943000
+[INFO][2017-11-03 14:02:29,156] com.sinosoft.efiling.service.DocumentAuditService.save(DocumentAuditService.java:236)
+	9805085100170006943000 开始保存数据
+[INFO][2017-11-03 14:03:12,769] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1791)
+	删除0条数据!
+[INFO][2017-11-03 14:03:13,672] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1715)
+	9805025100170006941000从承保数据库查询到的承保资料：
+	0009 - 投保单或投保及报价确认单或续保通知书[com.sinosoft.efiling.hibernate.entity.DocumentFile@14846d8]false,true
+	1200 - 被保险人身份证或组织机构代码证或营业执照(三证合一)[com.sinosoft.efiling.hibernate.entity.DocumentFile@1e845cd]false,true
+	2201 - 投保险人身份证或组织机构代码证或营业执照（三证合一）[com.sinosoft.efiling.hibernate.entity.DocumentFile@17f7ade]false,true
+	3204 - 行驶证或机动车登记证书[com.sinosoft.efiling.hibernate.entity.DocumentFile@b6e899]false,true
+	4278 - 免责事项说明书[com.sinosoft.efiling.hibernate.entity.DocumentFile@5d83f5]false,true
+[INFO][2017-11-03 14:03:13,674] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	204
+[INFO][2017-11-03 14:03:13,941] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	
+[INFO][2017-11-03 14:03:14,068] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	200
+[INFO][2017-11-03 14:03:14,156] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	
+[INFO][2017-11-03 14:03:14,158] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	1003
+[INFO][2017-11-03 14:03:14,213] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	
+[INFO][2017-11-03 14:03:14,215] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	201
+[INFO][2017-11-03 14:03:14,277] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	
+[INFO][2017-11-03 14:03:14,279] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	009
+[INFO][2017-11-03 14:03:14,332] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	
+[INFO][2017-11-03 14:03:14,385] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1791)
+	删除0条数据!
+[INFO][2017-11-03 14:03:14,761] com.sinosoft.efiling.service.DocumentAuditService.save(DocumentAuditService.java:281)
+	9805085100170006943000 数据保存完成,需要的承保资料清单:
+
+[INFO][2017-11-03 14:03:14,782] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.info(CommonsLogger.java:42)
+	DocumentAuditServiceAction.save(),生成保单数据接口调用成功:9805085100170006943000
+[INFO][2017-11-03 14:06:55,011] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.info(CommonsLogger.java:42)
+	DocumentAuditServiceAction.save(),生成保单数据接口调用:9805085100170006916000
+[INFO][2017-11-03 14:06:55,042] com.sinosoft.efiling.service.DocumentAuditService.save(DocumentAuditService.java:236)
+	9805085100170006916000 开始保存数据
+[INFO][2017-11-03 14:07:53,847] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1715)
+	9805085100170006916000从承保数据库查询到的承保资料：
+	0009 - 投保单或投保及报价确认单或续保通知书[com.sinosoft.efiling.hibernate.entity.DocumentFile@11463e8]false,true
+	1200 - 被保险人身份证或组织机构代码证或营业执照(三证合一)[com.sinosoft.efiling.hibernate.entity.DocumentFile@12a040f]false,true
+	2201 - 投保险人身份证或组织机构代码证或营业执照（三证合一）[com.sinosoft.efiling.hibernate.entity.DocumentFile@a28610]false,true
+	3202 - 车辆合格证或购车发票[com.sinosoft.efiling.hibernate.entity.DocumentFile@55483a]false,true
+	4204 - 行驶证或机动车登记证书[com.sinosoft.efiling.hibernate.entity.DocumentFile@ba1ac2]false,true
+	5208 - 交强险费率浮动告知单[com.sinosoft.efiling.hibernate.entity.DocumentFile@16c0b15]false,true
+	6280 - 纳税人身份证[com.sinosoft.efiling.hibernate.entity.DocumentFile@96b625]false,true
+[INFO][2017-11-03 14:07:53,849] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	009
+[INFO][2017-11-03 14:07:53,900] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	
+[INFO][2017-11-03 14:07:53,901] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	208
+[INFO][2017-11-03 14:07:53,964] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	
+[INFO][2017-11-03 14:07:53,966] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	202
+[INFO][2017-11-03 14:07:54,019] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	
+[INFO][2017-11-03 14:07:54,020] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	201
+[INFO][2017-11-03 14:07:54,073] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	
+[INFO][2017-11-03 14:07:54,075] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	200
+[INFO][2017-11-03 14:07:54,126] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	
+[INFO][2017-11-03 14:07:54,128] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	204
+[INFO][2017-11-03 14:07:54,184] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	
+[INFO][2017-11-03 14:07:54,186] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	1004
+[INFO][2017-11-03 14:07:54,244] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	
+[INFO][2017-11-03 14:07:54,293] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1791)
+	删除0条数据!
+[INFO][2017-11-03 14:07:54,617] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1715)
+	9805025100170006910000从承保数据库查询到的承保资料：
+	0009 - 投保单或投保及报价确认单或续保通知书[com.sinosoft.efiling.hibernate.entity.DocumentFile@244e10]false,true
+	1200 - 被保险人身份证或组织机构代码证或营业执照(三证合一)[com.sinosoft.efiling.hibernate.entity.DocumentFile@bee58]false,true
+	2201 - 投保险人身份证或组织机构代码证或营业执照（三证合一）[com.sinosoft.efiling.hibernate.entity.DocumentFile@14cf64e]false,true
+	3204 - 行驶证或机动车登记证书[com.sinosoft.efiling.hibernate.entity.DocumentFile@92c04c]false,true
+	4278 - 免责事项说明书[com.sinosoft.efiling.hibernate.entity.DocumentFile@215a1b]false,true
+[INFO][2017-11-03 14:07:54,619] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	200
+[INFO][2017-11-03 14:07:54,667] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	
+[INFO][2017-11-03 14:07:54,669] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	201
+[INFO][2017-11-03 14:07:54,729] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	
+[INFO][2017-11-03 14:07:54,730] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	009
+[INFO][2017-11-03 14:07:54,783] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	
+[INFO][2017-11-03 14:07:54,784] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	1003
+[INFO][2017-11-03 14:07:54,838] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	
+[INFO][2017-11-03 14:07:54,839] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	204
+[INFO][2017-11-03 14:07:54,891] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	
+[INFO][2017-11-03 14:07:54,916] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1791)
+	删除0条数据!
+[INFO][2017-11-03 14:07:55,213] com.sinosoft.efiling.service.DocumentAuditService.save(DocumentAuditService.java:281)
+	9805085100170006916000 数据保存完成,需要的承保资料清单:
+
+	1.009 - 投保单或投保及报价确认单或续保通知书
+	2.208 - 交强险费率浮动告知单
+	3.202 - 车辆合格证或购车发票
+	4.201 - 投保险人身份证或组织机构代码证或营业执照（三证合一）
+	5.200 - 被保险人身份证或组织机构代码证或营业执照（三证合一）
+	6.204 - 行驶证或机动车登记证书
+	7.1004 - 纳税人身份证
+[INFO][2017-11-03 14:07:55,228] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.info(CommonsLogger.java:42)
+	DocumentAuditServiceAction.save(),生成保单数据接口调用成功:9805085100170006916000
+[INFO][2017-11-03 14:54:37,994] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.info(CommonsLogger.java:42)
+	DocumentAuditServiceAction.save(),生成保单数据接口调用:9805085100170006916000
+[INFO][2017-11-03 14:54:38,057] com.sinosoft.efiling.service.DocumentAuditService.save(DocumentAuditService.java:236)
+	9805085100170006916000 开始保存数据
+[INFO][2017-11-03 14:54:56,497] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1715)
+	9805085100170006916000从承保数据库查询到的承保资料：
+	0009 - 投保单或投保及报价确认单或续保通知书[com.sinosoft.efiling.hibernate.entity.DocumentFile@1dd40dd]false,true
+	1200 - 被保险人身份证或组织机构代码证或营业执照(三证合一)[com.sinosoft.efiling.hibernate.entity.DocumentFile@d15621]false,true
+	2201 - 投保险人身份证或组织机构代码证或营业执照（三证合一）[com.sinosoft.efiling.hibernate.entity.DocumentFile@144a797]false,true
+	3202 - 车辆合格证或购车发票[com.sinosoft.efiling.hibernate.entity.DocumentFile@13848cb]false,true
+	4204 - 行驶证或机动车登记证书[com.sinosoft.efiling.hibernate.entity.DocumentFile@29ce82]false,true
+	5208 - 交强险费率浮动告知单[com.sinosoft.efiling.hibernate.entity.DocumentFile@1fdba37]false,true
+	6280 - 纳税人身份证[com.sinosoft.efiling.hibernate.entity.DocumentFile@e0028e]false,true
+[INFO][2017-11-03 14:54:56,499] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	1004
+[INFO][2017-11-03 14:54:56,858] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	
+[INFO][2017-11-03 14:54:56,859] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	201
+[INFO][2017-11-03 14:54:56,949] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	
+[INFO][2017-11-03 14:54:56,951] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	204
+[INFO][2017-11-03 14:54:57,010] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	
+[INFO][2017-11-03 14:54:57,019] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	208
+[INFO][2017-11-03 14:54:57,082] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	
+[INFO][2017-11-03 14:54:57,084] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	200
+[INFO][2017-11-03 14:54:57,141] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	
+[INFO][2017-11-03 14:54:57,143] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	202
+[INFO][2017-11-03 14:54:57,198] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	
+[INFO][2017-11-03 14:54:57,200] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	009
+[INFO][2017-11-03 14:54:57,256] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	
+[INFO][2017-11-03 14:54:57,327] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1791)
+	删除0条数据!
+[INFO][2017-11-03 14:54:57,923] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1715)
+	9805025100170006910000从承保数据库查询到的承保资料：
+	0009 - 投保单或投保及报价确认单或续保通知书[com.sinosoft.efiling.hibernate.entity.DocumentFile@1203c31]false,true
+	1200 - 被保险人身份证或组织机构代码证或营业执照(三证合一)[com.sinosoft.efiling.hibernate.entity.DocumentFile@fc80d4]false,true
+	2201 - 投保险人身份证或组织机构代码证或营业执照（三证合一）[com.sinosoft.efiling.hibernate.entity.DocumentFile@16de90f]false,true
+	3204 - 行驶证或机动车登记证书[com.sinosoft.efiling.hibernate.entity.DocumentFile@1ff21aa]false,true
+	4278 - 免责事项说明书[com.sinosoft.efiling.hibernate.entity.DocumentFile@f27a48]false,true
+[INFO][2017-11-03 14:54:57,924] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	201
+[INFO][2017-11-03 14:54:58,168] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	com.sinosoft.efiling.hibernate.entity.DocumentFile@177b05b
+[INFO][2017-11-03 14:54:58,203] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	1003
+[INFO][2017-11-03 14:54:58,351] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	com.sinosoft.efiling.hibernate.entity.DocumentFile@60de36
+[INFO][2017-11-03 14:54:58,354] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	200
+[INFO][2017-11-03 14:54:58,505] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	com.sinosoft.efiling.hibernate.entity.DocumentFile@8a3c9e
+[INFO][2017-11-03 14:54:58,506] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	009
+[INFO][2017-11-03 14:54:58,666] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	com.sinosoft.efiling.hibernate.entity.DocumentFile@757791
+[INFO][2017-11-03 14:54:58,667] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1726)
+	204
+[INFO][2017-11-03 14:54:58,827] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1729)
+	com.sinosoft.efiling.hibernate.entity.DocumentFile@16b56bb
+[INFO][2017-11-03 14:54:58,873] com.sinosoft.efiling.service.DocumentAuditService.saveDocumntFiles(DocumentAuditService.java:1791)
+	删除0条数据!
+[INFO][2017-11-03 14:54:59,213] com.sinosoft.efiling.service.DocumentAuditService.save(DocumentAuditService.java:281)
+	9805085100170006916000 数据保存完成,需要的承保资料清单:
+
+	1.1004 - 纳税人身份证
+	2.201 - 投保险人身份证或组织机构代码证或营业执照（三证合一）
+	3.204 - 行驶证或机动车登记证书
+	4.208 - 交强险费率浮动告知单
+	5.200 - 被保险人身份证或组织机构代码证或营业执照（三证合一）
+	6.202 - 车辆合格证或购车发票
+	7.009 - 投保单或投保及报价确认单或续保通知书
+[INFO][2017-11-03 14:54:59,238] com.opensymphony.xwork2.util.logging.commons.CommonsLogger.info(CommonsLogger.java:42)
+	DocumentAuditServiceAction.save(),生成保单数据接口调用成功:9805085100170006916000

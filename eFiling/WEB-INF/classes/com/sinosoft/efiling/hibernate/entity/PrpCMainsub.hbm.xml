@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-7-4 12:09:32 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="com.sinosoft.efiling.hibernate.entity.PrpCMainsub" table="PRPCMAINSUB">
+        <comment>&#177;&#163;&#181;&#165;&#193;&#165;&#202;&#244;&#177;&#237;</comment>
+        <composite-id name="id" class="com.sinosoft.efiling.hibernate.entity.PrpCMainsubId">
+            <key-property name="policyno" type="string">
+                <column name="POLICYNO" length="22" />
+            </key-property>
+            <key-property name="mainpolicyno" type="string">
+                <column name="MAINPOLICYNO" length="50" />
+            </key-property>
+        </composite-id>
+        <property name="endorseno" type="string">
+               <column name="ENDORSENO" length="25" />
+        </property>
+        <property name="flag" type="string">
+            <column name="FLAG" length="10" />
+        </property>
+        <property name="remark" type="string">
+            <column name="REMARK" />
+        </property>
+        <property name="balancetimes" type="java.lang.Double">
+            <column name="BALANCETIMES" precision="8" scale="0" />
+        </property>
+        <property name="enforcepremium" type="java.lang.Double">
+            <column name="ENFORCEPREMIUM" precision="14" />
+        </property>
+        <property name="enforcecarshiptax" type="java.lang.Double">
+            <column name="ENFORCECARSHIPTAX" precision="14" />
+        </property>
+        <property name="transType" type="string">
+            <column name="TRANSTYPE" length="30" />
+        </property>
+        <property name="transStatus" type="string">
+            <column name="TRANSSTATUS" length="1" />
+        </property>
+        <property name="combineFlag" type="string">
+            <column name="COMBINEFLAG" length="10" />
+        </property>
+        <property name="mainproposalno" type="string">
+            <column name="MAINPROPOSALNO" length="22" />
+        </property>
+    </class>
+</hibernate-mapping>

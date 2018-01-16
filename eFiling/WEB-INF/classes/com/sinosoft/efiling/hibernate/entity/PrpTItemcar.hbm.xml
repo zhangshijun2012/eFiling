@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-7-9 18:46:53 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="com.sinosoft.efiling.hibernate.entity.PrpTItemcar" table="PRPTITEMCAR">
+        <composite-id name="id" class="com.sinosoft.efiling.hibernate.entity.PrpTItemcarId">
+            <key-property name="proposalno" type="string">
+                <column name="PROPOSALNO" length="22" />
+            </key-property>
+            <key-property name="itemno" type="java.lang.Double">
+                <column name="ITEMNO" precision="15" scale="0" />
+            </key-property>
+        </composite-id>
+        <property name="riskCode" type="string">
+            <column name="RISKCODE" length="4" not-null="true" />
+        </property>
+        <property name="insuredTypeCode" type="string">
+            <column name="INSUREDTYPECODE" length="2" />
+        </property>
+        <property name="carinsuredrelation" type="string">
+            <column name="CARINSUREDRELATION" length="1" />
+        </property>
+        <property name="carowner" type="string">
+            <column name="CAROWNER" length="400" />
+        </property>
+        <property name="clauseType" type="string">
+            <column name="CLAUSETYPE" length="3" />
+        </property>
+        <property name="agreedriverFlag" type="string">
+            <column name="AGREEDRIVERFLAG" length="1" />
+        </property>
+        <property name="newdeviceFlag" type="string">
+            <column name="NEWDEVICEFLAG" length="1" />
+        </property>
+        <property name="carpolicyno" type="string">
+            <column name="CARPOLICYNO" length="22" />
+        </property>
+        <property name="licenseno" type="string">
+            <column name="LICENSENO" length="20" />
+        </property>
+        <property name="licensecolorCode" type="string">
+            <column name="LICENSECOLORCODE" length="2" />
+        </property>
+        <property name="carkindCode" type="string">
+            <column name="CARKINDCODE" length="4" />
+        </property>
+        <property name="hkFlag" type="string">
+            <column name="HKFLAG" length="1" />
+        </property>
+        <property name="hklicenseno" type="string">
+            <column name="HKLICENSENO" length="20" />
+        </property>
+        <property name="engineno" type="string">
+            <column name="ENGINENO" length="30" />
+        </property>
+        <property name="vinno" type="string">
+            <column name="VINNO" length="40" />
+        </property>
+        <property name="frameno" type="string">
+            <column name="FRAMENO" length="30" />
+        </property>
+        <property name="runAreaCode" type="string">
+            <column name="RUNAREACODE" length="10" />
+        </property>
+        <property name="runAreaName" type="string">
+            <column name="RUNAREANAME" length="60" />
+        </property>
+        <property name="runmiles" type="java.lang.Double">
+            <column name="RUNMILES" precision="14" />
+        </property>
+        <property name="enrollDate" type="timestamp">
+            <column name="ENROLLDATE" length="7" />
+        </property>
+        <property name="useyears" type="java.lang.Double">
+            <column name="USEYEARS" precision="15" scale="0" />
+        </property>
+        <property name="modelCode" type="string">
+            <column name="MODELCODE" length="14" />
+        </property>
+        <property name="brandName" type="string">
+            <column name="BRANDNAME" length="100" />
+        </property>
+        <property name="countrynature" type="string">
+            <column name="COUNTRYNATURE" length="1" />
+        </property>
+        <property name="countryCode" type="string">
+            <column name="COUNTRYCODE" length="3" />
+        </property>
+        <property name="usenatureCode" type="string">
+            <column name="USENATURECODE" length="2" />
+        </property>
+        <property name="businessclassCode" type="string">
+            <column name="BUSINESSCLASSCODE" length="1" />
+        </property>
+        <property name="seatcount" type="java.lang.Double">
+            <column name="SEATCOUNT" precision="15" scale="0" />
+        </property>
+        <property name="toncount" type="java.lang.Double">
+            <column name="TONCOUNT" precision="10" scale="4" />
+        </property>
+        <property name="exhaustscale" type="java.lang.Double">
+            <column name="EXHAUSTSCALE" precision="8" scale="4" />
+        </property>
+        <property name="colorCode" type="string">
+            <column name="COLORCODE" length="6" />
+        </property>
+        <property name="safedevice" type="string">
+            <column name="SAFEDEVICE" length="30" />
+        </property>
+        <property name="parksite" type="string">
+            <column name="PARKSITE" length="30" />
+        </property>
+        <property name="ownerAddress" type="string">
+            <column name="OWNERADDRESS" length="40" />
+        </property>
+        <property name="othernature" type="string">
+            <column name="OTHERNATURE" length="10" />
+        </property>
+        <property name="rateCode" type="string">
+            <column name="RATECODE" length="8" />
+        </property>
+        <property name="makeDate" type="timestamp">
+            <column name="MAKEDATE" length="7" />
+        </property>
+        <property name="carusage" type="string">
+            <column name="CARUSAGE" length="20" />
+        </property>
+        <property name="currency" type="string">
+            <column name="CURRENCY" length="3" />
+        </property>
+        <property name="purchaseprice" type="java.lang.Double">
+            <column name="PURCHASEPRICE" precision="14" />
+        </property>
+        <property name="actualValue" type="java.lang.Double">
+            <column name="ACTUALVALUE" precision="14" />
+        </property>
+        <property name="invoiceno" type="string">
+            <column name="INVOICENO" length="20" />
+        </property>
+        <property name="carloanFlag" type="string">
+            <column name="CARLOANFLAG" length="1" />
+        </property>
+        <property name="insurerCode" type="string">
+            <column name="INSURERCODE" length="2" />
+        </property>
+        <property name="lastinsurer" type="string">
+            <column name="LASTINSURER" length="40" />
+        </property>
+        <property name="carcheckStatus" type="string">
+            <column name="CARCHECKSTATUS" length="2" />
+        </property>
+        <property name="carchecker" type="string">
+            <column name="CARCHECKER" length="60" />
+        </property>
+        <property name="carchecktime" type="string">
+            <column name="CARCHECKTIME" length="16" />
+        </property>
+        <property name="specialtreat" type="java.lang.Double">
+            <column name="SPECIALTREAT" precision="14" />
+        </property>
+        <property name="relievingAreaCode" type="string">
+            <column name="RELIEVINGAREACODE" length="1" />
+        </property>
+        <property name="addoncount" type="java.lang.Double">
+            <column name="ADDONCOUNT" precision="15" scale="0" />
+        </property>
+        <property name="cardealerCode" type="string">
+            <column name="CARDEALERCODE" length="16" />
+        </property>
+        <property name="cardealerName" type="string">
+            <column name="CARDEALERNAME" length="120" />
+        </property>
+        <property name="remark" type="string">
+            <column name="REMARK" length="40" />
+        </property>
+        <property name="flag" type="string">
+            <column name="FLAG" length="2" />
+        </property>
+        <property name="carcheckreason" type="string">
+            <column name="CARCHECKREASON" length="60" />
+        </property>
+        <property name="sviolatedtimes" type="java.lang.Double">
+            <column name="SVIOLATEDTIMES" precision="15" scale="0" />
+        </property>
+        <property name="lviolatedtimes" type="java.lang.Double">
+            <column name="LVIOLATEDTIMES" precision="15" scale="0" />
+        </property>
+        <property name="licensekindCode" type="string">
+            <column name="LICENSEKINDCODE" length="2" />
+        </property>
+        <property name="registmodelCode" type="string">
+            <column name="REGISTMODELCODE" length="60" />
+        </property>
+        <property name="secondhandcarFlag" type="string">
+            <column name="SECONDHANDCARFLAG" length="2" />
+        </property>
+        <property name="secondhandcarprice" type="java.lang.Double">
+            <column name="SECONDHANDCARPRICE" precision="14" />
+        </property>
+        <property name="runAreadesc" type="string">
+            <column name="RUNAREADESC" />
+        </property>
+        <property name="licenseno1" type="string">
+            <column name="LICENSENO1" length="20" />
+        </property>
+        <property name="visaCode" type="string">
+            <column name="VISACODE" length="20" />
+        </property>
+        <property name="usemonths" type="java.lang.Double">
+            <column name="USEMONTHS" precision="4" scale="0" />
+        </property>
+        <property name="modellosration" type="java.lang.Double">
+            <column name="MODELLOSRATION" precision="3" />
+        </property>
+        <property name="fuelType" type="string">
+            <column name="FUELTYPE" length="2" />
+        </property>
+        <property name="certificateType" type="string">
+            <column name="CERTIFICATETYPE" length="2" />
+        </property>
+        <property name="certificateno" type="string">
+            <column name="CERTIFICATENO" length="50" />
+        </property>
+        <property name="certificateDate" type="timestamp">
+            <column name="CERTIFICATEDATE" length="7" />
+        </property>
+        <property name="priceadjustrate" type="java.lang.Double">
+            <column name="PRICEADJUSTRATE" precision="8" />
+        </property>
+        <property name="dangerouscar" type="string">
+            <column name="DANGEROUSCAR" length="2" />
+        </property>
+    </class>
+</hibernate-mapping>

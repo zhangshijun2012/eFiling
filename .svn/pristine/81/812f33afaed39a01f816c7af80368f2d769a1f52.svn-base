@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-4-25 19:41:19 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="com.sinosoft.efiling.hibernate.entity.Document" table="T_F_DOCUMENT">
+        <comment>
+        &#181;&#165;&#214;&#164;&#177;&#237;&#163;&#172;&#195;&#191;&#184;&#246;&#177;&#163;&#181;&#165;&#161;&#162;&#197;&#250;&#181;&#165;&#212;&#218;&#180;&#203;&#177;&#237;&#214;&#208;&#182;&#188;&#211;&#208;&#188;&#199;&#194;&#188;</comment>
+        <id name="id" type="string">
+            <column name="ID" length="32" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="department" class="com.sinosoft.efiling.hibernate.entity.Company" fetch="select">
+            <column name="DEPT_ID" length="8" />
+        </many-to-one>
+        <many-to-one name="updateUser" class="com.sinosoft.efiling.hibernate.entity.User" fetch="select">
+            <column name="UPDATE_USER_ID" length="10" />
+        </many-to-one>
+        <many-to-one name="product" class="com.sinosoft.efiling.hibernate.entity.Product" fetch="select">
+            <column name="PRODUCT_ID" length="4" />
+        </many-to-one>
+        <many-to-one name="user" class="com.sinosoft.efiling.hibernate.entity.User" fetch="select">
+            <column name="USER_ID" length="10" />
+        </many-to-one>
+        <many-to-one name="businessUser" class="com.sinosoft.efiling.hibernate.entity.User" fetch="select">
+            <column name="BUSINESS_USER_ID" length="10" />
+        </many-to-one>
+        <many-to-one name="sales" class="com.sinosoft.efiling.hibernate.entity.User" fetch="select">
+            <column name="SALES_ID" length="10" />
+        </many-to-one>
+        <many-to-one name="company" class="com.sinosoft.efiling.hibernate.entity.Company" fetch="select">
+            <column name="COMPANY_ID" length="8" />
+        </many-to-one>
+        <many-to-one name="updateDepartment" class="com.sinosoft.efiling.hibernate.entity.Company" fetch="select">
+            <column name="UPDATE_DEPT_ID" length="8" />
+        </many-to-one>
+        <many-to-one name="businessDept" class="com.sinosoft.efiling.hibernate.entity.Company" fetch="select">
+            <column name="BUSINESS_DEPT_ID" length="8" />
+        </many-to-one>
+        <many-to-one name="businessCompany" class="com.sinosoft.efiling.hibernate.entity.Company" fetch="select">
+            <column name="BUSINESS_COMPANY_ID" length="8" />
+        </many-to-one>
+        
+        <many-to-one name="another" class="com.sinosoft.efiling.hibernate.entity.Document" fetch="select">
+            <column name="ANOTHER_ID" length="32" />
+        </many-to-one>
+        
+        <many-to-one name="fileLending" class="com.sinosoft.efiling.hibernate.entity.FileLending" fetch="select">
+            <column name="LENDING_ID" length="32" />
+        </many-to-one>
+        
+        <property name="status" type="string">
+            <column name="STATUS" length="2" not-null="true" />
+        </property>
+        
+        <property name="type" type="string">
+            <column name="TYPE" length="1" not-null="true" />
+        </property>
+        <property name="no" type="string">
+            <column name="NO" length="32" not-null="true" />
+        </property>
+        <property name="proposalNo" type="string">
+            <column name="PROPOSAL_NO" length="32" />
+        </property>
+        <property name="policyNo" type="string">
+            <column name="POLICY_NO" length="32" />
+        </property>
+        <property name="endorNo" type="string">
+            <column name="ENDOR_NO" length="32" />
+        </property>
+        <property name="source" type="string">
+            <column name="SOURCE" length="2" />
+        </property>
+        <property name="fileTime" type="timestamp">
+            <column name="FILE_TIME" length="7" />
+        </property>
+        <property name="fileStatus" type="string">
+            <column name="FILE_STATUS" length="2" not-null="true" />
+        </property>
+        <property name="lacks" type="string">
+            <column name="LACKS" length="4000" />
+        </property>
+        <property name="lent" type="string">
+            <column name="LENT" length="1" not-null="true" />
+        </property>
+        <property name="riskType" type="string">
+            <column name="RISK_TYPE" length="2" />
+        </property>
+        <property name="riskClass" type="string">
+            <column name="RISK_CLASS" length="2" />
+        </property>
+        <property name="riskCode" type="string">
+            <column name="RISK_CODE" length="4" />
+        </property>
+        <property name="year" type="java.lang.Integer">
+            <column name="YEAR" precision="5" scale="0" />
+        </property>
+        <property name="effectiveTime" type="timestamp">
+            <column name="EFFECTIVE_TIME" length="7" />
+        </property>
+        <property name="dueTime" type="timestamp">
+            <column name="DUE_TIME" length="7" />
+        </property>
+        <property name="applicant" type="string">
+            <column name="APPLICANT" length="500" />
+        </property>
+        <property name="applicantType" type="string">
+            <column name="APPLICANT_TYPE" length="1" />
+        </property>
+        <property name="applicantPassportType" type="string">
+            <column name="APPLICANT_PASSPORT_TYPE" length="2" />
+        </property>
+        <property name="applicantPassportNo" type="string">
+            <column name="APPLICANT_PASSPORT_NO" length="200" />
+        </property>
+        <property name="agentNo" type="string">
+            <column name="AGENT_NO" length="20" />
+        </property>
+        <property name="agentName" type="string">
+            <column name="AGENT_NAME" length="200" />
+        </property>
+        <property name="salesTime" type="timestamp">
+            <column name="SALES_TIME" length="7" />
+        </property>
+        <property name="businessNo" type="string">
+            <column name="BUSINESS_NO" length="20" />
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="CREATE_TIME" length="7" not-null="true" />
+        </property>
+        <property name="insertTime" type="timestamp">
+            <column name="INSERT_TIME" length="7" />
+        </property>
+        <property name="updateTime" type="timestamp">
+            <column name="UPDATE_TIME" length="7" />
+        </property>
+        <property name="vin" type="string">
+            <column name="VIN" length="50" />
+        </property>
+        <property name="engineNo" type="string">
+            <column name="ENGINE_NO" length="50" />
+        </property>
+        <property name="licenseNo" type="string">
+            <column name="LICENSE_NO" length="20" />
+        </property>
+        <property name="remarks" type="string">
+            <column name="REMARKS" length="2000" />
+        </property>
+         <property name="insured" type="string">
+            <column name="INSURED" length="500" />
+        </property>
+        <property name="visaNo" type="string">
+            <column name="VISA_NO" length="32" />
+        </property>
+        <property name="visaStatus" type="string">
+            <column name="VISA_STATUS" length="5" />
+        </property>
+        <property name="approveStatus" type="string">
+            <column name="APPROVE_STATUS" length="5" />
+        </property>
+        <property name="fileApproveStatus" type="string">
+            <column name="FILE_APPROVE_STATUS" length="2" />
+        </property>
+        <set name="files" table="T_F_FILE" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="DOCUMENT_ID" length="32" />
+            </key>
+            <one-to-many class="com.sinosoft.efiling.hibernate.entity.File" />
+        </set>
+        <set name="documentFiles" table="T_F_DOCUMENT_FILE" inverse="true" lazy="true" fetch="select" 
+        	order-by="FILE_TIME DESC NULLS LAST, FILE_TYPE_ID, STATUS, ORDINAL, ID">
+            <key>
+                <column name="DOCUMENT_ID" length="32" not-null="true" />
+            </key>
+            <one-to-many class="com.sinosoft.efiling.hibernate.entity.DocumentFile" />
+        </set>
+    </class>
+</hibernate-mapping>

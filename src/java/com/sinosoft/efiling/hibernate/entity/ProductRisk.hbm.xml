@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+    <class name="com.sinosoft.efiling.hibernate.entity.ProductRisk" table="T_F_PRODUCT_RISK">
+        <comment>&#178;&#250;&#198;&#183;&#207;&#223;&#211;&#235;&#207;&#213;&#214;&#214;&#181;&#196;&#182;&#212;&#211;&#166;&#185;&#216;&#207;&#181;</comment>
+        <id name="id" type="string">
+            <column name="RISK_CODE" length="4" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="product" class="com.sinosoft.efiling.hibernate.entity.Product" fetch="select">
+            <column name="PRODUCT_ID" length="4" not-null="true" />
+        </many-to-one>
+        <property name="remarks" type="string">
+            <column name="REMARKS" length="2000" />
+        </property>
+    </class>
+</hibernate-mapping>

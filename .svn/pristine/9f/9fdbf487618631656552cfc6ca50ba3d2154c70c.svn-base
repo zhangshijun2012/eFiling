@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-4-25 19:41:19 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="com.sinosoft.efiling.hibernate.entity.FileDeadline" table="T_F_FILE_DEADLINE">
+        <comment>&#185;&#233;&#181;&#181;&#198;&#218;&#207;&#222;&#201;&#232;&#214;&#195;</comment>
+        <id name="id" type="string">
+            <column name="ID" length="32" />
+            <generator class="uuid" />
+        </id>
+        <many-to-one name="department" class="com.sinosoft.efiling.hibernate.entity.Company" fetch="select">
+            <column name="DEPT_ID" length="8" />
+        </many-to-one>
+        <many-to-one name="fileDept" class="com.sinosoft.efiling.hibernate.entity.Company" fetch="select">
+            <column name="FILE_DEPT_ID" length="8" />
+        </many-to-one>
+        <many-to-one name="user" class="com.sinosoft.efiling.hibernate.entity.User" fetch="select">
+            <column name="USER_ID" length="10" />
+        </many-to-one>
+        <many-to-one name="company" class="com.sinosoft.efiling.hibernate.entity.Company" fetch="select">
+            <column name="COMPANY_ID" length="8" not-null="true" />
+        </many-to-one>
+        <many-to-one name="product" class="com.sinosoft.efiling.hibernate.entity.Product" fetch="select">
+            <column name="PRODUCT_ID" length="4" />
+        </many-to-one>
+        <property name="ctrlType" type="string">
+            <column name="CTRL_TYPE" length="1" not-null="true" />
+        </property>
+        <property name="days" type="int">
+            <column name="DAYS" precision="5" scale="0" not-null="true" />
+        </property>
+        <property name="status" type="string">
+            <column name="STATUS" length="2" not-null="true" />
+        </property>
+        <property name="insertTime" type="timestamp">
+            <column name="INSERT_TIME" length="7" not-null="true" />
+        </property>
+        <property name="remarks" type="string">
+            <column name="REMARKS" length="2000" />
+        </property>
+    </class>
+</hibernate-mapping>

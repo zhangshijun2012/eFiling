@@ -1,0 +1,473 @@
+package com.sinosoft.efiling.service;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.json.JSONObject;
+
+import com.sinosoft.efiling.hibernate.entity.Document;
+import com.sinosoft.efiling.hibernate.entity.DocumentFile;
+import com.sinosoft.efiling.hibernate.entity.File;
+import com.sinosoft.efiling.hibernate.entity.FileBox;
+import com.sinosoft.efiling.hibernate.entity.FileType;
+import com.sinosoft.efiling.hibernate.entity.PaperLogDocument;
+import com.sinosoft.efiling.util.SystemUtils;
+import com.sinosoft.efiling.util.UserSessionEntity;
+import com.sinosoft.filenet.FileIndex;
+import com.sinosoft.util.FileHelper;
+import com.sinosoft.util.Helper;
+import com.sinosoft.util.HttpClientHelper;
+import com.sinosoft.util.StringHelper;
+
+public class FileManualhandleService extends DocumentService {
+
+	/**
+	 * 根据Document的主键进行审批通过操作
+	 * 
+	 * @param ids 
+	 *           
+	 * @param user
+	 *            操作人
+	 * @return 审批通过的File列表
+	 */
+	public JSONObject collect(String [] ids, UserSessionEntity user) {
+		JSONObject json = new JSONObject();
+		Set<String> visaNos = new HashSet<String>();
+		String businessNo = ""; //业务号
+		String visaNo = ""; //单证号
+		String [] no = null;
+		List<DocumentFile> documentFiles = new ArrayList<DocumentFile>();
+		List<DocumentFile> visaFiles = null;
+		StringBuffer message =  new StringBuffer();
+		for (String id : ids) {
+			//id可能是业务号,也有可能是单证流水号,可能通过扫描进入的党政流水号数据，还有可能是纸质归档进入的数据
+			//如果包含,分隔符,说明既有业务号,又有单证号需要手动纸质归档,businessNos[0]为业务号 businessNos[1]单证号
+			if (id != null && id.contains(",")) {
+				no = id.split(",");
+				businessNo = no[0];
+				visaNo = no[1];
+			} else if (id.startsWith("V")) {
+				//已经保存到电子档案系统的单证号
+				businessNo = id;
+			} else {
+				//只有单证号,或者只有业务号
+				Document document = getDocument(id);
+				if (!StringHelper.isEmpty(document)) {
+					//业务号
+					if (!"V".equals(document.getType())) {
+						businessNo = id;
+					} else {
+						visaNo = id;
+					}
+				} else {
+					//单证号
+					visaNo = id;
+				}
+			}
+			if (!StringHelper.isEmpty(businessNo)) {
+				Document entity = getDocument(businessNo);
+				if (!SystemUtils.DOCUMENT_STATUS_FILE.equals(entity.getFileStatus())) {
+					//只有没有归档齐全的在做归档
+					documentFiles = collectDocument(entity.getDocumentFiles(), entity, user);
+					message.append("业务号：" + entity.getNo() + " 纸质手工归档成功！");
+				} 
+			}
+			if (!StringHelper.isEmpty(visaNo)) {
+				Document entity = getDocument(visaNo);
+				if (Helper.isEmpty(entity) || !SystemUtils.DOCUMENT_STATUS_FILE.equals(entity.getFileStatus())) {
+					//只有没有归档齐全的在做归档
+					visaFiles = collectVisas(visaNo, businessNo, user);
+					if (message.length() > 0){
+						message.append("\r"); 
+					}	
+					message.append("单证号：" + visaNo + " 纸质手工归档成功！");
+				}
+				visaNos.add(visaNo);
+			}
+			if (!StringHelper.isEmpty(visaFiles)) documentFiles.addAll(visaFiles);
+			
+			if (message.length() == 0) {
+				//单证号或者业务号已经做了归档操作了
+				if (!"".equals(businessNo)) {
+					message.append("业务号:" + businessNo + " 已经做了归档操作!");
+				}
+				if (!"".equals(visaNo)) {
+					if (message.length() > 0) {
+						message.append("\r");
+					}
+					message.append("单证号:" + visaNo + "已经做了归档操作!");
+				}
+			}
+		}
+		if (!visaNos.isEmpty()) {
+			logger.debug("请求的单证号:" + StringHelper.join(visaNos));
+			String url = configureDao.getProperty(SystemUtils.SYSTEM_CODE, "visa.resold");
+			Map<String, Object> parameters = new HashMap<String, Object>();
+			parameters.put("visaNos", visaNos.toArray());
+			parameters.put("type", "04");  //04:单证系统做会销操作  "":空字符串表示会销操作撤销
+			String response = HttpClientHelper.get(url, parameters);
+			logger.debug("请求的单证号:" + StringHelper.join(visaNos) + ",单证系统返回的数据:" + response);
+		}
+		json.put("list", documentFiles);
+		json.put("message", message.toString());
+		return json;
+	}
+	
+	/**
+	 * 保存单证流水号数据到电子档案系统
+	 * @param visaNo 单证号
+	 * @param user 纸质归档人员
+	 * @return
+	 */
+	public Document saveVisas(String visaNo, String businessNo, UserSessionEntity user) {
+		StringBuilder stringBuilder = new StringBuilder(100);
+		stringBuilder.append("SELECT V.VISASERIALNO, V.VISASTATUS AS VISASTATUS,V.VISACODE AS VISACODE,V.COMCODE AS COMCODE,V.USEDATE AS SALES_TIME");
+		stringBuilder.append(" FROM VSMARK V WHERE V.VISASTATUS IN ('04', '05', '06') AND V.VISASERIALNO = '" + visaNo + "' AND V.BUSINESSNO = '" + businessNo + "'");
+		List<?> results = dao.querySQL(stringBuilder.toString());
+		Object [] result = null;
+		Document entity = null;
+		DocumentFile documentFile = null;
+		FileType fileType = null;
+		Set<DocumentFile> documentFiles = new HashSet<DocumentFile>();
+		if (!StringHelper.isEmpty(results)) {
+			 for (int i = 0; i < results.size(); i++) {
+				 result = (Object [])results.get(i);
+				 entity = new Document();
+				 entity.setId(SystemUtils.DOCUMENT_TYPE_VISA + result[0]);
+				 entity.setNo(result[0] + "");
+				 entity.setVisaNo(result[0] + "");
+				 if (SystemUtils.VISA_STATUS_VOIDED.equals(result[1])) {
+					 entity.setApplicant(SystemUtils.APPLICANT_VISA_VOIDED);
+					 entity.setVisaStatus(SystemUtils.FILE_TYPE_VISA_VOIDED);
+				 } else if (SystemUtils.VISA_STATUS_LOST.equals(result[1])) {
+					 entity.setApplicant(SystemUtils.APPLICANT_VISA_LOST);
+					 entity.setVisaStatus(SystemUtils.FILE_TYPE_VISA_LOST);
+				 }  else {
+					 entity.setApplicant(SystemUtils.APPLICANT_VISA_USERD);
+					 entity.setVisaStatus(SystemUtils.FILE_TYPE_VISA_USED);
+				 }
+				 // 单证类型
+				 entity.setType(SystemUtils.DOCUMENT_TYPE_VISA);
+				 // 单证设置为已经归档
+				 entity.setFileStatus(SystemUtils.DOCUMENT_STATUS_FILE);
+				 // 设置单证生成时间
+				 //entity.setCreateTime(new Date());
+				 
+				 entity.setStatus(SystemUtils.STATUS_VALID);
+				 entity.setLent(SystemUtils.NO); // 设置为没被借出
+				 entity.setBusinessCompany(user.getCurrentCompany());
+				 entity.setBusinessDept(user.getCurrentDepartment());
+
+				 Date now = new Date();
+				 entity.setInsertTime(now);
+				 entity.setUser(user.getInstance());
+				 entity.setDepartment(user.getCurrentDepartment());
+				 entity.setCompany(user.getCurrentCompany());
+				 entity.setUpdateTime(now);
+				 entity.setUpdateUser(user.getInstance());
+				 entity.setUpdateDepartment(user.getCurrentDepartment());
+				 save(entity);
+				 
+				 documentFile = new DocumentFile();
+				 documentFile.setId(StringHelper.uuid().replaceAll("-", ""));
+				 documentFile.setDocument(entity);
+				 documentFile.setFileModel(SystemUtils.FILE_MODEL_FILE);
+				 documentFile.setFileTypeCode(entity.getVisaStatus());
+				 fileType = fileTypeService.get(entity.getVisaStatus());
+				 documentFile.setFileType(fileType);
+				 documentFile.setStatus(SystemUtils.DOCUMENT_FILE_STATUS_LACK);
+				 documentFile.setRequired("0");
+				 documentFiles.add(documentFile);
+				 documentFileDao.save(documentFile);
+				 entity.setDocumentFiles(documentFiles);
+			 }
+		}
+		return entity;
+	}
+	public static void main(String[] args) {
+		
+		StringBuffer message =  new StringBuffer();
+		
+		System.out.println("".equals(message.toString()));
+		System.out.println("".equals(message));
+		System.out.println(message.length());
+		message.append("ssssssssssssss");
+		System.out.println(message.length());
+	}
+	/**
+	 * 归档单证流水号,如果没有单证流水号在电子档案系统,则先保存数据,然后在设置归档操作
+	 * @param visaNo 单证号
+	 * @param user 纸质归档人员
+	 * @return
+	 */
+	public List<DocumentFile> collectVisas(String visaNo, String businessNo, UserSessionEntity user) {
+		//id可能是单证流水号,在单证系统存在,电子档案系统不存在,需要保存此种单证流水号数据,设置默认归档
+		StringBuilder sql = new StringBuilder(100);
+		sql.append("SELECT V.VISASERIALNO, V.VISASTATUS AS VISASTATUS,V.VISACODE AS VISACODE,V.COMCODE AS COMCODE,V.USEDATE AS SALES_TIME");
+		sql.append(" FROM VSMARK V WHERE V.VISASTATUS IN ('04', '05', '06') AND V.VISASERIALNO = '" + visaNo + "'");
+		if ("".equals(businessNo)) sql.append(" AND V.BUSINESSNO IS NULL");
+		else sql.append(" AND V.BUSINESSNO = '").append(businessNo).append("'");
+		List<?> results = dao.querySQL(sql.toString());
+		Object [] result = null;
+		Document entity = null;
+		FileType fileType = null;
+		List<String> visaNos = new ArrayList<String>();
+		List<DocumentFile> visaFiles = new ArrayList<DocumentFile>();
+		String companyId = user.getCurrentCompany().getId();
+		FileBox fileBox = fileBoxService.getValidFileBox(companyId, "1", 1);
+		if (!StringHelper.isEmpty(results)) {
+			 for (int i = 0; i < results.size(); i++) {
+				 result = (Object [])results.get(i);
+				 entity = new Document();
+				 entity.setId(SystemUtils.DOCUMENT_TYPE_VISA + result[0]);
+				 entity.setNo(result[0] + "");
+				 entity.setVisaNo(result[0] + "");
+				 if (SystemUtils.VISA_STATUS_VOIDED.equals(result[1])) {
+					 entity.setApplicant(SystemUtils.APPLICANT_VISA_VOIDED);
+					 entity.setVisaStatus(SystemUtils.FILE_TYPE_VISA_VOIDED);
+				 } else if (SystemUtils.VISA_STATUS_LOST.equals(result[1])) {
+					 entity.setApplicant(SystemUtils.APPLICANT_VISA_LOST);
+					 entity.setVisaStatus(SystemUtils.FILE_TYPE_VISA_LOST);
+				 }  else {
+					 entity.setApplicant(SystemUtils.APPLICANT_VISA_USERD);
+					 entity.setVisaStatus(SystemUtils.FILE_TYPE_VISA_USED);
+				 }
+				 // 单证类型
+				 entity.setType(SystemUtils.DOCUMENT_TYPE_VISA);
+				 // 单证设置为已经归档
+				 entity.setFileStatus(SystemUtils.DOCUMENT_STATUS_FILE);
+				 // 设置单证生成时间
+				 //entity.setCreateTime(new Date());
+				 
+				 entity.setStatus(SystemUtils.STATUS_VALID);
+				 entity.setLent(SystemUtils.NO); // 设置为没被借出
+				 entity.setBusinessCompany(user.getCurrentCompany());
+				 entity.setBusinessDept(user.getCurrentDepartment());
+
+				 Date now = new Date();
+				 entity.setInsertTime(now);
+				 entity.setUser(user.getInstance());
+				 entity.setDepartment(user.getCurrentDepartment());
+				 entity.setCompany(user.getCurrentCompany());
+				 entity.setUpdateTime(now);
+				 entity.setUpdateUser(user.getInstance());
+				 entity.setUpdateDepartment(user.getCurrentDepartment());
+				 save(entity);
+				 
+				 File file = new File();
+				 fileType = fileTypeService.get(entity.getVisaStatus());
+				 file.setFileModel(SystemUtils.FILE_MODEL_FILE); // 核保资料文件
+				 file.setFileId(StringHelper.randomUUID());
+				 file.setFileName(entity.getApplicant());
+				 file.setFileSize(1);
+				 file.setBatchNo("");
+				 file.setDocument(entity);
+				 file.setPageCount(1);
+				 file.setBatchPageIndex(1);
+				 file.setLent(SystemUtils.FILE_LENT_NO);
+				 file.setFileType(fileType);
+				 file.setUser(user.getInstance());
+				 file.setDepartment(user.getCurrentDepartment());
+				 file.setCompany(user.getCurrentCompany());
+				 file.setInsertTime(new Date());
+				 file.setFileApproveStatus("3");
+				 fileBox = fileBoxService.save(fileBox, file);
+				 DocumentFile docFile = saveDocumentFile(entity, fileType, file, null);
+				 visaFiles.add(docFile);
+				 
+				 FileIndex fileIndex = new FileIndex();
+				 fileIndex.setSystemCode(SystemUtils.SYSTEM_CODE);
+				 fileIndex.setId(file.getFileId());
+				 fileIndex.setFileId(file.getFileId());
+				 fileIndex.setFileNo(file.getFileId());
+				 fileIndex.setBusinessNo(entity.getId());
+				 fileIndex.setBatchNo("");
+				 fileIndex.setFileTitle(fileType.getName());
+				 fileIndex.setFileContentType(FileHelper.getContentType(file.getFileName()));
+				 fileIndex.setFileName(file.getFileName());
+				 fileIndex.setFileSize(24);
+				 fileIndex.setFileCount(1);
+				 fileIndex.setPageCount(1);
+
+				 fileIndex.setOperator(user.getId());
+				 fileIndex.setOperateTime(file.getInsertTime());
+
+				 fileIndex.setProperty00("");
+				 fileIndex.setProperty01(SystemUtils.FILE_MODEL_FILE);
+				 fileIndex.setProperty02(docFile.getId());
+				 fileIndexService.save(fileIndex);
+				 
+				 PaperLogDocument paperLogDocument = new PaperLogDocument();
+				 paperLogDocument.setCompanyId(user.getCurrentCompany());
+				 paperLogDocument.setNo(entity.getNo());
+				 paperLogDocument.setId(StringHelper.uuid().replace("-", ""));
+				 paperLogDocument.setFileType(fileType);
+				 paperLogDocument.setFileTypeCode(fileType.getCode());
+				 paperLogDocument.setUser(user.getInstance());
+				 paperLogDocument.setDepartment(user.getCurrentDepartment());
+				 paperLogDocument.setCompany(user.getCurrentCompany());
+				 paperLogDocument.setDueTime(now);
+				 paperLogDocument.setStatus(SystemUtils.DOCUMENT_PAPER_STATUS_1);
+				 paperLogDocumentService.save(paperLogDocument);
+				 visaNos.add(result[0] + "");
+			 }
+		}
+		return visaFiles;
+	}
+	/**
+	 * 归档撤销操作
+	 * @param businessNo 
+	 * @param user
+	 * @return
+	 */
+	public List<DocumentFile> revoke(Set<DocumentFile> documentFiles, Document entity, UserSessionEntity user) {
+		Document anotherDoc = entity.getAnother();
+		PaperLogDocument paperLogDocument = null;
+		FileType fileType = null;
+		List<DocumentFile> dFiles = new ArrayList<DocumentFile>();
+		File file = null;
+		for (DocumentFile dfile : documentFiles) {
+			file = dfile.getFile();
+			if ("e-Document".equals(file.getProperty01())) {
+				//原来是电子档案的做的纸质归档，需要变回电子档案状态
+				dfile.setStatus(SystemUtils.DOCUMENT_FILE_STATUS_FILE);
+				dfile.getFile().setNo("e-Document");
+			} else {
+				dfile.setStatus(SystemUtils.DOCUMENT_FILE_STATUS_LACK);
+			}
+			fileType = dfile.getFileType();
+			paperLogDocument = new PaperLogDocument();
+			paperLogDocument.setNo(entity.getNo());
+			paperLogDocument.setId(StringHelper.uuid().replace("-", ""));
+			paperLogDocument.setFileType(fileType);
+			paperLogDocument.setFileTypeCode(fileType.getCode());
+			paperLogDocument.setUser(user.getInstance());
+			paperLogDocument.setDepartment(user.getCurrentDepartment());
+			paperLogDocument.setCompany(user.getCurrentCompany());
+			paperLogDocument.setDueTime(new Date());
+			paperLogDocument.setStatus(SystemUtils.DOCUMENT_PAPER_STATUS_0);
+			paperLogDocumentService.save(paperLogDocument);
+			dFiles.add(dfile);
+		}
+		entity.setFileStatus(SystemUtils.DOCUMENT_STATUS_FILE_CANCEL);
+		entity.setUpdateTime(new Date());
+		this.update(entity);
+		if (anotherDoc != null) {
+			anotherDoc.setFileStatus(SystemUtils.DOCUMENT_STATUS_FILE_CANCEL);
+			anotherDoc.setUpdateTime(new Date());
+			this.update(anotherDoc);
+		}
+		/*
+		changeDocumentFileStatus(entity, user);
+		if (anotherDoc != null) {
+			changeDocumentFileStatus(anotherDoc, user);
+		}*/
+		return dFiles;
+	}
+	/**
+	 * 根据Document的主键进行审批不通过操作
+	 * 
+	 * @param ids
+	 *            Document.id
+	 * @param user
+	 *            操作人
+	 * @return 审批不通过的File列表
+	 */
+	public JSONObject revoke(String[] ids, UserSessionEntity user) {
+		Set<String> visaNos = new HashSet<String>();
+		String businessNo = ""; //业务号
+		String visaNo = ""; //单证号
+		String [] no = null;
+		List<DocumentFile> documentFiles = null;
+		List<DocumentFile> visaFiles = null;
+		StringBuffer message =  new StringBuffer();
+		JSONObject json = new JSONObject();
+ 		for (String id : ids) {
+			//id可能是业务号,也有可能是单证流水号,可能通过扫描进入的党政流水号数据，还有可能是纸质归档进入的数据
+			//如果包含,分隔符,说明既有业务号,又有单证号需要手动纸质归档,businessNos[0]为业务号 businessNos[1]单证号
+			if (id != null && id.contains(",")) {
+				no = id.split(",");
+				businessNo = no[0];
+				visaNo = no[1];
+			} else if (id.startsWith("V")) {
+				//已经保存到电子档案系统的单证号
+				businessNo = id;
+			} else {
+				//只有单证号,或者只有业务号
+				Document document = getDocument(id);
+				if (!StringHelper.isEmpty(document)) {
+					//业务号
+					if (!"V".equals(document.getType())) {
+						businessNo = id;
+					} else {
+						visaNo = id;
+					}
+				} else {
+					//单证号
+					visaNo = id;
+				}
+			}
+			if (!StringHelper.isEmpty(businessNo)) {
+				Document entity = getDocument(businessNo);
+				documentFiles = revoke(entity.getDocumentFiles(), entity, user);
+				message.append("业务号：" + entity.getNo() + " 纸质手工归档撤销成功！");
+			}
+			if (!StringHelper.isEmpty(visaNo)) {
+				Document entity = getDocument(visaNo);
+				visaFiles = revoke(entity.getDocumentFiles(), entity, user);
+				visaNos.add(visaNo);
+				if (message.length() > 0){
+					message.append("\r"); 
+				}	
+				message.append("单证号：" + visaNo + " 纸质手工归档撤销成功！");
+				documentFiles.addAll(visaFiles);
+			}
+			if (message.length() == 0) {
+				//单证号或者业务号已经做了归档操作了
+				if (!"".equals(businessNo)) {
+					message.append("业务号:" + businessNo + "已经做了归档撤销操作");
+				}
+				if (!"".equals(visaNo)) {
+					if (message.length() > 0) {
+						message.append("\r");
+					} 
+					message.append("单证号:" + visaNo + "已经做了归档撤销操作");
+				}
+			}
+		}
+		if (!visaNos.isEmpty()) {
+			logger.debug("请求的单证号:" + StringHelper.join(visaNos));
+			String url = configureDao.getProperty(SystemUtils.SYSTEM_CODE, "visa.resold");
+			Map<String, Object> parameters = new HashMap<String, Object>();
+			parameters.put("visaNos", visaNos.toArray());
+			parameters.put("type", "");  //04:单证系统做会销操作  "":空字符串表示会销操作撤销
+			String response = HttpClientHelper.get(url, parameters);
+			logger.debug("请求的单证号:" + StringHelper.join(visaNos) + ",单证系统返回的数据:" + response);
+		}
+		json.put("list", documentFiles);
+		json.put("message", message.toString());
+		return json;
+	}
+	/**
+	 * 根据Document的主键进行审批通过操作
+	 * 
+	 * @param ids 
+	 *           
+	 * @param user
+	 *            操作人
+	 * @return 审批通过的File列表
+	 */
+	@SuppressWarnings("unchecked")
+	public List<PaperLogDocument> viewLog(String [] ids, UserSessionEntity user) {
+		List<PaperLogDocument> paperLogs = new ArrayList<PaperLogDocument>();
+		String hql = "FROM " + PaperLogDocument.class.getName() + " WHERE no IN (?" + StringHelper.copy(", ?", ids.length - 1) + ") ";
+		paperLogs = (List<PaperLogDocument>) paperLogDocumentService.getDao().query(hql, ids);
+		return paperLogs;
+	}
+
+}

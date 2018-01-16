@@ -1,0 +1,47 @@
+package test;
+
+import org.json.JSONObject;
+import org.junit.Test;
+
+import com.sinosoft.efiling.hibernate.entity.User;
+import com.sinosoft.efiling.service.FileScanService;
+import com.sinosoft.efiling.service.UserService;
+import com.sinosoft.efiling.util.SpringUtils;
+import com.sinosoft.efiling.util.UserSessionEntity;
+
+public class FileScanServiceTest extends SpringServiceTest {
+
+	@Test
+	public void test() {
+		FileScanService service = SpringUtils.getBean(FileScanService.class);
+
+		UserService userService = SpringUtils.getBean(UserService.class);
+
+		String xml = "<root>" + "	<document id=\"7127261100140000124001\">"
+				+ "		<file type=\"001\">                   " + "			<id/>                               "
+				+ "			<name>20160517.000043.02.tif</name> " + "			<count>1</count>                    "
+				+ "			<size/>                             " + "		</file>                               "
+				+ "		<file type=\"009\">                   " + "			<id/>                               "
+				+ "			<name>20160517.000043.03.tif</name> " + "			<count>45</count>                   "
+				+ "			<size/>                             " + "		</file>                               "
+				+ "		<file type=\"250\">                   " + "			<id/>                               "
+				+ "			<name>20160517.000043.04.tif</name> " + "			<count>1</count>                    "
+				+ "			<size/>                             " + "		</file>                               "
+				+ "		<file type=\"201\">                   " + "			<id/>                               "
+				+ "			<name>20160517.000043.05.tif</name> " + "			<count>2</count>                    "
+				+ "			<size/>                             " + "		</file>                               "
+				+ "	</document>                             " + "</root>                                  ";
+		User usr = (User) service.getDao().getHibernateSession().get(User.class, "0000000000");
+		UserSessionEntity user = userService.changeCurrentDepartment(usr, usr.getDepartment().getId());
+
+		JSONObject json = service.read(xml);
+		System.out.println(json);
+		xml = (String) json.get("xml");
+		System.out.println(xml);
+
+		service.save(xml, "xxxxxxxx", "1", user);
+
+		// .read(xml, "xxxx", "1", u);
+	}
+
+}

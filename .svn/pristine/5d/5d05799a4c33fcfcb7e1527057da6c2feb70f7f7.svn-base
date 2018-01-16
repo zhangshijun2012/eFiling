@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-4-25 20:00:27 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="com.sinosoft.efiling.hibernate.entity.FileBox" table="T_F_FILE_BOX">
+        <comment>&#181;&#181;&#176;&#184;&#186;&#208;&#208;&#197;&#207;&#162;</comment>
+        <id name="id" type="string">
+            <column name="ID" length="17" />
+            <generator class="assigned" />
+        </id>
+        <version name="version" type="int">
+            <column name="VERSION" not-null="true" />
+        </version>
+        <many-to-one name="department" class="com.sinosoft.efiling.hibernate.entity.Company" fetch="select">
+            <column name="DEPT_ID" length="8" />
+        </many-to-one>
+        <many-to-one name="updateUser" class="com.sinosoft.efiling.hibernate.entity.User" fetch="select">
+            <column name="UPDATE_USER_ID" length="10" />
+        </many-to-one>
+        <many-to-one name="user" class="com.sinosoft.efiling.hibernate.entity.User" fetch="select">
+            <column name="USER_ID" length="10" />
+        </many-to-one>
+        <many-to-one name="updateDepartment" class="com.sinosoft.efiling.hibernate.entity.Company" fetch="select">
+            <column name="UPDATE_DEPT_ID" length="8" />
+        </many-to-one>
+        <many-to-one name="company" class="com.sinosoft.efiling.hibernate.entity.Company" fetch="select">
+            <column name="COMPANY_ID" length="8" />
+        </many-to-one>
+        <property name="riskType" type="string">
+            <column name="RISK_TYPE" length="2" not-null="true" />
+        </property>
+        <property name="fileCount" type="int">
+            <column name="FILE_COUNT" not-null="true" />
+        </property>
+        <property name="capacity" type="int">
+            <column name="CAPACITY" precision="5" scale="0" not-null="true" />
+        </property>
+        <property name="maxCapacity" type="int">
+            <column name="MAX_CAPACITY" precision="5" scale="0" not-null="true" />
+        </property>
+        <property name="insertTime" type="timestamp">
+            <column name="INSERT_TIME" length="7" not-null="true" />
+        </property>
+        <property name="updateTime" type="timestamp">
+            <column name="UPDATE_TIME" length="7" />
+        </property>
+        <property name="status" type="string">
+            <column name="STATUS" length="1" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

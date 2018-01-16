@@ -1,0 +1,186 @@
+package com.sinosoft.efiling.struts2.action;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import com.sinosoft.efiling.hibernate.entity.Document;
+import com.sinosoft.efiling.hibernate.entity.DocumentFile;
+import com.sinosoft.efiling.util.SystemUtils;
+import com.sinosoft.util.ContentTypeHelper;
+import com.sinosoft.util.POIHelper;
+import com.sinosoft.util.StringHelper;
+
+public class FileQueryAction extends FileManagerAction {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1403885798213284109L;
+
+	@Override
+	public void validateIndex() {
+		super.validateIndex();
+		Map<String, String> map = new ResourcesMap(SystemUtils.DOCUMENT_TYPES);
+		getRequest().setAttribute("documentTypes", map);
+	}
+
+	@Override
+	public void validateQuery() {
+		queryString = new StringBuilder(100);
+		queryParameters = new ArrayList<Object>();
+
+		// 业务号
+		// 类型
+		// 投保人
+		// 归档状态
+		// 差缺明细
+		// 出单员
+		// 业务关系代码
+		// 业务部门
+		// 代理人
+		// 业务员
+		// 电子商务
+		// 归档时间
+		// 是否借出
+		// 档案管理员
+
+		queryString.append("SELECT d.id, d.no, d.type, d.applicant, d.fileStatus, d.lacks, sa.name AS saleName, ");
+		queryString.append("d.businessNo, b.name AS businessDept, d.agentName, bu.name AS businessUser, d.source, ");
+		queryString.append("d.insertTime, d.lent, u.name AS userName ");
+		queryString.append("FROM ").append(Document.class.getName()).append(" d ");
+		queryString.append("LEFT JOIN d.businessDept b ");
+		queryString.append("LEFT JOIN d.businessUser bu ");
+		queryString.append("LEFT JOIN d.user u ");
+		queryString.append("LEFT JOIN d.sales sa ");
+		queryString.append("WHERE 1 = 1 ");
+		// 增加查询条件
+		this.addLikeQuery("d.proposalNo", proposalNo);
+		this.addLikeQuery("d.policyNo", policyNo);
+		this.addLikeQuery("d.endorNo", endorNo);
+		this.addLikeQuery("d.visaNo", visaNo);
+		this.addLikeQuery("d.businessDept.id", departmentId);
+		this.addLikeQuery("d.agentName", agentName);
+		this.addLikeQuery("d.businessNo", businessNo);
+		this.addLikeQuery("d.applicant", applicant);
+		this.addLikeQuery("bu.name", businessUser);
+		this.addQuery("d.lent", loanStatus);
+		this.addQuery("d.product.id", productId);
+		this.addBetweenQuery("d.salesTime", salesTime, Date.class);
+		this.addBetweenQuery("d.insertTime", insertTime, Date.class);
+		this.addQuery("d.fileStatus", documentStatus);
+		this.addQuery("d.visaStatus", visaStatus);
+
+		this.addQuery("d.type", types);
+
+		// 按档案盒号查询
+		if (!StringHelper.isEmpty(boxId)) {
+			addQueryString("AND EXISTS (SELECT f.id FROM " + DocumentFile.class.getName()
+					+ " f WHERE f.document = d AND f.file.fileBox.id LIKE ?)", "%" + boxId.trim() + "%");
+		}
+
+		this.addCompanyQuery("d.businessCompany");
+
+		// 根据什么排序
+		// addOrderString("ORDER BY SUBSTR(d.policyNo, 11, 9) DESC NULLS LAST, d.endorNo NULLS LAST, d.proposalNo DESC, d.no");
+
+		StringBuilder order = new StringBuilder("ORDER BY ");
+		if (StringHelper.isEmpty(this.proposalNo) && StringHelper.isEmpty(this.policyNo)) {
+			// 按出单时间排序
+			order.append("d.salesTime DESC, d.proposalNo DESC, d.policyNo DESC NULLS LAST, d.endorNo NULLS FIRST ");
+		} else {
+			// 查询特殊的保单、投保单，第一位为保单，然后按批单顺序排序
+			order.append("d.proposalNo DESC, d.policyNo DESC NULLS LAST, d.endorNo NULLS FIRST");
+		}
+		// order.append("SUBSTR(d.policyNo, 11, 9) DESC NULLS LAST, d.endorNo NULLS LAST, d.proposalNo DESC, d.no");
+		addOrderString(order.toString());
+	}
+
+	public void validateDownload() {
+		this.validateQuery();
+		if (StringHelper.isTrue(all)) {
+			// 全部下载
+			pageIndex = 1;
+			maxResults = Integer.MAX_VALUE;
+		}
+	}
+
+	/**
+	 * 下载EXCEL
+	 * 
+	 * @return
+	 */
+	public String download() {
+		String queryString = this.queryString.toString().replaceFirst("d.id,", "");
+		String statusDecodeString = "(CASE ";
+		for (String key : SystemUtils.DOCUMENT_STATUS.keySet()) {
+			statusDecodeString += "WHEN d.fileStatus = '" + key + "' THEN '"
+					+ StringHelper.escapeSQLComponent(getText(SystemUtils.DOCUMENT_STATUS.get(key))) + "' ";
+		}
+		statusDecodeString += "ELSE '' END)";
+		queryString = queryString.replaceFirst("d.fileStatus", statusDecodeString);
+
+		String typeString = "(CASE ";
+		for (String key : SystemUtils.DOCUMENT_TYPES.keySet()) {
+			typeString += "WHEN d.type = '" + key + "' THEN '"
+					+ StringHelper.escapeSQLComponent(getText(SystemUtils.DOCUMENT_TYPES.get(key))) + "' ";
+		}
+		typeString += "ELSE '' END)";
+		queryString = queryString.replaceFirst("d.type", typeString);
+
+		queryString = queryString.replaceFirst("d.source", "(CASE WHEN d.source = '1' THEN '是' ELSE '否' END)");
+		queryString = queryString.replaceFirst("d.lent", "(CASE WHEN d.lent = '1' THEN '是' ELSE '否' END)");
+		if (orderString != null) {
+			queryString += (" " + orderString.toString());
+		}
+		Object[] parameters = this.queryParameters == null || this.queryParameters.isEmpty() ? null
+				: this.queryParameters.toArray();
+
+		if (StringHelper.isTrue(all)) {
+			list = service.query(queryString, parameters);
+		} else {
+			pagingEntity = service.query(queryString, parameters, pageIndex, maxResults);
+			list = pagingEntity.list();
+		}
+
+		try {
+			String fileName = "查询列表" + POIHelper.VERSION_DEFAULT;
+			try {
+				// 防止中文乱码
+				fileName = new String(fileName.getBytes("GBK"), "iso-8859-1");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			getResponse().setHeader("content-disposition", "attachment; filename=" + fileName);
+			getResponse().setContentType(ContentTypeHelper.get(POIHelper.VERSION_DEFAULT));
+
+			// 业务号
+			// 类型
+			// 投保人
+			// 归档状态
+			// 差缺明细
+			// 出单员
+			// 业务关系代码
+			// 业务部门
+			// 代理人
+			// 业务员
+			// 电子商务
+			// 归档时间
+			// 是否借出
+			// 档案管理员
+			Object[] headers = { "业务号", "类型", "投保人", "归档状态", "差缺明细", "出单员", "业务关系代码", "业务部门", "代理人", "业务员", "电子商务",
+					"归档时间", "是否借出", "档案管理员" };
+			// if (this.headers != null) headers = this.headers;
+			POIHelper.write(headers, new List[] { list }, getResponse().getOutputStream(), POIHelper.VERSION_DEFAULT);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+}

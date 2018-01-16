@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-4-25 20:28:18 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+	<class name="com.sinosoft.efiling.hibernate.entity.File" table="T_F_FILE">
+		<comment>&#181;&#181;&#176;&#184;&#208;&#197;&#207;&#162;</comment>
+		<id name="id" type="string">
+			<column name="ID" length="32" />
+			<generator class="uuid" />
+		</id>
+		<many-to-one name="fileBox"
+			class="com.sinosoft.efiling.hibernate.entity.FileBox" fetch="select">
+			<column name="BOX_ID" length="17" />
+		</many-to-one>
+		<many-to-one name="fileType"
+			class="com.sinosoft.efiling.hibernate.entity.FileType" fetch="select">
+			<column name="TYPE_ID" length="22" />
+		</many-to-one>
+		<many-to-one name="department"
+			class="com.sinosoft.efiling.hibernate.entity.Company" fetch="select">
+			<column name="DEPT_ID" length="8" />
+		</many-to-one>
+		<many-to-one name="another"
+			class="com.sinosoft.efiling.hibernate.entity.File" fetch="select">
+			<column name="ANOTHER_ID" length="32" />
+		</many-to-one>
+		<many-to-one name="user"
+			class="com.sinosoft.efiling.hibernate.entity.User" fetch="select">
+			<column name="USER_ID" length="10" />
+		</many-to-one>
+		<many-to-one name="company"
+			class="com.sinosoft.efiling.hibernate.entity.Company" fetch="select">
+			<column name="COMPANY_ID" length="8" />
+		</many-to-one>
+		<many-to-one name="document"
+			class="com.sinosoft.efiling.hibernate.entity.Document" fetch="select">
+			<column name="DOCUMENT_ID" length="32" />
+		</many-to-one>
+		<many-to-one name="fileLending" class="com.sinosoft.efiling.hibernate.entity.FileLending" fetch="select">
+            <column name="LENDING_ID" length="32" />
+        </many-to-one>
+        <property name="fileModel" type="string">
+            <column name="FILE_MODEL" length="1" not-null="true" />
+        </property>
+		<property name="paperCode" type="string">
+			<column name="PAPER_CODE" length="50" />
+		</property>
+		<property name="paperType" type="string">
+			<column name="PAPER_TYPE" length="50" />
+		</property>
+		<property name="no" type="string">
+			<column name="NO" length="32" />
+		</property>
+		<property name="fileId" type="string">
+			<column name="FILE_ID" length="200" not-null="true" />
+		</property>
+		<property name="fileSize" type="int">
+			<column name="FILE_SIZE" precision="10" scale="0" not-null="true" />
+		</property>
+		<property name="fileName" type="string">
+			<column name="FILE_NAME" length="250" not-null="true" />
+		</property>
+		<property name="lent" type="string">
+			<column name="LENT" length="1" not-null="true" />
+		</property>
+		<property name="effectiveTime" type="timestamp">
+			<column name="EFFECTIVE_TIME" length="7" />
+		</property>
+		<property name="dueTime" type="timestamp">
+			<column name="DUE_TIME" length="7" />
+		</property>
+		<property name="insertTime" type="timestamp">
+			<column name="INSERT_TIME" length="7" not-null="true" />
+		</property>
+		<property name="property01" type="string">
+			<column name="PROPERTY_01" length="200" />
+		</property>
+		<property name="property02" type="string">
+			<column name="PROPERTY_02" length="200" />
+		</property>
+		<property name="property03" type="string">
+			<column name="PROPERTY_03" length="200" />
+		</property>
+		<property name="property04" type="string">
+			<column name="PROPERTY_04" length="200" />
+		</property>
+		<property name="property05" type="string">
+			<column name="PROPERTY_05" length="200" />
+		</property>
+		<property name="pageCount" type="int">
+			<column name="PAGE_COUNT" precision="5" scale="1" not-null="true" />
+		</property>
+		<property name="pageIndex" type="int">
+			<column name="PAGE_INDEX" precision="5" scale="1" not-null="true" />
+		</property>
+		<property name="batchPageIndex" type="int">
+			<column name="BATCH_PAGE_INDEX" precision="5" scale="1" not-null="true" />
+		</property>
+		<property name="batchNo" type="string">
+			<column name="BATCH_NO" length="50" />
+		</property>
+		<property name="fileApproveStatus" type="string">
+			<column name="FILE_APPROVE_STATUS" length="2" />
+		</property>
+		<!-- <set name="files" table="T_F_FILE" inverse="true" lazy="true"
+			fetch="select">
+			<key>
+				<column name="ANOTHER_ID" length="32" />
+			</key>
+			<one-to-many class="com.sinosoft.efiling.hibernate.entity.File" />
+		</set> -->
+		<!-- 
+		<set name="pages" table="T_F_FILE_PAGE" inverse="true" lazy="true"
+			fetch="select">
+			<key>
+				<column name="FILE_ID" length="32" not-null="true" />
+			</key>
+			<one-to-many class="com.sinosoft.efiling.hibernate.entity.FilePage" />
+		</set>
+		 -->
+		<set name="documentFiles" table="T_F_DOCUMENT_FILE" inverse="true"
+			lazy="true" fetch="select">
+			<key>
+				<column name="FILE_ID" length="32" />
+			</key>
+			<one-to-many class="com.sinosoft.efiling.hibernate.entity.DocumentFile" />
+		</set>
+	</class>
+</hibernate-mapping>

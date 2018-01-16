@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-4-25 19:41:19 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="com.sinosoft.efiling.hibernate.entity.DocumentFile" table="T_F_DOCUMENT_FILE">
+        <comment>&#177;&#163;/&#197;&#250;&#181;&#165;&#203;&#249;&#208;&#232;&#215;&#202;&#193;&#207;&#208;&#197;&#207;&#162;</comment>
+        <id name="id" type="string">
+            <column name="ID" length="32" />
+            <generator class="uuid" />
+        </id>
+        <many-to-one name="fileType" class="com.sinosoft.efiling.hibernate.entity.FileType" fetch="select">
+            <column name="FILE_TYPE_ID" length="22" not-null="true" />
+        </many-to-one>
+        <many-to-one name="file" class="com.sinosoft.efiling.hibernate.entity.File" fetch="select">
+            <column name="FILE_ID" length="32" />
+        </many-to-one>
+        <many-to-one name="another" class="com.sinosoft.efiling.hibernate.entity.DocumentFile" fetch="select">
+            <column name="ANOTHER_ID" length="32" />
+        </many-to-one>
+        <many-to-one name="sharedFrom" class="com.sinosoft.efiling.hibernate.entity.DocumentFile" fetch="select">
+            <column name="SHARED_FROM_ID" length="32" />
+        </many-to-one>
+        <many-to-one name="document" class="com.sinosoft.efiling.hibernate.entity.Document" fetch="select">
+            <column name="DOCUMENT_ID" length="32" not-null="true" />
+        </many-to-one>
+        <property name="fileModel" type="string">
+            <column name="FILE_MODEL" length="1" not-null="true" />
+        </property>
+        <property name="fileTypeCode" type="string">
+            <column name="FILE_TYPE_CODE" length="22" not-null="true"  />
+        </property>
+		<property name="paperCode" type="string">
+			<column name="PAPER_CODE" length="50" />
+		</property>
+		<property name="paperType" type="string">
+			<column name="PAPER_TYPE" length="50" />
+		</property>
+        <property name="status" type="string">
+            <column name="STATUS" length="2" not-null="true" />
+        </property>
+        <property name="required" type="string">
+            <column name="REQUIRED" length="2" not-null="true" />
+        </property>
+        <property name="fileTime" type="timestamp">
+            <column name="FILE_TIME" length="7" />
+        </property>
+        <property name="effectiveTime" type="timestamp">
+            <column name="EFFECTIVE_TIME" length="7" />
+        </property>
+        <property name="dueTime" type="timestamp">
+            <column name="DUE_TIME" length="7" />
+        </property>
+        <property name="ordinal" type="int">
+            <column name="ORDINAL" not-null="true" />
+        </property>
+		<!-- <property name="fileApproveStatus" type="string">
+            <column name="FILE_APPROVE_STATUS" length="2"/>
+        </property> -->
+        <property name="shared" type="string">
+            <column name="SHARED" length="1" not-null="true" />
+        </property>
+        <property name="replaced" type="string">
+            <column name="REPLACED" length="1" not-null="true" />
+        </property>
+        
+        <!-- <set name="documentFiles" table="T_F_DOCUMENT_FILE" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ANOTHER_ID" length="32" />
+            </key>
+            <one-to-many class="com.sinosoft.efiling.hibernate.entity.DocumentFile" />
+        </set>
+        <set name="fileLendingDetails" table="T_F_FILE_LENDING_DETAIL" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="DOCUMENT_FILE_ID" length="32" not-null="true" />
+            </key>
+            <one-to-many class="com.sinosoft.efiling.hibernate.entity.FileLendingDetail" />
+        </set> -->
+    </class>
+</hibernate-mapping>

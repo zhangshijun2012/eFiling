@@ -1,0 +1,711 @@
+.div-grid{  
+    border-top:1px solid #ccc;
+    border-right:1px solid #ccc;
+}
+
+.div-grid  [class^="col-"]{ 
+    border-bottom:1px solid #ccc;
+    border-right:none;
+    border-left: 1px solid #ccc;
+    border-top: none;
+    min-height: 46px;
+    font-size: 18px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.sinosoft-head { background: #428bca; color: #FFF; height: 40px; line-height: 40px; font-weight: bold; font-size: 14; padding-left: 15px; }
+
+.sinosoft-table-head { background: #428bca; color: #FFF; height: 40px; line-height: 40px; font-weight: bold; font-size: 14; padding-left: 15px; }
+
+.sinosoft-box{  
+   
+}
+
+.sinosoft-box-with-border{  
+    border:1px solid #ccc;
+}
+
+.sinosoft-vspace { height: 10px; line-height: 10px; }
+
+.sinosoft-center { text-align: center; }
+
+.sinosoft-right { text-align: right; }
+
+.sinosoft-left { text-align: left; }
+
+.sinosoft-lable { font-weight: normal; text-align: right; overflow: hidden;}
+
+.sinosoft-lable-left { font-weight: normal; overflow: hidden;}
+
+.sinosoft-lable-value { font-weight: normal; text-align: left; overflow: hidden;}
+
+.sinosoft-lable-control { padding: 2px 2px; background-color:#fff; }
+
+.sinosoft-form-control { display: block; width:100%; height: 34px; padding: 5px 10px; font-size: 14px; line-height: 1.428571429; color: #555555; vertical-align: middle; background-color: #ffffff; background-image: none; border: 1px solid #cccccc; border-radius: 4px; -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); -webkit-transition: border-color ease-in-out 0.15s, box-shadow
+        ease-in-out 0.15s; transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s; }
+
+.sinosoft-form-control-task-query { display: block; height: 34px; padding: 5px 10px; font-size: 14px; line-height: 1.428571429; color: #555555; vertical-align: middle; background-color: #ffffff; background-image: none; border: 1px solid #cccccc; border-radius: 4px; -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); -webkit-transition: border-color ease-in-out 0.15s, box-shadow
+        ease-in-out 0.15s; transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s; }    
+
+.sinosoft-task-query-risk { display: block; height: 90px;  }              
+
+.sinosoft-task-query-product-lable { display: block; height: 91px;  }  
+
+.sinosoft-policydealcontent-audit-lable { display: block; height: 91px;  }  
+
+#commonnav{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#btnProposalDetail{
+        width: 120px;
+}
+
+#btnProposalClaimHistory{width: 120px;}
+
+#btnProposalMessage{width: 120px;}    
+
+#btnProposalRemark{width: 120px;}
+
+#btnReinsInform{width: 180px;}
+
+#btnReinsTrial{width: 120px;}
+
+#btnShowEGroupInfoGPA{width: 120px;}
+
+#butCancel{width: 120px;}
+
+#btnSubmitJunior{width: 120px;}
+
+#btnbutViewTranceInfo {width: 120px;}
+
+#btnViewTranceInfo{width: 120px;}
+
+#btnOpenCover{width: 120px;}
+
+#tblDangerDetail[class *="sinosoft-table-head"]{
+    font-size: 16px;
+}
+
+#divDangerInfo{
+    padding-left: 0px;
+}
+
+.endorse-dangerinfo-head{
+    padding-left: 0px;
+}
+
+.endorse-deal-content-riskcontent-itemkind-head{
+    padding-left: 0px;
+}
+
+#divCommonDealContentApprovalInfo{
+    padding-left: 0px;
+}
+
+.HandleTextFromControl{
+    font-size: 16px;  
+    width: 100%;
+}
+
+@media screen and (min-width: 1025px) {    
+
+    input[type=checkbox] {
+        zoom:130%;
+    }
+
+    .div-grid  [class *="sinosoft-lable"]{ 
+        font-size: 20px;
+        padding-top: 6px;
+        padding-bottom: 2px;
+    }
+
+    .div-grid  [class*="sinosoft-lable-control"]{ 
+        font-size: 20px;
+        padding-top: 6px;
+        padding-bottom: 2px;
+        border-left:none;
+    }
+
+    .div-grid [class*="sinosoft-task-query-risk"]{
+        display: block; 
+        height: 91px;  
+    }  
+
+    .div-grid [class*="sinosoft-task-query-product-control"]{
+        display: block; 
+        height: 91px;  
+    } 
+
+    .div-grid [class*="sinosoft-policydealcontent-audit-control"]{
+        display: block; 
+        height: 91px;  
+    } 
+
+    .div-grid [class*="sinosoft-form-control-task-query"]{
+        padding-top: 5px;
+        padding-bottom: 5px;
+        height: 32px;
+    }
+
+    .HandleTextFromControl{
+        font-size: 12px;  
+        height: 82px;
+        width: 100%;
+    }
+
+    .div-grid [class*="sinosoft-policydealcontent-audit-comment-control"]{
+        height: 91px;
+        font-size: 24px;
+    }
+
+    .div-grid [class*="sinosoft-policydealcontent-audit-comment-lable"]{
+        height: 91px;
+    }  
+}
+
+@media screen and (min-width: 993px) and (max-width: 1024px) {
+
+    input[type=checkbox] {
+        zoom:150%;
+    }
+
+    #btnLoginSystem{
+        font-size: 20px;
+    }
+
+    #btnTaskDealQeury
+    {
+        font-size: 20px;
+    }
+
+    #btnProposalDetail{
+        font-size: 20px;
+        width: 120px;
+    }
+
+    #btnReinsInform{
+        width: 180px;
+        font-size: 14px;
+    }
+
+    #btnReinsTrial{
+        width: 120px;
+        font-size: 14px;
+    }
+
+    #btnShowEGroupInfoGPA{
+        width: 120px;
+        font-size: 14px;
+    }
+
+    #btnProposalMessage{width: 120px;font-size: 20px;}    
+
+    #btnProposalRemark{width: 120px;font-size: 20px;}
+
+    #btnProposalClaimHistory{width: 120px;font-size: 20px;}
+
+    #butCancel{width: 120px;font-size: 20px;}
+
+    #btnSubmitJunior{width: 120px;font-size: 20px;}
+    
+    #btnbutViewTranceInfo {width: 160px; font-size: 14px;}
+    
+    #btnViewTranceInfo{width: 160px;font-size: 20px;}
+
+    #btnOpenCover{width: 180px;font-size: 20px;}
+
+    .sinosoft-head {
+        font-size: 30px;    
+        height:46px;
+    }    
+
+    .sinosoft-table-head{
+        font-size: 22px;    
+    }
+
+    .sinosoft-table-body{
+        font-size: 18px; 
+    }
+
+    .div-grid [class*="sinosoft-lable-control"]{
+        padding-top: 2px;
+        padding-bottom: 2px;
+        border-left:none;
+        font-size: 24px;  
+        height: 48px;
+    }
+
+    .div-grid  [class*="lable"]{
+        font-size: 24px;  
+        height: 56px;
+    }
+
+    .div-grid  [class *="sinosoft-lable"]{ 
+        font-size: 18px;
+        padding-top: 4px;
+        padding-bottom: 2px;
+    }
+
+    .div-grid [class*="sinosoft-form-control"]{
+        font-size: 18px;    
+        padding-top: 5px;
+        padding-bottom: 5px;
+        height: 40px;
+    }
+
+    .div-grid [class*="sinosoft-task-query-risk"]{
+        height: 92px;
+    }
+
+    .div-grid [class*="sinosoft-task-query-product-lable"]{
+        height: 92px;
+    }
+
+     .div-grid [class*="sinosoft-policydealcontent-audit-lable"]{
+        height: 92px;
+    }
+
+    .div-grid [class*="sinosoft-task-query-product-control"]{
+        border-bottom:1px solid #ccc;        
+        height: 92px;
+    }
+
+    .sinosoft-task-query-product-control select{
+        font-size: 18px; 
+        height: 82px;
+    }
+
+    .div-grid [class*="sinosoft-policydealcontent-audit-control"]{
+        border-bottom:1px solid #ccc;
+        height: 92px;
+    }
+
+    .div-grid [class*="sinosoft-policydealcontent-audit-lable"]{
+        height: 92px;
+    }
+
+    .div-grid [class*="sinosoft-task-query-status-control"] {
+        height: 152px;
+    }
+
+    .div-grid [class*="sinosoft-task-query-status-lable"] {
+        height: 152px;
+    }
+
+    /*
+    .div-grid .sinosoft-lable-control select {
+        width: 60px;
+    }
+
+    .div-grid .sinosoft-lable-control input[type="text"] {
+        width: 258px;
+    }
+    */
+
+    .sinosoft-task-query-status-control [class*="sinosoft-checkbox-control"] {
+        display:block;
+    }
+    
+    .pagination>li>a {font-size: 24px; width:50px; text-align: center;}
+    
+    #commonnavcontainner nav {
+    	text-align: right;
+        height: 60px;
+    }
+    
+    #commonnavcontainner [class*="hidden-xs"]{        
+        font-size: 24px;
+        padding-top: 10px;
+    }
+
+    #divcommonnav #liNavReturn>a{
+        width: 100px;font-size: 24px;
+    }
+
+    #commonnavcontainner > #divGoTo{
+        display: none!important;
+        width: 0px;
+    }
+
+    #divPageInfo{
+        width: 450px;
+    }
+
+    #divNav{
+         width: 550px;
+    }
+
+    #commonnav>li>a{
+        width: 80px;
+    }    
+
+    .HandleTextFromControl{
+        font-size: 24px;  
+        height: 82px;
+        width: 100%;
+    }
+
+    .div-grid [class*="sinosoft-policydealcontent-audit-comment-control"]{
+        height: 92px;
+        font-size: 24px;
+    }
+
+    .div-grid [class*="sinosoft-policydealcontent-audit-comment-lable"]{
+        height: 92px;
+    }    
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+
+    input[type=checkbox] {
+        zoom:150%;
+    }
+
+    #btnLoginSystem{
+        font-size: 20px;
+    }
+
+    #btnTaskDealQeury
+    {
+        font-size: 20px;
+    }
+
+    #btnProposalDetail{
+        font-size: 20px;
+        width: 120px;
+    }
+
+    #btnReinsInform{
+        width: 180px;
+        font-size: 14px;
+    }
+
+    #btnReinsTrial{
+        width: 120px;
+        font-size: 14px;
+    }
+
+    #btnShowEGroupInfoGPA{
+        width: 120px;
+        font-size: 14px;
+    }
+
+    #btnProposalMessage{width: 120px;font-size: 20px;}    
+
+    #btnProposalRemark{width: 120px;font-size: 20px;}
+
+    #btnProposalClaimHistory{width: 120px;font-size: 20px;}
+
+    #butCancel{width: 120px;font-size: 20px;}
+
+    #btnSubmitJunior{width: 120px;font-size: 20px;}
+    
+    #btnbutViewTranceInfo {width: 160px; font-size: 14px;}
+    
+    #btnViewTranceInfo{width: 160px;font-size: 20px;}
+
+    #btnOpenCover{width: 180px;font-size: 20px;}
+
+    .sinosoft-head {
+        font-size: 32px;    
+        height:46px;
+    }    
+
+    .sinosoft-table-head{
+        font-size: 24px;    
+    }
+
+    .sinosoft-table-body{
+        font-size: 24px; 
+    }
+
+    .div-grid [class*="sinosoft-lable-control"]{
+        padding-top: 2px;
+        padding-bottom: 2px;
+        border-left:none;
+        font-size: 24px;  
+        height: 48px;
+    }
+
+    .div-grid  [class*="lable"]{
+        font-size: 24px;  
+        height: 48px;
+    }
+
+    .div-grid  [class *="sinosoft-lable"]{ 
+        font-size: 24px;
+        padding-top: 4px;
+        padding-bottom: 2px;
+    }
+
+    .div-grid [class*="sinosoft-form-control"]{
+        font-size: 24px;    
+        padding-top: 5px;
+        padding-bottom: 5px;
+        height: 40px;
+    }
+
+    .div-grid [class*="sinosoft-task-query-product-lable"]{
+        height: 134px;
+    }
+
+    .HandleTextFromControl{
+        height: 82px;
+        font-size: 24px;
+    }
+
+    .div-grid [class*="sinosoft-policydealcontent-audit-lable"]{
+        height: 92px;
+    }
+
+    .sinosoft-policydealcontent-audit-comment-control{
+        height: 38px;
+        font-size: 24px;
+    }
+
+    .div-grid [class*="sinosoft-policydealcontent-audit-comment-lable"]{
+        height: 48px;
+    }    
+
+    .div-grid [class*="sinosoft-task-query-product-control"]{
+        border-bottom:1px solid #ccc;
+        height: 134px;
+    }
+   
+    .sinosoft-task-query-product-control>select{
+         font-size: 24px;
+    }
+
+    .div-grid [class*="sinosoft-policydealcontent-audit-control"]{
+        border-bottom:1px solid #ccc;
+        height: 92px;
+    }
+
+    .div-grid [class*="sinosoft-task-query-status-control"] {
+        height: 152px;
+    }
+
+    .div-grid [class*="sinosoft-task-query-status-lable"] {
+        height: 152px;
+    }
+
+    .sinosoft-task-query-status-control [class*="sinosoft-checkbox-control"] {
+        display:block;
+    }
+    
+    .pagination>li>a {font-size: 24px; width:50px; text-align: center;}
+    
+    #commonnavcontainner nav {
+        text-align: right;
+        height: 60px;
+    }
+    
+    #commonnavcontainner [class*="hidden-xs"]{        
+        font-size: 24px;
+        padding-top: 10px;
+    }
+   
+    #divPageInfo{
+        width: 380px;
+    }
+
+    #divNav{
+         width: 418px;
+    }
+
+    #commonnav>li>a{
+        width: 65px;
+    }
+
+    #commonnav>#liNavReturn>a{
+        width: 80px;
+    }   
+
+}
+
+@media screen and (max-width: 767px) {
+    
+    input[type=checkbox] {
+        zoom:200%;
+    }
+
+    .sinosoft-head {
+        font-size: 28px;    
+        height: 52px;
+        padding-top: 8px;
+    }
+
+    .sinosoft-table-head{
+        font-size: 24px;    
+        height: 52px;
+        padding-top: 10px;  
+    }
+
+    .sinosoft-table-body{
+        font-size: 20px; 
+    }
+
+    .div-grid{  
+        margin: 5px;        
+        border-left:1px solid #ccc;
+    }
+
+
+    .div-grid [class *="col-"]{
+        font-size: 24px;          
+    }
+
+    .div-grid  [class*="lable"]{
+        text-align: left;
+        font-weight: bold;
+        background: #eee;
+        border-left:0px solid #ccc;
+    }
+
+    .div-grid [class*="sinosoft-lable-value"]{
+        background: #fff;
+    }
+
+    .div-grid [class*="sinosoft-lable-control"]{
+        background: #fff;
+    }    
+
+    .div-grid [class="sinosoft-lable"]{
+        font-size: 24px;  
+        height: 54px;
+    }
+    
+    .div-grid [class*="sinosoft-form-control"]{
+        font-size: 24px;  
+        height: 46px;
+    }  
+
+    .div-grid [class*="sinosoft-lable-control"]{
+        padding-top: 4px;
+        padding-bottom: 4px;
+        background: #fff;
+        font-weight: normal;
+        border-left:none;
+    }     
+
+    .div-grid [class*="sinosoft-task-query-product-lable"]{
+        height: 54px;
+    }     
+    
+    .div-grid [class*="sinosoft-policydealcontent-audit-lable"]{
+        height: 54px;
+    }        
+
+    .sinosoft-task-query-risk{
+        height: 54px;
+    }
+
+    .sinosoft-lable-control [class*="sinosoft-checkbox-control"] {
+        width: 290px;
+        display:block;
+    }
+
+    #btnLoginSystem{
+        width: 310px;
+        font-size: 24px;
+    }
+
+    #btnTaskDealQeury
+    {
+        width: 294px;
+        font-size: 24px;
+    }
+
+    #btnProposalDetail{
+        width: 100%;
+        font-size: 24px;
+    }
+
+    #btnReinsInform{
+        width: 100%;
+        font-size: 24px;
+    }
+
+    #btnReinsTrial{
+        width: 100%;
+        font-size: 24px;
+    }    
+
+    #btnShowEGroupInfoGPA{
+        width: 100%;
+        font-size: 24px;
+    }    
+
+    #btnProposalMessage{width: 100%;font-size: 24px;}    
+
+    #btnProposalRemark{width: 100%;font-size: 24px;}
+
+    #btnProposalClaimHistory{width: 100%;font-size: 24px;}
+
+    #butCancel{width: 100%;font-size: 24px;}
+
+    #btnSubmitJunior{width: 100%; font-size: 24px;}
+
+    #btnbutViewTranceInfo {width: 100%; font-size: 24px;}
+    
+    #divProposalRelationButton{  text-align: center; padding-left: 5px;padding-right: 5px;}
+    
+    #divReinsButton{ text-align: center; padding-left: 5px;padding-right: 5px;}
+    
+    #divViewTraceInfo{  text-align: center; padding-left: 5px;padding-right: 5px;}
+
+    #divCommonButtonBar{  text-align: center; padding-left: 5px;padding-right: 5px;}
+    
+    #btnViewTranceInfo{width: 100%; font-size: 24px;}
+
+    #btnOpenCover{width: 100%; font-size: 24px;}
+    
+    .div-grid [class*="sinosoft-form-control"]{
+        font-size: 24px;  
+        height: 46px;
+    }  
+
+    #divPageInfo{
+        width: 0px;
+    }
+
+    #divGoTo{
+        width: 0px;
+    }
+
+    #commonnavcontainner{
+        margin-left: 0px;
+        margin-right: 0px; 
+    }
+    
+    #divNav{
+        width: 100%;
+        padding-right:0px;
+        padding-left:0px;
+        margin: 0 auto;
+    }  
+
+    #commonnav>li>a{
+        width: 48px;
+        font-size: 20px;  
+        text-align: center;
+    }
+
+    #commonnav>#liNavReturn>a{
+        width: 65px;
+    }
+
+    .HandleTextFromControl{
+        font-size: 24px;  
+        width: 100%;
+        height: 120px;
+    }
+
+    .sinosoft-task-query-product-control select{
+        font-size: 24px; 
+    }
+}
+

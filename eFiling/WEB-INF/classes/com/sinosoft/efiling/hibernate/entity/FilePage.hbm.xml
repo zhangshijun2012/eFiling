@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-4-25 20:00:27 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="com.sinosoft.efiling.hibernate.entity.FilePage" table="T_F_FILE_PAGE">
+        <comment>&#181;&#181;&#176;&#184;&#210;&#179;&#194;&#235;&#208;&#197;&#207;&#162;&#177;&#237;</comment>
+        <id name="id" type="string">
+            <column name="ID" length="50" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="file" class="com.sinosoft.efiling.hibernate.entity.File" fetch="select">
+            <column name="FILE_ID" length="32" not-null="true" />
+        </many-to-one>
+        <property name="pageIndex" type="int">
+            <column name="PAGE_INDEX" precision="5" scale="0" not-null="true" />
+        </property>
+        <property name="fileSize" type="int">
+            <column name="FILE_SIZE" precision="10" scale="0" not-null="true" />
+        </property>
+        <property name="fileName" type="string">
+            <column name="FILE_NAME" length="250" not-null="true" />
+        </property>
+        <property name="lent" type="string">
+            <column name="LENT" length="1" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,180 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-9-7 14:02:53 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.sinosoft.efiling.hibernate.entity.Prptcarshiptax" table="PRPTCARSHIPTAX">
+        <id name="proposalno" type="string">
+            <column name="PROPOSALNO" length="22" />
+            <generator class="assigned" />
+        </id>
+        <property name="serialno" type="long">
+            <column name="SERIALNO" precision="15" scale="0" not-null="true">
+            </column>
+        </property>
+        <property name="riskcode" type="string">
+            <column name="RISKCODE" length="4" not-null="true">
+            </column>
+        </property>
+        <property name="taxtermtypecode" type="string">
+            <column name="TAXTERMTYPECODE" length="2">
+            </column>
+        </property>
+        <property name="taxconditioncode" type="string">
+            <column name="TAXCONDITIONCODE" length="1">
+            </column>
+        </property>
+        <property name="taxregistrynumber" type="string">
+            <column name="TAXREGISTRYNUMBER" length="22">
+            </column>
+        </property>
+        <property name="taxpayername" type="string">
+            <column name="TAXPAYERNAME" length="120">
+            </column>
+        </property>
+        <property name="taxpayeridentificationcode" type="string">
+            <column name="TAXPAYERIDENTIFICATIONCODE" length="22">
+            </column>
+        </property>
+        <property name="declaredate" type="date">
+            <column name="DECLAREDATE" length="7">
+            </column>
+        </property>
+        <property name="declareStatusIa" type="string">
+            <column name="DECLARE_STATUS_IA" length="1">
+            </column>
+        </property>
+        <property name="calcTaxFlag" type="string">
+            <column name="CALC_TAX_FLAG" length="1">
+            </column>
+        </property>
+        <property name="taxamountFlag" type="string">
+            <column name="TAXAMOUNT_FLAG" length="1">
+            </column>
+        </property>
+        <property name="annualtaxdue" type="big_decimal">
+            <column name="ANNUALTAXDUE" precision="14">
+            </column>
+        </property>
+        <property name="sumtaxdefault" type="big_decimal">
+            <column name="SUMTAXDEFAULT" precision="14">
+            </column>
+        </property>
+        <property name="sumoverdue" type="big_decimal">
+            <column name="SUMOVERDUE" precision="14">
+            </column>
+        </property>
+        <property name="sumtax" type="big_decimal">
+            <column name="SUMTAX" precision="14">
+            </column>
+        </property>
+        <property name="deductionduecode" type="string">
+            <column name="DEDUCTIONDUECODE" length="1">
+            </column>
+        </property>
+        <property name="deductiontype" type="string">
+            <column name="DEDUCTIONTYPE" length="1">
+            </column>
+        </property>
+        <property name="deductionrate" type="big_decimal">
+            <column name="DEDUCTIONRATE" precision="14">
+            </column>
+        </property>
+        <property name="deduction" type="big_decimal">
+            <column name="DEDUCTION" precision="14">
+            </column>
+        </property>
+        <property name="deductiondocumentnumber" type="string">
+            <column name="DEDUCTIONDOCUMENTNUMBER" length="30">
+            </column>
+        </property>
+        <property name="taxdepartmentcode" type="string">
+            <column name="TAXDEPARTMENTCODE" length="11">
+            </column>
+        </property>
+        <property name="taxdepartment" type="string">
+            <column name="TAXDEPARTMENT" length="100">
+            </column>
+        </property>
+        <property name="taxdocumentnumber" type="string">
+            <column name="TAXDOCUMENTNUMBER" length="30">
+            </column>
+        </property>
+        <property name="taxlocationcode" type="string">
+            <column name="TAXLOCATIONCODE" length="6">
+            </column>
+        </property>
+        <property name="taxstartdate" type="date">
+            <column name="TAXSTARTDATE" length="7">
+            </column>
+        </property>
+        <property name="taxenddate" type="date">
+            <column name="TAXENDDATE" length="7">
+            </column>
+        </property>
+        <property name="taxunittypecode" type="string">
+            <column name="TAXUNITTYPECODE" length="1">
+            </column>
+        </property>
+        <property name="unitrate" type="big_decimal">
+            <column name="UNITRATE" precision="14">
+            </column>
+        </property>
+        <property name="annualtaxamount" type="big_decimal">
+            <column name="ANNUALTAXAMOUNT" precision="14">
+            </column>
+        </property>
+        <property name="taxdue" type="big_decimal">
+            <column name="TAXDUE" precision="14">
+            </column>
+        </property>
+        <property name="exceeddate" type="date">
+            <column name="EXCEEDDATE" length="7">
+            </column>
+        </property>
+        <property name="exceeddayscount" type="java.lang.Integer">
+            <column name="EXCEEDDAYSCOUNT" precision="5" scale="0">
+            </column>
+        </property>
+        <property name="overdue" type="big_decimal">
+            <column name="OVERDUE" precision="14">
+            </column>
+        </property>
+        <property name="totalamount" type="big_decimal">
+            <column name="TOTALAMOUNT" precision="14">
+            </column>
+        </property>
+        <property name="calculatemode" type="string">
+            <column name="CALCULATEMODE" length="2">
+            </column>
+        </property>
+        <property name="finalflag" type="string">
+            <column name="FINALFLAG" length="1">
+            </column>
+        </property>
+        <property name="flag" type="string">
+            <column name="FLAG" length="10">
+            </column>
+        </property>
+        <property name="proxytaxdone" type="string">
+            <column name="PROXYTAXDONE" length="4">
+            </column>
+        </property>
+        <property name="tax1startdate" type="date">
+            <column name="TAX1STARTDATE" length="7">
+            </column>
+        </property>
+        <property name="tax1enddate" type="date">
+            <column name="TAX1ENDDATE" length="7">
+            </column>
+        </property>
+        <property name="tax1due" type="big_decimal">
+            <column name="TAX1DUE" precision="14">
+            </column>
+        </property>
+        <property name="total1amount" type="big_decimal">
+            <column name="TOTAL1AMOUNT" precision="14">
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

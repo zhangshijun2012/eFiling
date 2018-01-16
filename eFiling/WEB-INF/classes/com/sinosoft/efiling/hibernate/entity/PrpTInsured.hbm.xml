@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-7-1 18:58:05 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="com.sinosoft.efiling.hibernate.entity.PrpTInsured" table="PRPTINSURED">
+        <composite-id name="id" class="com.sinosoft.efiling.hibernate.entity.PrpTInsuredId">
+            <key-property name="proposalno" type="string">
+                <column name="PROPOSALNO" length="22" />
+            </key-property>
+            <key-property name="serialno" type="java.lang.Double">
+                <column name="SERIALNO" precision="15" scale="0" />
+            </key-property>
+        </composite-id>
+        <property name="riskCode" type="string">
+            <column name="RISKCODE" length="4" not-null="true" />
+        </property>
+        <property name="language" type="string">
+            <column name="LANGUAGE" length="1" />
+        </property>
+        <property name="insuredType" type="string">
+            <column name="INSUREDTYPE" length="1" />
+        </property>
+        <property name="insuredCode" type="string">
+            <column name="INSUREDCODE" length="20" />
+        </property>
+        <property name="insuredName" type="string">
+            <column name="INSUREDNAME" length="400" />
+        </property>
+        <property name="insuredAddress" type="string">
+            <column name="INSUREDADDRESS" length="300" />
+        </property>
+        <property name="insurednature" type="string">
+            <column name="INSUREDNATURE" length="12" />
+        </property>
+        <property name="insuredFlag" type="string">
+            <column name="INSUREDFLAG" length="2" />
+        </property>
+        <property name="insuredidentity" type="string">
+            <column name="INSUREDIDENTITY" length="2" />
+        </property>
+        <property name="relateserialno" type="java.lang.Double">
+            <column name="RELATESERIALNO" precision="15" scale="0" />
+        </property>
+        <property name="identifyType" type="string">
+            <column name="IDENTIFYTYPE" length="2" />
+        </property>
+        <property name="identifyNumber" type="string">
+            <column name="IDENTIFYNUMBER" length="50" />
+        </property>
+        <property name="creditLevel" type="string">
+            <column name="CREDITLEVEL" length="1" />
+        </property>
+        <property name="possessnature" type="string">
+            <column name="POSSESSNATURE" length="4" />
+        </property>
+        <property name="businesssource" type="string">
+            <column name="BUSINESSSOURCE" length="80" />
+        </property>
+        <property name="businesssort" type="string">
+            <column name="BUSINESSSORT" length="4" />
+        </property>
+        <property name="occupationCode" type="string">
+            <column name="OCCUPATIONCODE" length="27" />
+        </property>
+        <property name="educationCode" type="string">
+            <column name="EDUCATIONCODE" length="4" />
+        </property>
+        <property name="bank" type="string">
+            <column name="BANK" length="150" />
+        </property>
+        <property name="accountName" type="string">
+            <column name="ACCOUNTNAME" length="150" />
+        </property>
+        <property name="account" type="string">
+            <column name="ACCOUNT" length="50" />
+        </property>
+        <property name="linkerName" type="string">
+            <column name="LINKERNAME" length="120" />
+        </property>
+        <property name="postAddress" type="string">
+            <column name="POSTADDRESS" length="300" />
+        </property>
+        <property name="postCode" type="string">
+            <column name="POSTCODE" length="6" />
+        </property>
+        <property name="phoneNumber" type="string">
+            <column name="PHONENUMBER" length="300" />
+        </property>
+        <property name="mobile" type="string">
+            <column name="MOBILE" length="15" />
+        </property>
+        <property name="email" type="string">
+            <column name="EMAIL" length="300" />
+        </property>
+        <property name="benefitFlag" type="string">
+            <column name="BENEFITFLAG" length="1" />
+        </property>
+        <property name="benefitrate" type="java.lang.Double">
+            <column name="BENEFITRATE" precision="5" />
+        </property>
+        <property name="flag" type="string">
+            <column name="FLAG" length="2" />
+        </property>
+        <property name="occupationgrade" type="string">
+            <column name="OCCUPATIONGRADE" length="1" />
+        </property>
+        <property name="waysofPayment" type="string">
+            <column name="WAYSOFPAYMENT" length="1" />
+        </property>
+        <property name="mainidentifyNumber" type="string">
+            <column name="MAINIDENTIFYNUMBER" length="20" />
+        </property>
+        <property name="planno" type="string">
+            <column name="PLANNO" length="8" />
+        </property>
+        <property name="planCode" type="string">
+            <column name="PLANCODE" length="15" />
+        </property>
+        <property name="planName" type="string">
+            <column name="PLANNAME" length="120" />
+        </property>
+        <property name="benefType" type="string">
+            <column name="BENEFTYPE" length="2" />
+        </property>
+        <property name="blackstate" type="string">
+            <column name="BLACKSTATE" length="2" />
+        </property>
+        <property name="benefserialno" type="java.lang.Double">
+            <column name="BENEFSERIALNO" precision="15" scale="0" />
+        </property>
+        <property name="proposalshare" type="string">
+            <column name="PROPOSALSHARE" length="3" />
+        </property>
+        <property name="mainidentifyType" type="string">
+            <column name="MAINIDENTIFYTYPE" length="2" />
+        </property>
+        <property name="payeEName" type="string">
+            <column name="PAYEENAME" length="100" />
+        </property>
+        <property name="payeeidentifyNumber" type="string">
+            <column name="PAYEEIDENTIFYNUMBER" length="20" />
+        </property>
+        <property name="refundreason" type="string">
+            <column name="REFUNDREASON" length="100" />
+        </property>
+        <property name="address1" type="string">
+            <column name="ADDRESS1" length="6" />
+        </property>
+        <property name="address2" type="string">
+            <column name="ADDRESS2" length="6" />
+        </property>
+        <property name="address3" type="string">
+            <column name="ADDRESS3" length="6" />
+        </property>
+        <property name="address4" type="string">
+            <column name="ADDRESS4" />
+        </property>
+        <property name="paymentmethord" type="string">
+            <column name="PAYMENTMETHORD" length="2" />
+        </property>
+        <property name="socialsecurityno" type="string">
+            <column name="SOCIALSECURITYNO" length="50" />
+        </property>
+        <property name="specificbusiness" type="string">
+            <column name="SPECIFICBUSINESS" length="1" />
+        </property>
+        <property name="specificbusinessCode" type="string">
+            <column name="SPECIFICBUSINESSCODE" length="5" />
+        </property>
+        <property name="servicemark" type="string">
+            <column name="SERVICEMARK" length="2" />
+        </property>
+        <property name="occupationLevel" type="string">
+            <column name="OCCUPATIONLEVEL" length="2" />
+        </property>
+        <property name="receiver" type="string">
+            <column name="RECEIVER" length="2" />
+        </property>
+        <property name="branchaccount" type="string">
+            <column name="BRANCHACCOUNT" length="1024" />
+        </property>
+        <property name="industry" type="string">
+            <column name="INDUSTRY" length="4" />
+        </property>
+    </class>
+</hibernate-mapping>

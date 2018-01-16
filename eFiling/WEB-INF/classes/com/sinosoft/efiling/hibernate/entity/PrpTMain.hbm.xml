@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-7-1 18:58:05 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="com.sinosoft.efiling.hibernate.entity.PrpTMain" table="PRPTMAIN">
+        <comment>&#205;&#182;&#177;&#163;&#181;&#165;&#187;&#249;&#177;&#190;&#208;&#197;&#207;&#162;&#177;&#237;</comment>
+        <id name="id" type="string">
+            <column name="PROPOSALNO" length="22" />
+            <generator class="assigned" />
+        </id>
+        <property name="classCode" type="string">
+            <column name="CLASSCODE" length="3" not-null="true" />
+        </property>
+        <property name="riskCode" type="string">
+            <column name="RISKCODE" length="4" not-null="true" />
+        </property>
+        <property name="contractno" type="string">
+            <column name="CONTRACTNO" length="24" />
+        </property>
+        <property name="policysort" type="string">
+            <column name="POLICYSORT" length="1" />
+        </property>
+        <property name="printno" type="string">
+            <column name="PRINTNO" length="22" />
+        </property>
+        <property name="businessnature" type="string">
+            <column name="BUSINESSNATURE" length="1" not-null="true" />
+        </property>
+        <property name="language" type="string">
+            <column name="LANGUAGE" length="1" />
+        </property>
+        <property name="policyType" type="string">
+            <column name="POLICYTYPE" length="2" />
+        </property>
+        <property name="appliCode" type="string">
+            <column name="APPLICODE" length="20" />
+        </property>
+        <property name="appliName" type="string">
+            <column name="APPLINAME" length="400" />
+        </property>
+        <property name="appliAddress" type="string">
+            <column name="APPLIADDRESS" />
+        </property>
+        <property name="insuredCode" type="string">
+            <column name="INSUREDCODE" length="20" />
+        </property>
+        <property name="insuredName" type="string">
+            <column name="INSUREDNAME" length="400" />
+        </property>
+        <property name="insuredAddress" type="string">
+            <column name="INSUREDADDRESS" />
+        </property>
+        <property name="operateDate" type="timestamp">
+            <column name="OPERATEDATE" length="7" />
+        </property>
+        <property name="startDate" type="timestamp">
+            <column name="STARTDATE" length="7" />
+        </property>
+        <property name="starthour" type="java.lang.Double">
+            <column name="STARTHOUR" precision="15" scale="0" />
+        </property>
+        <property name="endDate" type="timestamp">
+            <column name="ENDDATE" length="7" />
+        </property>
+        <property name="endhour" type="java.lang.Double">
+            <column name="ENDHOUR" precision="15" scale="0" />
+        </property>
+        <property name="purerate" type="java.lang.Double">
+            <column name="PURERATE" precision="8" scale="4" />
+        </property>
+        <property name="disrate" type="java.lang.Double">
+            <column name="DISRATE" precision="8" scale="4" />
+        </property>
+        <property name="discount" type="java.lang.Double">
+            <column name="DISCOUNT" precision="12" scale="8" />
+        </property>
+        <property name="currency" type="string">
+            <column name="CURRENCY" length="3" />
+        </property>
+        <property name="sumValue" type="java.lang.Double">
+            <column name="SUMVALUE" precision="14" />
+        </property>
+        <property name="sumamount" type="java.lang.Double">
+            <column name="SUMAMOUNT" precision="14" />
+        </property>
+        <property name="sumdiscount" type="java.lang.Double">
+            <column name="SUMDISCOUNT" precision="14" />
+        </property>
+        <property name="sumpremium" type="java.lang.Double">
+            <column name="SUMPREMIUM" precision="14" />
+        </property>
+        <property name="sumsubprem" type="java.lang.Double">
+            <column name="SUMSUBPREM" precision="14" />
+        </property>
+        <property name="sumquantity" type="java.lang.Double">
+            <column name="SUMQUANTITY" precision="15" scale="0" />
+        </property>
+        <property name="judicalCode" type="string">
+            <column name="JUDICALCODE" length="1" />
+        </property>
+        <property name="judicalscope" type="string">
+            <column name="JUDICALSCOPE" />
+        </property>
+        <property name="autotransrenewFlag" type="string">
+            <column name="AUTOTRANSRENEWFLAG" length="1" />
+        </property>
+        <property name="arguesolution" type="string">
+            <column name="ARGUESOLUTION" length="1" />
+        </property>
+        <property name="arbitboardName" type="string">
+            <column name="ARBITBOARDNAME" length="60" />
+        </property>
+        <property name="paytimes" type="java.lang.Double">
+            <column name="PAYTIMES" precision="15" scale="0" />
+        </property>
+        <property name="endorsetimes" type="java.lang.Double">
+            <column name="ENDORSETIMES" precision="15" scale="0" />
+        </property>
+        <property name="claimtimes" type="java.lang.Double">
+            <column name="CLAIMTIMES" precision="15" scale="0" />
+        </property>
+        <property name="makeCom" type="string">
+            <column name="MAKECOM" length="8" not-null="true" />
+        </property>
+        <property name="operatesite" type="string">
+            <column name="OPERATESITE" length="40" />
+        </property>
+        <property name="comCode" type="string">
+            <column name="COMCODE" length="8" not-null="true" />
+        </property>
+        <property name="handlerCode" type="string">
+            <column name="HANDLERCODE" length="14" not-null="true" />
+        </property>
+        <property name="handler1Code" type="string">
+            <column name="HANDLER1CODE" length="10" />
+        </property>
+        <property name="approverCode" type="string">
+            <column name="APPROVERCODE" length="10" />
+        </property>
+        <property name="underwriteCode" type="string">
+            <column name="UNDERWRITECODE" length="10" />
+        </property>
+        <property name="underwritEName" type="string">
+            <column name="UNDERWRITENAME" length="120" />
+        </property>
+        <property name="operatorCode" type="string">
+            <column name="OPERATORCODE" length="10" not-null="true" />
+        </property>
+        <property name="inputDate" type="timestamp">
+            <column name="INPUTDATE" length="7" />
+        </property>
+        <property name="inputhour" type="java.lang.Double">
+            <column name="INPUTHOUR" precision="15" scale="0" />
+        </property>
+        <property name="underwriteendDate" type="timestamp">
+            <column name="UNDERWRITEENDDATE" length="7" />
+        </property>
+        <property name="statisticsym" type="timestamp">
+            <column name="STATISTICSYM" length="7" />
+        </property>
+        <property name="agentCode" type="string">
+            <column name="AGENTCODE" length="13" />
+        </property>
+        <property name="coinsFlag" type="string">
+            <column name="COINSFLAG" length="1" />
+        </property>
+        <property name="reinsFlag" type="string">
+            <column name="REINSFLAG" length="1" />
+        </property>
+        <property name="allinsFlag" type="string">
+            <column name="ALLINSFLAG" length="1" />
+        </property>
+        <property name="underwriteFlag" type="string">
+            <column name="UNDERWRITEFLAG" length="1" />
+        </property>
+        <property name="othFlag" type="string">
+            <column name="OTHFLAG" length="23" />
+        </property>
+        <property name="flag" type="string">
+            <column name="FLAG" length="10" />
+        </property>
+        <property name="disrate1" type="java.lang.Double">
+            <column name="DISRATE1" precision="8" scale="4" />
+        </property>
+        <property name="businessFlag" type="string">
+            <column name="BUSINESSFLAG" length="1" />
+        </property>
+        <property name="updaterCode" type="string">
+            <column name="UPDATERCODE" length="10" />
+        </property>
+        <property name="updateDate" type="timestamp">
+            <column name="UPDATEDATE" length="7" />
+        </property>
+        <property name="updatehour" type="string">
+            <column name="UPDATEHOUR" length="8" />
+        </property>
+        <property name="signDate" type="timestamp">
+            <column name="SIGNDATE" length="7" />
+        </property>
+        <property name="shareholderFlag" type="string">
+            <column name="SHAREHOLDERFLAG" length="1" />
+        </property>
+        <property name="agreementNo" type="string">
+            <column name="AGREEMENTNO" length="22" />
+        </property>
+        <property name="inquiryno" type="string">
+            <column name="INQUIRYNO" length="22" />
+        </property>
+        <property name="paymode" type="string">
+            <column name="PAYMODE" length="1" />
+        </property>
+        <property name="remark" type="string">
+            <column name="REMARK" />
+        </property>
+        <property name="policyno" type="string">
+            <column name="POLICYNO" length="22" />
+        </property>
+        <property name="visaCode" type="string">
+            <column name="VISACODE" length="20" />
+        </property>
+        <property name="manualType" type="string">
+            <column name="MANUALTYPE" length="1" />
+        </property>
+        <property name="startminute" type="java.lang.Double">
+            <column name="STARTMINUTE" precision="2" scale="0" />
+        </property>
+        <property name="endminute" type="java.lang.Double">
+            <column name="ENDMINUTE" precision="2" scale="0" />
+        </property>
+        <property name="nationFlag" type="string">
+            <column name="NATIONFLAG" length="5" />
+        </property>
+        <property name="papolicyno" type="string">
+            <column name="PAPOLICYNO" length="1000" />
+        </property>
+        <property name="businessType" type="string">
+            <column name="BUSINESSTYPE" length="30" />
+        </property>
+        <property name="businessType1" type="string">
+            <column name="BUSINESSTYPE1" length="30" />
+        </property>
+        <property name="originpolicyno" type="string">
+            <column name="ORIGINPOLICYNO" length="30" />
+        </property>
+        <property name="conveyFlag" type="string">
+            <column name="CONVEYFLAG" length="2" />
+        </property>
+        <property name="riskmark" type="string">
+            <column name="RISKMARK" length="20" />
+        </property>
+        <property name="uwapprovalno" type="string">
+            <column name="UWAPPROVALNO" length="11" />
+        </property>
+        <property name="custconnFlag" type="string">
+            <column name="CUSTCONNFLAG" length="1" />
+        </property>
+        <property name="prepaidrate" type="java.lang.Double">
+            <column name="PREPAIDRATE" precision="8" scale="4" />
+        </property>
+        <property name="sumestimatedpremium" type="java.lang.Double">
+            <column name="SUMESTIMATEDPREMIUM" precision="14" />
+        </property>
+        <property name="lowestpremium" type="java.lang.Double">
+            <column name="LOWESTPREMIUM" precision="14" />
+        </property>
+        <property name="sumestimatedamount" type="java.lang.Double">
+            <column name="SUMESTIMATEDAMOUNT" precision="14" />
+        </property>
+        <property name="openpolicyFlag" type="string">
+            <column name="OPENPOLICYFLAG" length="1" />
+        </property>
+        <property name="currency1" type="string">
+            <column name="CURRENCY1" length="3" />
+        </property>
+        <property name="groupbusinessFlag" type="string">
+            <column name="GROUPBUSINESSFLAG" length="1" />
+        </property>
+        <property name="groupbusinessCode" type="string">
+            <column name="GROUPBUSINESSCODE" length="2" />
+        </property>
+        <property name="tradingautosFlag" type="string">
+            <column name="TRADINGAUTOSFLAG" length="1" />
+        </property>
+        <property name="affinityCode" type="string">
+            <column name="AFFINITYCODE" length="8" />
+        </property>
+        <property name="affinityName" type="string">
+            <column name="AFFINITYNAME" length="50" />
+        </property>
+        <property name="surveyFlag" type="string">
+            <column name="SURVEYFLAG" length="1" />
+        </property>
+        <property name="agentName" type="string">
+            <column name="AGENTNAME" />
+        </property>
+        <property name="agreementName" type="string">
+            <column name="AGREEMENTNAME" />
+        </property>
+        <property name="anonymityFlag" type="string">
+            <column name="ANONYMITYFLAG" length="2" />
+        </property>
+        <property name="planexchangerate" type="java.lang.Double">
+            <column name="PLANEXCHANGERATE" precision="8" scale="5" />
+        </property>
+        <property name="riskversion" type="string">
+            <column name="RISKVERSION" length="50" />
+        </property>
+        <property name="comSign" type="string">
+            <column name="COMSIGN" length="3" />
+        </property>
+        <property name="discountlimit" type="string">
+            <column name="DISCOUNTLIMIT" length="10" />
+        </property>
+        <property name="addinputFlag" type="string">
+            <column name="ADDINPUTFLAG" length="1" />
+        </property>
+        <property name="policynatureFlag" type="string">
+            <column name="POLICYNATUREFLAG" length="1" />
+        </property>
+        <property name="clientType" type="string">
+            <column name="CLIENTTYPE" length="1" />
+        </property>
+        <property name="handlerName" type="string">
+            <column name="HANDLERNAME" length="60" />
+        </property>
+        <property name="agentlosration" type="java.lang.Double">
+            <column name="AGENTLOSRATION" precision="3" />
+        </property>
+        <property name="enforceonly" type="string">
+            <column name="ENFORCEONLY" length="1" />
+        </property>
+        <property name="salerNumber" type="string">
+            <column name="SALERNUMBER" length="100" />
+        </property>
+        <property name="salerName" type="string">
+            <column name="SALERNAME" />
+        </property>
+        <property name="firstendorseDate" type="timestamp">
+            <column name="FIRSTENDORSEDATE" length="7" />
+        </property>
+        <property name="firstuwendorseDate" type="timestamp">
+            <column name="FIRSTUWENDORSEDATE" length="7" />
+        </property>
+        <property name="polisource" type="string">
+            <column name="POLISOURCE" length="10" />
+        </property>
+        <property name="totalloss" type="string">
+            <column name="TOTALLOSS" length="1" />
+        </property>
+        <property name="firstrecordDate" type="timestamp">
+            <column name="FIRSTRECORDDATE" length="7" />
+        </property>
+        <property name="firstunderwriteDate" type="timestamp">
+            <column name="FIRSTUNDERWRITEDATE" length="7" />
+        </property>
+        <property name="deliverymode" type="string">
+            <column name="DELIVERYMODE" length="10" />
+        </property>
+        <property name="ecardType" type="string">
+            <column name="ECARDTYPE" length="10" />
+        </property>
+        <property name="websource" type="string">
+            <column name="WEBSOURCE" length="10" />
+        </property>
+        <property name="settleFlag" type="string">
+            <column name="SETTLEFLAG" length="1" />
+        </property>
+        <property name="carTypeCode" type="string">
+            <column name="CARTYPECODE" length="6" />
+        </property>
+        <property name="carinsuranceType" type="string">
+            <column name="CARINSURANCETYPE" length="3" />
+        </property>
+        <!-- 
+        <property name="specialRisk" type="string">
+            <column name="SPECIALRISK" length="1" />
+        </property>
+         -->
+    </class>
+</hibernate-mapping>

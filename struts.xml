@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+	
+<struts>
+	<!-- 注意package中namespace属性，如果有这必须以/开头，且最后的/不能有,如：/path1/path2；如果为path1/path2/或/path1/path2/则无法找到 -->
+	<!-- 适用自定义的文件上传 -->
+	<!-- <bean type="org.apache.struts2.dispatcher.multipart.MultiPartRequest" name="multiPartRequestSupport"
+			class="com.sinosoft.util.struts2.MultiPartRequestSupport" scope="default" optional="true" />
+    <constant name="struts.multipart.handler" value="multiPartRequestSupport" /> -->
+    
+	<!-- 定义一个全局的包,以便覆盖struts-default.此是所有包的父对象 -->
+	<package name="struts-global" abstract="true" extends="struts-default">
+		<interceptors>
+			<interceptor name="createEntityIntercepter" class="com.sinosoft.util.struts2.intercepter.CreateEntityIntercepter" />
+			<interceptor-stack name="globalStack">
+				<interceptor-ref name="createEntityIntercepter">
+					<!-- 对于保存的方法,需要在注入参数前先创建entity对象 -->
+					<param name="includeMethods">save, update, upload, copy*, save*, update*, delete*, remove*, *</param>
+				</interceptor-ref>
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="globalStack" />
+	
+		<global-results>
+			<result name="error">/error.jsp</result>
+			<result name="errorHTML">/errorHTML.jsp</result>
+			<result name="input">/error.jsp</result>
+			<result name="login">/main.jsp</result>
+			<result name="logout">/logout.html</result>
+			<result name="list">/list.jsp</result>
+			<result name="tree">/tree.jsp</result>
+			<result name="index">index.jsp</result>
+			
+			<result name="append">edit.jsp</result>
+			<result name="view">view.jsp</result>
+			<result name="edit">edit.jsp</result>
+			<result name="query">/list.jsp</result>
+		</global-results>
+	</package>
+		
+	<package name="defaultNamespace" extends="struts-global">
+		<!-- 查询当前的资源文件信息 -->
+		<action name="index" class="userAction" method="index">
+			<result name="index">/main.jsp</result>
+		</action>
+		 
+		<!-- 查询所有可切换的登录机构 -->
+		<action name="queryCompanies" class="userAction" method="queryCompanies"></action>
+		<!-- 登录,选择了登录机构后提交的地址 -->
+		<action name="login" class="userAction" method="login"></action>
+		<!-- 登出 -->
+		<action name="logout" class="userAction" method="logout"></action>
+		<!-- 加载菜单 -->
+		<action name="loadMenus" class="userAction" method="loadMenus">
+			<result name="success">/menu.jsp</result>
+		</action>
+		<!-- 查询用户信息 -->
+		<action name="user" class="userAction" method="view"></action>
+		
+		<!-- 查询当前的资源文件信息 -->
+		<action name="getResources" class="userAction" method="getResources"></action>
+
+		<!-- 跨域读取html内容的地址 -->
+		<action name="get" class="httpReaderAction" method="get"></action>
+		<action name="post" class="httpReaderAction" method="post"></action>
+		
+		<action name="timer" class="timerAction" method="run"></action>
+	</package>
+	
+	<!-- 定时任务 -->
+	<package name="documentTimer" namespace="/file/timer" extends="struts-global">
+		<action name="run" class="timerAction" method="run"></action>
+	</package>
+	
+	<!--档案处理-->
+	<package name="file" namespace="/file" extends="struts-global">		
+		<action name="view" class="documentAction" method="view"></action>
+		<!-- 通过打开窗口进行查看 -->
+		<action name="viewFile" class="documentAction" method="viewOpen">
+			<result name="success">open.jsp</result>
+		</action>
+		<action name="open" class="documentAction" method="viewOpen">
+			<result name="success">open.jsp</result>
+		</action>
+		<!-- 查看影像文件 -->
+		<action name="viewImages" class="documentAction" method="viewImages">
+			<result name="success">images.jsp</result>
+		</action>
+		
+		<action name="index" class="fileManagerAction" method="index"></action>
+		<action name="read" class="fileManagerAction" method="read"></action>
+		<action name="check" class="fileManagerAction" method="check"></action>
+		<action name="query" class="fileManagerAction" method="query"></action>
+		<action name="save" class="fileManagerAction" method="save"></action>
+		
+		<action name="imp" class="fileScanAction" method="imp"></action>
+		
+	</package>
+	
+	
+	<!--档案处理-->
+	<package name="fileManager" namespace="/file/manage" extends="struts-global">
+		<action name="index" class="fileManagerAction" method="index"></action>
+		<action name="read" class="fileManagerAction" method="read"></action>
+		<action name="check" class="fileManagerAction" method="check"></action>
+		<action name="view" class="fileManagerAction" method="view"></action>
+		<action name="share" class="fileManagerAction" method="share"></action>
+		<action name="shareView" class="fileManagerAction" method="shareView">
+			<result name="success">shareView.jsp</result>
+		</action>
+		<action name="shareSave" class="fileManagerAction" method="shareSave"></action>
+		
+		<action name="saveForUpload" class="fileManagerAction" method="saveForUpload"></action>
+		
+		<action name="manual" class="fileManagerAction" method="manual"></action>
+		<action name="query" class="fileManagerAction" method="query"></action>
+		<action name="save" class="fileManagerAction" method="save"></action>
+	</package>
+	
+	<!-- 文件扫描 -->
+	<package name="fileScan" namespace="/file/scan" extends="struts-global">
+		<action name="read" class="fileScanAction" method="read"></action>
+		<action name="update" class="fileScanAction" method="update"></action>
+		<action name="cancel" class="fileScanAction" method="cancel"></action>
+	</package>
+	<package name="ecm" namespace="/ecm" extends="struts-global">
+		<action name="read" class="ecmAction" method="read"></action>
+		<action name="update" class="ecmAction" method="update"></action>
+		<action name="cancel" class="ecmAction" method="cancel"></action>
+	</package>
+	
+	<!-- 影像文件上传 -->
+	<package name="fileImage" namespace="/file/image" extends="struts-global">
+		<action name="index" class="fileImageAction" method="index"></action>
+		<action name="query" class="fileImageAction" method="query"></action>
+		<action name="save" class="fileImageAction" method="save"></action>
+	</package>
+	
+	<!-- 承保资料上传审核 -->
+	<package name="fileCoreApprove" namespace="/file/approve" extends="struts-global">
+		<action name="index" class="fileCoreApproveAction" method="index"></action>
+		<action name="view" class="fileCoreApproveAction" method="view"></action>
+		<action name="query" class="fileCoreApproveAction" method="query"></action>
+		<action name="decline" class="fileCoreApproveAction" method="decline"></action>
+		<action name="approve" class="fileCoreApproveAction" method="approve"></action>
+		<action name="declineDetail" class="fileCoreApproveAction" method="declineDetail"></action>
+		<action name="approveDetail" class="fileCoreApproveAction" method="approveDetail"></action>
+		<action name="save" class="fileCoreApproveAction" method="save"></action>
+		<action name="download" class="fileCoreApproveAction" method="download"></action>
+		<action name="export" class="fileCoreApproveAction" method="download"></action>
+	</package>
+	
+	<!-- 承保资料上传 -->
+	<package name="fileCore" namespace="/file/core" extends="fileManager">
+		<action name="index" class="fileCoreAction" method="index"></action>
+		<action name="query" class="fileCoreAction" method="query"></action>
+		<action name="save" class="fileCoreAction" method="save"></action>
+		<!-- 
+		<action name="saveForUpload" class="fileCoreAction" method="saveForUpload"></action>
+		 -->
+	</package>
+	
+	<!--综合查询 -->
+	<package name="fileQuery" namespace="/file/query" extends="struts-global">
+		<action name="index" class="fileQueryAction" method="index"></action>
+		<action name="query" class="fileQueryAction" method="query"></action>
+		<action name="view" class="fileQueryAction" method="view"></action>
+		<action name="download" class="fileQueryAction" method="download"></action>
+		<action name="export" class="fileQueryAction" method="download"></action>
+	</package>
+	
+	<!-- 差缺报表  -->
+	<package name="fileLackReport" namespace="/file/report" extends="struts-global">
+		<action name="index" class="fileLackReportAction" method="index"></action>
+		<action name="query" class="fileLackReportAction" method="query"></action>
+		<action name="download" class="fileLackReportAction" method="download"></action>
+		<action name="export" class="fileLackReportAction" method="download"></action>
+	</package>
+		
+	<!--档案借阅管理 -->
+	<package name="fileLending" namespace="/file/filelending" extends="struts-global">
+		<action name="index" class="fileLendingAction" method="index"></action>
+		<action name="query" class="fileLendingAction" method="query">
+			<result name="success">/list.jsp</result>
+		</action>
+		<action name="view" class="fileLendingAction" method="view"></action>
+		<!-- 保存借阅信息之后的显示页面 -->
+		<action name="lentView" class="fileLendingAction" method="lentView">
+			<result name="lentView">lentView.jsp</result>
+		</action>
+		<!-- 保存归还信息之后所显示页面 -->
+		<action name="backView" class="fileLendingAction" method="backView">
+			<result name="backView">backView.jsp</result>
+		</action>
+		<!-- 点击归还按钮,显示可以归还的档案资料的清单 -->
+		<action name="viewBack" class="fileLendingAction" method="viewBack">
+			<result name="viewBack">viewBack.jsp</result>
+		</action>
+		<!-- 点击借阅按钮,显示可以借阅的档案资料的清单 -->
+		<action name="viewLent" class="fileLendingAction" method="viewLent">
+			<result name="viewLent">viewLent.jsp</result>
+		</action>
+		<!-- 保存借阅信息 -->
+		<action name="saveLent" class="fileLendingAction" method="saveLent"></action>
+		<!-- 保存归还信息 -->
+		<action name="saveBack" class="fileLendingAction" method="saveBack"></action>
+		<action name="download" class="fileLendingAction" method="download"></action>
+		<action name="export" class="fileLendingAction" method="download"></action>
+		<!-- 
+		<action name="lent" class="fileLendingAction" method="lent">
+			<result name="lent">lent.jsp</result>
+		</action>
+		<action name="back" class="fileLendingAction" method="back">
+			<result name="back">back.jsp</result>
+		</action> -->
+	</package>
+		
+	<!--归档期限设置 -->
+	<package name="fileDeadline" namespace="/setting/fileDeadline" extends="struts-global">
+		<action name="index" class="fileDeadlineAction" method="index"></action>
+		<action name="query" class="fileDeadlineAction" method="query">
+			<result name="success">/list.jsp</result>
+		</action>
+		<action name="append" class="fileDeadlineAction" method="append"></action>
+	
+		<action name="save" class="fileDeadlineAction" method="save"></action>
+		<action name="view" class="fileDeadlineAction" method="view"></action>
+	</package>
+	
+	<!-- 文件类型设置 -->
+	<package name="fileType" namespace="/setting/fileType" extends="struts-global">
+		<!-- <action name="index" class="fileTypeAction" method="index"></action> -->
+		<action name="query" class="fileTypeAction" method="query">
+			<result name="success">/list.jsp</result>
+		</action>
+		<action name="queryAll" class="fileTypeAction" method="queryAll"></action>
+		<action name="view" class="fileTypeAction" method="view"></action>
+		<action name="append" class="fileTypeAction" method="append"></action>
+		<action name="save" class="fileTypeAction" method="save"></action>
+		<action name="disable" class="fileTypeAction" method="disable"></action>
+	</package>
+	
+	<!-- 档案盒页数设置 -->
+	<package name="fileBoxVersion" namespace="/setting/fileBoxVersion" extends="struts-global">
+		<action name="index" class="fileBoxVersionAction" method="index"></action>
+		<action name="query" class="fileBoxVersionAction" method="query">
+			<result name="success">/list.jsp</result>
+		</action>
+		<action name="view" class="fileBoxVersionAction" method="view"></action>
+		<action name="append" class="fileBoxVersionAction" method="append"></action>
+		<action name="save" class="fileBoxVersionAction" method="save"></action>
+		<action name="edit" class="fileBoxVersionAction" method="edit"></action>
+		<action name="update" class="fileBoxVersionAction" method="update"></action>
+		<action name="delete" class="fileBoxVersionAction" method="delete"></action>
+	</package>
+	
+	
+	<!-- 承保接口action -->
+	<package name="documentAuditAction" namespace="/interface" extends="struts-global">
+		<action name="save" class="documentAuditServiceAction" method="save"></action>
+		<action name="handle" class="documentAuditServiceAction" method="handle"></action>
+		<!-- 针对承保系统判断某个业务关系代码是否可以提交核保 -->
+		<action name="checkCommit" class="documentAuditServiceAction" method="checkCommit"></action>
+		<!-- 针对承保系统单证信息的连接 -->
+		<action name="show" class="documentAuditServiceAction" method="show"></action>
+	</package>
+	
+	<package name="fileIndex" namespace="/uploader" extends="struts-global">
+		<action name="*" class="fileIndexAction">
+			<result name="success">uploader.jsp</result>
+		</action>
+	</package>
+	
+	<!-- 文件操作 -->
+	<!-- <package name="fileIndex" namespace="/uploader" extends="struts-global">
+		<action name="upload" class="fileIndexAction" method="upload"></action>
+		这个action主要针对sinosoftInterface接口
+		<action name="copy" class="fileIndexAction" method="copy"></action>
+		<action name="save" class="fileIndexAction" method="save"></action>
+		<action name="query" class="fileIndexAction" method="query"></action>
+		<action name="list" class="fileIndexAction" method="list"></action>
+		<action name="show" class="fileIndexAction" method="show">
+			<result name="show">show.jsp</result>
+		</action>
+		<action name="preview" class="fileIndexAction" method="preview"></action>
+		<action name="view" class="fileIndexAction" method="view">
+			<result name="image">image.jsp</result>
+			<result name="tiff">tiff.jsp</result>
+		</action>
+		<action name="read" class="fileIndexAction" method="read"></action>
+		<action name="download" class="fileIndexAction" method="download"></action>
+		<action name="copyHistory" class="fileIndexAction" method="copyHistory"></action>
+		禁用文件
+		<action name="disable" class="fileIndexAction" method="disable"></action>
+	</package>
+	
+	<package name="fileViewer" namespace="/viewer" extends="struts-global">
+		<action name="upload" class="fileIndexAction" method="upload"></action>
+		这个action主要针对sinosoftInterface接口
+		<action name="copy" class="fileIndexAction" method="copy"></action>
+		<action name="save" class="fileIndexAction" method="save"></action>
+		<action name="query" class="fileIndexAction" method="query"></action>
+		<action name="list" class="fileIndexAction" method="list"></action>
+		<action name="show" class="fileIndexAction" method="show">
+			<result name="show">/uploader/show.jsp</result>
+		</action>
+		<action name="preview" class="fileIndexAction" method="preview"></action>
+		<action name="view" class="fileIndexAction" method="view">
+			<result name="image">/uploader/image.jsp</result>
+			<result name="tiff">/uploader/tiff.jsp</result>
+		</action>
+		<action name="read" class="fileIndexAction" method="read"></action>
+		<action name="download" class="fileIndexAction" method="download"></action>
+		<action name="copyHistory" class="fileIndexAction" method="copyHistory"></action>
+		禁用文件
+		<action name="disable" class="fileIndexAction" method="disable"></action>
+	</package>
+	
+	SystemCode密码设置
+	<package name="fileSystemAction" namespace="/uploader/validate" extends="struts-global">
+		<action name="index" class="fileSystemAction" method="index">
+			<result name="success">index.jsp</result>
+		</action>
+		<action name="modify" class="fileSystemAction" method="modify"></action>
+	</package> -->
+	
+	<!-- 导入数据action -->
+	<package name="dataImigration" extends="struts-global">
+		<!-- <action name="queryCompanies" class="userAction" method="queryCompanies"></action> -->
+		<action name="save" class="dataImigrationAction" method="save"></action>
+	</package>
+	 
+</struts>

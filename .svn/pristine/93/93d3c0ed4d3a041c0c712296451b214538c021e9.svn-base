@@ -1,0 +1,235 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-9-7 14:02:53 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.sinosoft.efiling.hibernate.entity.Prptcarshiptax" table="PRPTCARSHIPTAX" schema="DEVUSER">
+        <comment>&#179;&#181;&#180;&#172;&#203;&#176;&#205;&#182;&#177;&#163;&#181;&#165;&#208;&#197;&#207;&#162;&#177;&#237;</comment>
+        <id name="proposalno" type="string">
+            <column name="PROPOSALNO" length="22" />
+            <generator class="assigned" />
+        </id>
+        <property name="serialno" type="long">
+            <column name="SERIALNO" precision="15" scale="0" not-null="true">
+                <comment>&#208;&#242;&#186;&#197;</comment>
+            </column>
+        </property>
+        <property name="riskcode" type="string">
+            <column name="RISKCODE" length="4" not-null="true">
+                <comment>&#207;&#213;&#214;&#214;&#180;&#250;&#194;&#235;</comment>
+            </column>
+        </property>
+        <property name="taxtermtypecode" type="string">
+            <column name="TAXTERMTYPECODE" length="2">
+                <comment>&#203;&#176;&#214;&#214;&#192;&#224;&#208;&#205;&#180;&#250;&#194;&#235;(08 &#179;&#181;&#180;&#172;&#203;&#176;)</comment>
+            </column>
+        </property>
+        <property name="taxconditioncode" type="string">
+            <column name="TAXCONDITIONCODE" length="1">
+                <comment>&#196;&#201;&#203;&#176;&#192;&#224;&#208;&#205;&#180;&#250;&#194;&#235;
+                (T&#213;&#253;&#179;&#163;&#189;&#187;&#203;&#176;&#163;&#172;E&#195;&#226;&#203;&#176;&#163;&#172;C&#188;&#245;&#203;&#176;&#163;&#172;P&#210;&#209;&#205;&#234;&#203;&#176;&#163;&#172;R&#190;&#220;&#189;&#201;)</comment>
+            </column>
+        </property>
+        <property name="taxregistrynumber" type="string">
+            <column name="TAXREGISTRYNUMBER" length="22">
+                <comment>
+                &#203;&#176;&#206;&#241;&#181;&#199;&#188;&#199;&#214;&#164;&#186;&#197;&#163;&#172;&#203;&#176;&#191;&#238;&#189;&#226;&#189;&#201;&#181;&#196;&#202;&#177;&#186;&#242;&#211;&#195;&#211;&#218;&#200;&#183;&#200;&#207;&#185;&#233;&#202;&#244;&#203;&#176;&#206;&#241;&#187;&#250;&#185;&#185;&#213;&#202;&#187;&#167;</comment>
+            </column>
+        </property>
+        <property name="taxpayername" type="string">
+            <column name="TAXPAYERNAME" length="120">
+                <comment>&#196;&#201;&#203;&#176;&#200;&#203;&#195;&#251;&#179;&#198;</comment>
+            </column>
+        </property>
+        <property name="taxpayeridentificationcode" type="string">
+            <column name="TAXPAYERIDENTIFICATIONCODE" length="22">
+                <comment>&#196;&#201;&#203;&#176;&#200;&#203;&#202;&#182;&#177;&#240;&#186;&#197;</comment>
+            </column>
+        </property>
+        <property name="declaredate" type="date">
+            <column name="DECLAREDATE" length="7">
+                <comment>&#196;&#201;&#203;&#176;&#201;&#234;&#177;&#168;&#200;&#213;&#198;&#218;</comment>
+            </column>
+        </property>
+        <property name="declareStatusIa" type="string">
+            <column name="DECLARE_STATUS_IA" length="1">
+                <comment>
+                &#179;&#181;&#180;&#172;&#203;&#176;&#201;&#234;&#177;&#168;&#215;&#180;&#204;&#172;&#163;&#168;0&#206;&#180;&#201;&#234;&#177;&#168;&#215;&#180;&#204;&#172;&#163;&#172;1&#210;&#209;&#201;&#234;&#177;&#168;&#215;&#180;&#204;&#172;&#163;&#172;2&#205;&#234;&#203;&#176;&#215;&#180;&#204;&#172;&#163;&#169;</comment>
+            </column>
+        </property>
+        <property name="calcTaxFlag" type="string">
+            <column name="CALC_TAX_FLAG" length="1">
+                <comment>
+                &#203;&#227;&#203;&#176;&#177;&#234;&#202;&#182;&#163;&#168;1&#203;&#176;&#212;&#180;&#198;&#189;&#204;&#168;&#203;&#227;&#203;&#176;&#163;&#172;2&#179;&#181;&#207;&#213;&#198;&#189;&#204;&#168;&#203;&#227;&#203;&#176;&#163;&#172;3&#185;&#171;&#203;&#190;&#203;&#227;&#203;&#176;&#163;&#169;</comment>
+            </column>
+        </property>
+        <property name="taxamountFlag" type="string">
+            <column name="TAXAMOUNT_FLAG" length="1">
+                <comment>
+                &#179;&#181;&#180;&#172;&#203;&#176;&#186;&#207;&#188;&#198;&#189;&#240;&#182;&#238;&#177;&#234;&#202;&#182;&#180;&#250;&#194;&#235;(1&#178;&#233;&#209;&#175;&#211;&#166;&#189;&#201;,2&#200;&#183;&#200;&#207;&#202;&#181;&#202;&#213;&#163;&#172;3&#177;&#228;&#184;&#252;&#178;&#233;&#209;&#175;&#211;&#166;&#205;&#203;&#178;&#185;&#163;&#172;4&#177;&#228;&#184;&#252;&#200;&#183;&#200;&#207;&#202;&#181;&#188;&#202;&#205;&#203;&#178;&#185;)</comment>
+            </column>
+        </property>
+        <property name="annualtaxdue" type="big_decimal">
+            <column name="ANNUALTAXDUE" precision="14">
+                <comment>&#177;&#190;&#196;&#234;&#179;&#181;&#180;&#172;&#203;&#176;&#189;&#240;&#182;&#238;</comment>
+            </column>
+        </property>
+        <property name="sumtaxdefault" type="big_decimal">
+            <column name="SUMTAXDEFAULT" precision="14">
+                <comment>&#186;&#207;&#188;&#198;&#199;&#183;&#203;&#176;&#189;&#240;&#182;&#238;</comment>
+            </column>
+        </property>
+        <property name="sumoverdue" type="big_decimal">
+            <column name="SUMOVERDUE" precision="14">
+                <comment>&#186;&#207;&#188;&#198;&#214;&#205;&#196;&#201;&#189;&#240;</comment>
+            </column>
+        </property>
+        <property name="sumtax" type="big_decimal">
+            <column name="SUMTAX" precision="14">
+                <comment>&#186;&#207;&#188;&#198;&#189;&#240;&#182;&#238;</comment>
+            </column>
+        </property>
+        <property name="deductionduecode" type="string">
+            <column name="DEDUCTIONDUECODE" length="1">
+                <comment>
+                &#188;&#245;&#195;&#226;&#203;&#176;&#212;&#173;&#210;&#242;&#180;&#250;&#194;&#235;(C&#190;&#223;&#177;&#184;&#188;&#245;&#195;&#226;&#203;&#176;&#214;&#164;&#195;&#247;&#163;&#172;F&#205;&#207;&#192;&#173;&#187;&#250;&#163;&#172;A&#190;&#252;&#182;&#211;&#161;&#162;&#206;&#228;&#190;&#175;&#215;&#168;&#211;&#195;&#179;&#181;&#163;&#172;P&#190;&#175;&#179;&#181;&#163;&#172;D&#205;&#226;&#185;&#250;&#202;&#185;&#193;&#236;&#185;&#221;&#161;&#162;&#185;&#250;&#188;&#202;&#215;&#233;&#214;&#175;&#188;&#176;&#198;&#228;&#200;&#203;&#212;&#177;&#163;&#172;E&#196;&#220;&#212;&#180;&#188;&#245;&#195;&#226;&#163;&#172;O&#198;&#228;&#203;&#251;)</comment>
+            </column>
+        </property>
+        <property name="deductiontype" type="string">
+            <column name="DEDUCTIONTYPE" length="1">
+                <comment>
+                &#188;&#245;&#195;&#226;&#203;&#176;&#183;&#189;&#176;&#184;&#180;&#250;&#194;&#235;(E&#195;&#226;&#203;&#176;&#163;&#172;P&#177;&#200;&#192;&#253;&#188;&#245;&#195;&#226;&#163;&#172;A&#189;&#240;&#182;&#238;&#188;&#245;&#195;&#226;)</comment>
+            </column>
+        </property>
+        <property name="deductionrate" type="big_decimal">
+            <column name="DEDUCTIONRATE" precision="14">
+                <comment>&#188;&#245;&#195;&#226;&#203;&#176;&#177;&#200;&#192;&#253;</comment>
+            </column>
+        </property>
+        <property name="deduction" type="big_decimal">
+            <column name="DEDUCTION" precision="14">
+                <comment>&#188;&#245;&#195;&#226;&#189;&#240;&#182;&#238;</comment>
+            </column>
+        </property>
+        <property name="deductiondocumentnumber" type="string">
+            <column name="DEDUCTIONDOCUMENTNUMBER" length="30">
+                <comment>&#188;&#245;&#195;&#226;&#203;&#176;&#198;&#190;&#214;&#164;&#186;&#197;</comment>
+            </column>
+        </property>
+        <property name="taxdepartmentcode" type="string">
+            <column name="TAXDEPARTMENTCODE" length="11">
+                <comment>
+                &#191;&#170;&#190;&#223;&#188;&#245;&#195;&#226;&#203;&#176;&#163;&#168;&#205;&#234;&#203;&#176;&#163;&#169;&#198;&#190;&#214;&#164;&#181;&#196;&#203;&#176;&#206;&#241;&#187;&#250;&#185;&#216;&#180;&#250;&#194;&#235;</comment>
+            </column>
+        </property>
+        <property name="taxdepartment" type="string">
+            <column name="TAXDEPARTMENT" length="100">
+                <comment>
+                &#191;&#170;&#190;&#223;&#188;&#245;&#195;&#226;&#203;&#176;&#163;&#168;&#205;&#234;&#203;&#176;&#163;&#169;&#198;&#190;&#214;&#164;&#181;&#196;&#203;&#176;&#206;&#241;&#187;&#250;&#185;&#216;&#195;&#251;&#179;&#198;</comment>
+            </column>
+        </property>
+        <property name="taxdocumentnumber" type="string">
+            <column name="TAXDOCUMENTNUMBER" length="30">
+                <comment>&#195;&#226;&#203;&#176;&#198;&#190;&#214;&#164;&#186;&#197;</comment>
+            </column>
+        </property>
+        <property name="taxlocationcode" type="string">
+            <column name="TAXLOCATIONCODE" length="6">
+                <comment>
+                &#196;&#201;&#203;&#176;&#181;&#216;&#199;&#248;&#180;&#250;&#194;&#235;&#163;&#172;&#185;&#250;&#177;&#234;&#181;&#216;&#199;&#248;&#180;&#250;&#194;&#235;</comment>
+            </column>
+        </property>
+        <property name="taxstartdate" type="date">
+            <column name="TAXSTARTDATE" length="7">
+                <comment>&#181;&#177;&#198;&#218;&#203;&#176;&#191;&#238;&#203;&#249;&#202;&#244;&#202;&#188;&#198;&#218;</comment>
+            </column>
+        </property>
+        <property name="taxenddate" type="date">
+            <column name="TAXENDDATE" length="7">
+                <comment>&#181;&#177;&#198;&#218;&#203;&#176;&#191;&#238;&#203;&#249;&#202;&#244;&#214;&#185;&#198;&#218;</comment>
+            </column>
+        </property>
+        <property name="taxunittypecode" type="string">
+            <column name="TAXUNITTYPECODE" length="1">
+                <comment>
+                &#203;&#176;&#181;&#165;&#206;&#187;&#180;&#250;&#194;&#235;&#163;&#168;1&#195;&#191;&#196;&#234;&#163;&#172;2&#195;&#191;&#182;&#214;&#163;&#169;</comment>
+            </column>
+        </property>
+        <property name="unitrate" type="big_decimal">
+            <column name="UNITRATE" precision="14">
+                <comment>&#181;&#165;&#206;&#187;&#188;&#198;&#203;&#176;&#189;&#240;&#182;&#238;</comment>
+            </column>
+        </property>
+        <property name="annualtaxamount" type="big_decimal">
+            <column name="ANNUALTAXAMOUNT" precision="14">
+                <comment>&#181;&#177;&#198;&#218;&#196;&#234;&#181;&#165;&#206;&#187;&#203;&#176;&#182;&#238;</comment>
+            </column>
+        </property>
+        <property name="taxdue" type="big_decimal">
+            <column name="TAXDUE" precision="14">
+                <comment>&#181;&#177;&#198;&#218;&#211;&#166;&#196;&#201;&#203;&#176;&#182;&#238;</comment>
+            </column>
+        </property>
+        <property name="exceeddate" type="date">
+            <column name="EXCEEDDATE" length="7">
+                <comment>&#211;&#226;&#198;&#218;&#202;&#177;&#188;&#228;</comment>
+            </column>
+        </property>
+        <property name="exceeddayscount" type="java.lang.Integer">
+            <column name="EXCEEDDAYSCOUNT" precision="5" scale="0">
+                <comment>&#211;&#226;&#198;&#218;&#204;&#236;&#202;&#253;</comment>
+            </column>
+        </property>
+        <property name="overdue" type="big_decimal">
+            <column name="OVERDUE" precision="14">
+                <comment>&#214;&#205;&#196;&#201;&#189;&#240;</comment>
+            </column>
+        </property>
+        <property name="totalamount" type="big_decimal">
+            <column name="TOTALAMOUNT" precision="14">
+                <comment>&#186;&#207;&#188;&#198;&#189;&#240;&#182;&#238;</comment>
+            </column>
+        </property>
+        <property name="calculatemode" type="string">
+            <column name="CALCULATEMODE" length="2">
+                <comment>
+                &#188;&#198;&#203;&#227;&#183;&#189;&#202;&#189;(1&#208;&#194;&#179;&#181;&#163;&#172;2&#190;&#179;&#205;&#226;&#187;&#250;&#182;&#175;&#179;&#181;&#193;&#217;&#202;&#177;&#200;&#235;&#190;&#179;&#163;&#172;3&#187;&#250;&#182;&#175;&#179;&#181;&#193;&#217;&#202;&#177;&#201;&#207;&#181;&#192;&#194;&#183;&#208;&#208;&#202;&#187;&#163;&#172;4&#187;&#250;&#182;&#175;&#179;&#181;&#190;&#224;&#185;&#230;&#182;&#168;&#181;&#196;&#177;&#168;&#183;&#207;&#198;&#218;&#207;&#222;&#178;&#187;&#215;&#227;&#210;&#187;&#196;&#234;&#163;&#172;5&#198;&#228;&#203;&#251;&#163;&#169;</comment>
+            </column>
+        </property>
+        <property name="finalflag" type="string">
+            <column name="FINALFLAG" length="1">
+                <comment>&#202;&#199;&#183;&#241;&#189;&#225;&#203;&#227;Y&#202;&#199;N&#183;&#241;</comment>
+            </column>
+        </property>
+        <property name="flag" type="string">
+            <column name="FLAG" length="10">
+                <comment>&#177;&#234;&#214;&#190;&#215;&#214;&#182;&#206;</comment>
+            </column>
+        </property>
+        <property name="proxytaxdone" type="string">
+            <column name="PROXYTAXDONE" length="4">
+                <comment>&#185;&#227;&#182;&#171;&#202;&#199;&#183;&#241;&#180;&#250;&#202;&#213;&#179;&#181;&#180;&#172;&#203;&#176;:Y-&#202;&#199;,N-&#183;&#241;</comment>
+            </column>
+        </property>
+        <property name="tax1startdate" type="date">
+            <column name="TAX1STARTDATE" length="7">
+                <comment>&#199;&#183;&#203;&#176;&#203;&#176;&#191;&#238;&#203;&#249;&#202;&#244;&#202;&#188;&#198;&#218;</comment>
+            </column>
+        </property>
+        <property name="tax1enddate" type="date">
+            <column name="TAX1ENDDATE" length="7">
+                <comment>&#199;&#183;&#203;&#176;&#203;&#176;&#191;&#238;&#203;&#249;&#202;&#244;&#214;&#185;&#198;&#218;</comment>
+            </column>
+        </property>
+        <property name="tax1due" type="big_decimal">
+            <column name="TAX1DUE" precision="14">
+                <comment>&#199;&#183;&#203;&#176;&#189;&#201;&#196;&#201;&#203;&#176;&#182;&#238;</comment>
+            </column>
+        </property>
+        <property name="total1amount" type="big_decimal">
+            <column name="TOTAL1AMOUNT" precision="14">
+                <comment>&#199;&#183;&#203;&#176;&#186;&#207;&#188;&#198;&#189;&#240;&#182;&#238;</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

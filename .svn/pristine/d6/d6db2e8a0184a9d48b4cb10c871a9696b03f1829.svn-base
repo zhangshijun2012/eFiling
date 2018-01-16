@@ -1,0 +1,22 @@
+#配置邮件发送参数
+# 禁用邮件功能
+mail.disabled		= false
+mail.debug			= true
+mail.debug.to		= 15922901803@163.com,Laura.Luo@libertymutual.com.cn,annie.zhang@libertymutual.com.cn
+# mail.debug.to		= 15922901803@163.com
+# 使用的协议,默认为smtp
+mail.transport.protocol	= smtp
+# 邮件服务器
+mail.smtp.host	= 10.132.1.168
+# 是否需要验证
+mail.smtp.auth	= false
+# 登录用户
+mail.user		= eFilingSystemTest
+# 登录密码
+mail.password	= 
+
+# 发送邮件的邮件地址
+mail.from		= eFiling UAT<eFilingSystem@libertymutual.com.cn>
+
+# 邮件内容使用的编码
+mail.encoding	= UTF-8

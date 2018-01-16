@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-4-25 20:00:27 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="com.sinosoft.efiling.hibernate.entity.FileLending" table="T_F_FILE_LENDING">
+        <comment>&#181;&#181;&#176;&#184;&#189;&#232;&#212;&#196;&#208;&#197;&#207;&#162;</comment>
+        <id name="id" type="string">
+            <column name="ID" length="32" />
+            <generator class="uuid" />
+        </id>
+        <many-to-one name="department" class="com.sinosoft.efiling.hibernate.entity.Company" fetch="select">
+            <column name="DEPT_ID" length="8" />
+        </many-to-one>
+        <many-to-one name="fileLendingReturn" class="com.sinosoft.efiling.hibernate.entity.FileLendingReturn" fetch="select">
+            <column name="RETURN_ID" length="32" />
+        </many-to-one>
+        <many-to-one name="borrower" class="com.sinosoft.efiling.hibernate.entity.User" fetch="select">
+            <column name="BORROWER_ID" length="10" />
+        </many-to-one>
+        <many-to-one name="borrowerDept" class="com.sinosoft.efiling.hibernate.entity.Company" fetch="select">
+            <column name="BORROWER_DEPT_ID" length="8" />
+        </many-to-one>
+        <many-to-one name="borrowerCompany" class="com.sinosoft.efiling.hibernate.entity.Company" fetch="select">
+            <column name="BORROWER_COMPANY_ID" length="8" />
+        </many-to-one>
+        <many-to-one name="user" class="com.sinosoft.efiling.hibernate.entity.User" fetch="select">
+            <column name="USER_ID" length="10" />
+        </many-to-one>
+        <many-to-one name="company" class="com.sinosoft.efiling.hibernate.entity.Company" fetch="select">
+            <column name="COMPANY_ID" length="8" />
+        </many-to-one>
+        <property name="status" type="string">
+            <column name="STATUS" length="10" not-null="true" />
+        </property>
+        <property name="insertTime" type="timestamp">
+            <column name="INSERT_TIME" length="7" not-null="true" />
+        </property>
+        <property name="days" type="int">
+            <column name="DAYS" precision="5" scale="0" not-null="true" />
+        </property>
+        <property name="expectedReturnDate" type="timestamp">
+            <column name="EXPECTED_RETURN_DATE" length="7" not-null="true" />
+        </property>
+        <property name="reason" type="string">
+            <column name="REASON" length="2000" not-null="true" />
+        </property>
+        <property name="returnDate" type="timestamp">
+            <column name="RETURN_DATE" length="7" />
+        </property>
+        <property name="borrowerName" type="string">
+            <column name="BORROWER_NAME" length="32" />
+        </property>
+        <property name="borrowerDeptName" type="string">
+            <column name="BORROWER_DEPT_NAME" length="64" />
+        </property>
+        <property name="borrowerCompanyName" type="string">
+            <column name="BORROWER_COMPANY_NAME" length="64" />
+        </property>
+        <property name="borrowerEmail" type="string">
+            <column name="BORROWER_EMAIL" length="128" />
+        </property>
+        <set name="fileLendingDetails" table="T_F_FILE_LENDING_DETAIL" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="LENDING_ID" length="32" not-null="true" />
+            </key>
+            <one-to-many class="com.sinosoft.efiling.hibernate.entity.FileLendingDetail" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,14 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>eFiling Uploader</title>
+<script type="text/javascript" src="../resources/javascript/uploader.js"></script>
+<script type="text/javascript">
+	var queryString = window.location.search;
+	window.location = Uploader.namespace + queryString; // 跳转至uploader
+</script>
+</head>
+<body>
+</body>
+</html>

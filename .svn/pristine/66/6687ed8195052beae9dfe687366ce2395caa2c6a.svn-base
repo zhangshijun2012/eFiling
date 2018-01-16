@@ -1,0 +1,350 @@
+/** 档案查询 */
+var FileManualhandle = Service.create({
+	namespace : 'file/manualhandle/',
+	selector : true,
+	dataHeader: [
+  		{ html: "file.document.no", attributes: { style: { width: "15%" } } },
+  		{ html: "file.document.type.V", attributes: { style: { width: "5%" } } }, 
+  		{ html: "file.document.lacks" }, 
+  		{ html: "file.document.status", attributes: { style: { width: "5%" } } },
+  		{ html: "global.policy.holder", attributes: { style: { } } }, 
+  		{ html: "file.document.salesman", attributes: { style: { width: "10%" } } }, 
+  		{ html: "file.document.business.department", attributes: { style: { width: "15%" } } }, 
+  		{ html: "file.document.agent", attributes: { style: { width: "20%" } } },  
+  		{ html: "file.document.business.user", attributes: { style: { width: "10%" } } },
+  		{ html: "归档记录", attributes: { style: { width: "10%" } } }
+	],
+  	dataHandler: [null, null, null, function(cell, value, index, values, data) {
+  		// 显示单证类型的文字描述
+  		if (value) {
+  			cell.innerHTML = this.getText('file.document.status.' + value);
+  		}
+  	}, null, null, null, null, null, function(cell, value, index, values, data) {
+  		// 显示单证类型的文字描述
+  		var businessNo = ""; //业务号
+  		var visaNo = ""; 	//单证号
+  		if (values) {
+  			businessNo = values[0];
+  			visaNo = values[1];
+  		}
+  		cell.innerHTML = '<a href="#" onClick="Main.service.viewlog(\'' + businessNo + '\',\'' + visaNo +'\')">归档日志</>';
+  	}],
+	initialize : function() {
+  		this.urls['index'] = 'index.do';
+	},
+	/** 
+	 * 查看明细信息
+	 * @param id 数据主键
+	 */
+	viewlog: function(businessNo, visaNo) {
+		var parameters = "";
+		if (businessNo) parameters = "ids=" + businessNo;
+		if (visaNo) {
+			if (parameters != "") parameters += "&ids=" + visaNo;
+			else parameters += "ids=" + visaNo;
+		}
+		var options = Object.extend({
+			parameters: parameters,
+			width: 800,
+			buttons: {
+				close: {
+					text: this.getText('close'),
+					handler: function() {
+						this.hide();
+					}
+				}
+			}
+		},  { });
+		var onSuccess = options['onSuccess'];
+		options['onSuccess'] = (function() {
+			this.form = this.forms['viewlog'] = $($(this.dialogs['viewlog'].body).select('form')[0]);
+			if (this.viewHandler) this.viewHandler.apply(this, $A(arguments));
+			if (onSuccess) onSuccess.apply(this, $A(arguments));
+		}).bind(this),
+		this.dialog = this.dialogs['viewlog'] = Dialog.open(this.getUrl('viewlog'), "归档记录", options);
+	},
+	/**                                                        
+	 * 查看明细信息
+	 * @param id 数据主键
+	 */
+	view: function(id, options) {
+		if (!Object.isString(id)) options = id || options;
+		options = Object.extend({
+			parameters: 'id=' + id,
+			//minWidth: 600,
+			width: 800,
+			buttons: {
+				comfirm: {
+					text: this.getText("file.type.document"),
+					id: "collectDetailButton",
+					attributes: {'className': 'button6'},
+					disabled: false,
+					handler: (function() {
+						this.collectDetail();
+					}).bind(this)
+				},
+				revoke: {
+					text: this.getText("file.document.status.20"),
+					id: "revokeDetailButton",
+					attributes: {'className': 'button6'},
+					disabled: false,
+					handler: (function() {
+						this.revokeDetail();
+					}).bind(this)
+				},
+				close: {
+					text: this.getText('close'),
+					handler: function() {
+						this.hide();
+					}
+				}
+			}
+		}, options || { });
+		var onSuccess = options['onSuccess'];
+		options['onSuccess'] = (function() {
+			this.form = this.forms['view'] = $($(this.dialogs['view'].body).select('form')[0]);
+			if (this.viewHandler) this.viewHandler.apply(this, $A(arguments));
+			if (onSuccess) onSuccess.apply(this, $A(arguments));
+		}).bind(this),
+		this.dialog = this.dialogs['view'] = Dialog.open(this.getUrl('view'), this.getText('view'), options);
+	},
+	
+	/**
+	 * 选中某一个数据
+	 * @param e 
+	 * @param checked 可以省略,否则true/false.表示勾选/不选此选择框
+	 */
+	onCheck: function(e, checked) {
+		this.changeActionDisabled();
+	},
+	/**
+	 * 全部选中
+	 * @param checked
+	 */
+	onCheckAll: function(checked) {
+		this.changeActionDisabled();
+	},
+	
+	/**
+	 * 根据规则判断审核通过按钮是否显示或者隐藏 
+	 */
+	changeActionDisabled: function() {
+		var form = $(this.forms['query']);
+		var comfirmButton = form.elements['comfirmButton'];
+		var cancelButton = form.elements['cancelButton'];
+		var selectedBox = "";
+		var fileStatus11 = []; //归档齐全
+		var fileStatus10 = []; //特批归档
+		var fileStatus00 = []; //未归档
+		var fileStatus01 = []; //归档不全
+		var isCollect = 0;
+		var notCollect = 0;
+		for (var i = 0; i < this.selected.size(); i++) {
+			selectedBox = this.selected[i];
+			if ('11' == selectedBox[4]) {
+				fileStatus11.push(selectedBox[4]);
+			} else if ('10' == selectedBox[4]) {
+				fileStatus10.push(selectedBox[4]);
+			} else if ('00' == selectedBox[4]) {
+				fileStatus00.push(selectedBox[4]);
+			} else {
+				fileStatus01.push(selectedBox[4]);
+			}
+		}
+		
+		if (fileStatus01.length > 0) {
+			comfirmButton.disabled = false;
+			cancelButton.disabled = false;
+			return;
+		}  
+		if (fileStatus00.length > 0 && fileStatus11.length == 0) {
+			comfirmButton.disabled = false;
+			cancelButton.disabled = true;
+			return;
+		}
+		if (fileStatus11.length > 0 && fileStatus00.length == 0) {
+			comfirmButton.disabled = true;
+			cancelButton.disabled = false;
+			return;
+		}
+		if (this.selected.length > 0) {
+			comfirmButton.disabled = false;
+			cancelButton.disabled = false;
+		} else {
+			comfirmButton.disabled = true;
+			cancelButton.disabled = true;
+		}
+	
+	},
+	
+	/**
+	 * 选中所有明细
+	 * @param checked
+	 */
+	checkAllDetails: function(checked) {
+		var disabled = false; 
+		var form = $('viewForm');
+		var checkBoxes = form.getInputs("checkbox", 'ids');
+		var count = 0;
+		var no = "";	 //档案编码
+		var documentStatus = ""; //档案状态
+		var collectFiles = [];
+		var revokeFiles = [];
+		var fileStatus = "";
+		for (var i = 0; i < checkBoxes.length; i++) {
+			checkBoxes[i].checked = checked;
+			no = checkBoxes[i].getAttribute("no");
+			documentStatus = checkBoxes[i].getAttribute("documentStatus");
+			fileStatus = checkBoxes[i].getAttribute("fileStatus");
+			if ("e-Document" == no || no == '' || ("3" == fileStatus && documentStatus == "0")) {
+				//未归档的或者承保资料上传归档的
+				collectFiles.push(checkBoxes[i].value);
+			} else {
+				//只有纸质归档的才能够做纸质归档撤销
+				if ("3" == fileStatus && documentStatus == "1") {
+					revokeFiles.push(checkBoxes[i].value);
+				}
+			}
+		}
+		if ((collectFiles.length > 0 && revokeFiles.length > 0) || !checked) {
+			$('collectDetailButton').disabled = true;
+			$('revokeDetailButton').disabled = true;
+		} else if (collectFiles.length > 0 && revokeFiles.length == 0) {
+			$('collectDetailButton').disabled = false;
+			$('revokeDetailButton').disabled = true;
+		} else {
+			$('collectDetailButton').disabled = true;
+			$('revokeDetailButton').disabled = false;
+		}
+	},
+	/**
+	 * 选中一个明细
+	 * @param field
+	 * @param checked
+	 */
+	checkDetail: function(checked) {
+		var disabled = false; 
+		var form = $('viewForm');
+		var checkBoxes = form.getInputs("checkbox", 'ids');
+		var count = 0;
+		var no = "";	 //档案编码
+		var documentStatus = ""; //档案状态
+		var collectFiles = [];
+		var revokeFiles = [];
+		var fileStatus = "";
+		for (var i = 0; i < checkBoxes.length; i++) {
+			no = checkBoxes[i].getAttribute("no");
+			documentStatus = checkBoxes[i].getAttribute("documentStatus");
+			fileStatus = checkBoxes[i].getAttribute("fileStatus");
+			if (checkBoxes[i].checked) {
+				if ("e-Document" == no || no == '' || ("3" == fileStatus && documentStatus == "0")) {
+					//未归档的或者承保资料上传归档的
+					collectFiles.push(checkBoxes[i].value);
+				} else {
+					//只有纸质归档的才能够做纸质归档撤销
+					if ("3" == fileStatus && documentStatus == "1") {
+						revokeFiles.push(checkBoxes[i].value);
+					} 
+					
+				}
+			}
+		}
+		if ((collectFiles.length > 0 && revokeFiles.length > 0)) {
+			$('collectDetailButton').disabled = true;
+			$('revokeDetailButton').disabled = true;
+		} else if (collectFiles.length > 0 && revokeFiles.length == 0) {
+			$('collectDetailButton').disabled = false;
+			$('revokeDetailButton').disabled = true;
+		} else if (collectFiles.length == 0 && revokeFiles.length > 0){
+			$('collectDetailButton').disabled = true;
+			$('revokeDetailButton').disabled = false;
+		} else {
+			$('collectDetailButton').disabled = true;
+			$('revokeDetailButton').disabled = true;
+		}
+	},
+	
+	/**
+	 * 归档撤销操作
+	 */
+	revoke: function() {
+		var parameters = this.initializeParameters();
+		var options = {
+				parameters: parameters,
+				onSuccess: (function(response) {
+					var message = response.responseText.toJSON();
+					alert(message['message']);
+					this.query();
+				}).bind(this)
+			};
+		this.request(this.getUrl('revoke'), options);
+	},
+	/**
+	 * 点击业务号后进入每一单数据的详细页面,在页面中对单证进行审核操作
+	 */
+	revokeDetail: function() {
+		var form = $('viewForm');
+		var parameters = "&" + form.serialize();
+		var options = {
+				parameters: parameters,
+				onSuccess: (function(response) {
+					var message = response.responseText.toJSON();
+					if(message['success']) alert(message['message']);
+					this.dialog.hide();
+					this.query();
+				}).bind(this)
+			};
+		this.request(this.getUrl('revokeDetail'), options);
+	},
+	/**
+	 *归档操作明细
+	 */
+	collectDetail: function() {
+		var form = $('viewForm');
+		var parameters = "&" + form.serialize();
+		var options = {
+				parameters: parameters,
+				onSuccess: (function(response) {
+					var message = response.responseText.toJSON();
+					if(message['success']) alert(message['message']);
+					this.dialog.hide();
+					this.query();
+				}).bind(this)
+			};
+		this.request(this.getUrl('collectDetail'), options);
+	},
+	/**
+	 * 归档操作
+	 */
+	collect: function() {
+		var parameters = this.initializeParameters();
+		var options = {
+			parameters: parameters,
+			onSuccess: (function(response) {
+				var message = response.responseText.toJSON();
+				alert(message['message']);
+				this.query();
+			}).bind(this)
+		};
+		this.request(this.getUrl('collect'), options);
+	},
+	/**
+	 * 对审核通过和审核不通过时候,做初始化参数
+	 */
+	initializeParameters: function() {
+		var selected = this.selected;
+		if (selected.size() === 0) {
+			alert("请选择业务号！");
+			return;
+		} 
+		var form = $(this.forms['query']);
+		var parameters = form.serialize();
+		return parameters;
+	},
+	/**
+	 * 查询
+	 */
+	query : function() {
+		Service.query.apply(this, $A(arguments));
+	}
+});

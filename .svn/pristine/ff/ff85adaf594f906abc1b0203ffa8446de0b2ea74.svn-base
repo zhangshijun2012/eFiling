@@ -1,0 +1,11 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>扫描完成</title>
+<script type="text/javascript">
+parent.Main.service.read();
+</script>
+</head>
+<body></body>
+</html>

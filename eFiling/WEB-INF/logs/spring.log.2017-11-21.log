@@ -1,0 +1,532 @@
+[ERROR][2017-11-20 09:53:28,452] org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:319)
+	Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'fileManualhandleService' defined in ServletContext resource [/WEB-INF/classes/applicationContext.xml]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Could not instantiate bean class [com.sinosoft.efiling.service.FileManualhandleService]: Constructor threw exception; nested exception is java.lang.Error: Unresolved compilation problems: 
+	The method copy(String, FileIndex) is undefined for the type PaperLogDocument
+	The method save(FileIndex) is undefined for the type PaperLogDocument
+	The method save(FileIndex) is undefined for the type PaperLogDocument
+	anotherDoc cannot be resolved to a variable
+	anotherDoc cannot be resolved to a variable
+	Syntax error on token "}", { expected after this token
+	Syntax error on token "}", delete this token
+	Syntax error on token "(", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	The method save(FileIndex) is undefined for the type PaperLogDocument
+	Syntax error on token "(", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error on token "(", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error on token "(", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error on token "(", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error on token "(", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error on token "(", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error on token "(", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error on token "(", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error on token "(", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error, insert "}" to complete ClassBody
+
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1011)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:957)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:490)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:461)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:295)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:223)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:292)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:194)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:626)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:932)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:479)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:389)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:294)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:112)
+	at weblogic.servlet.internal.EventsManager$FireContextListenerAction.run(EventsManager.java:481)
+	at weblogic.security.acl.internal.AuthenticatedSubject.doAs(AuthenticatedSubject.java:321)
+	at weblogic.security.service.SecurityManager.runAs(SecurityManager.java:121)
+	at weblogic.servlet.internal.EventsManager.notifyContextCreatedEvent(EventsManager.java:181)
+	at weblogic.servlet.internal.WebAppServletContext.preloadResources(WebAppServletContext.java:1863)
+	at weblogic.servlet.internal.WebAppServletContext.start(WebAppServletContext.java:3126)
+	at weblogic.servlet.internal.WebAppModule.startContexts(WebAppModule.java:1512)
+	at weblogic.servlet.internal.WebAppModule.start(WebAppModule.java:486)
+	at weblogic.application.internal.flow.ModuleStateDriver$3.next(ModuleStateDriver.java:425)
+	at weblogic.application.utils.StateMachineDriver.nextState(StateMachineDriver.java:41)
+	at weblogic.application.internal.flow.ModuleStateDriver.start(ModuleStateDriver.java:119)
+	at weblogic.application.internal.flow.ScopedModuleDriver.start(ScopedModuleDriver.java:200)
+	at weblogic.application.internal.flow.ModuleListenerInvoker.start(ModuleListenerInvoker.java:247)
+	at weblogic.application.internal.flow.ModuleStateDriver$3.next(ModuleStateDriver.java:425)
+	at weblogic.application.utils.StateMachineDriver.nextState(StateMachineDriver.java:41)
+	at weblogic.application.internal.flow.ModuleStateDriver.start(ModuleStateDriver.java:119)
+	at weblogic.application.internal.flow.StartModulesFlow.activate(StartModulesFlow.java:27)
+	at weblogic.application.internal.BaseDeployment$2.next(BaseDeployment.java:1267)
+	at weblogic.application.utils.StateMachineDriver.nextState(StateMachineDriver.java:41)
+	at weblogic.application.internal.BaseDeployment.activate(BaseDeployment.java:409)
+	at weblogic.application.internal.SingleModuleDeployment.activate(SingleModuleDeployment.java:43)
+	at weblogic.application.internal.DeploymentStateChecker.activate(DeploymentStateChecker.java:161)
+	at weblogic.deploy.internal.targetserver.AppContainerInvoker.activate(AppContainerInvoker.java:79)
+	at weblogic.deploy.internal.targetserver.BasicDeployment.activate(BasicDeployment.java:184)
+	at weblogic.deploy.internal.targetserver.BasicDeployment.activateFromServerLifecycle(BasicDeployment.java:361)
+	at weblogic.management.deploy.internal.DeploymentAdapter$1.doActivate(DeploymentAdapter.java:51)
+	at weblogic.management.deploy.internal.DeploymentAdapter.activate(DeploymentAdapter.java:200)
+	at weblogic.management.deploy.internal.AppTransition$2.transitionApp(AppTransition.java:30)
+	at weblogic.management.deploy.internal.ConfiguredDeployments.transitionApps(ConfiguredDeployments.java:240)
+	at weblogic.management.deploy.internal.ConfiguredDeployments.activate(ConfiguredDeployments.java:169)
+	at weblogic.management.deploy.internal.ConfiguredDeployments.deploy(ConfiguredDeployments.java:123)
+	at weblogic.management.deploy.internal.DeploymentServerService.resume(DeploymentServerService.java:180)
+	at weblogic.management.deploy.internal.DeploymentServerService.start(DeploymentServerService.java:96)
+	at weblogic.t3.srvr.SubsystemRequest.run(SubsystemRequest.java:64)
+	at weblogic.work.ExecuteThread.execute(ExecuteThread.java:201)
+	at weblogic.work.ExecuteThread.run(ExecuteThread.java:173)
+Caused by: org.springframework.beans.BeanInstantiationException: Could not instantiate bean class [com.sinosoft.efiling.service.FileManualhandleService]: Constructor threw exception; nested exception is java.lang.Error: Unresolved compilation problems: 
+	The method copy(String, FileIndex) is undefined for the type PaperLogDocument
+	The method save(FileIndex) is undefined for the type PaperLogDocument
+	The method save(FileIndex) is undefined for the type PaperLogDocument
+	anotherDoc cannot be resolved to a variable
+	anotherDoc cannot be resolved to a variable
+	Syntax error on token "}", { expected after this token
+	Syntax error on token "}", delete this token
+	Syntax error on token "(", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	The method save(FileIndex) is undefined for the type PaperLogDocument
+	Syntax error on token "(", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error on token "(", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error on token "(", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error on token "(", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error on token "(", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error on token "(", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error on token "(", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error on token "(", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error on token "(", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error, insert "}" to complete ClassBody
+
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:163)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:87)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1004)
+	... 49 more
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	The method copy(String, FileIndex) is undefined for the type PaperLogDocument
+	The method save(FileIndex) is undefined for the type PaperLogDocument
+	The method save(FileIndex) is undefined for the type PaperLogDocument
+	anotherDoc cannot be resolved to a variable
+	anotherDoc cannot be resolved to a variable
+	Syntax error on token "}", { expected after this token
+	Syntax error on token "}", delete this token
+	Syntax error on token "(", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	The method save(FileIndex) is undefined for the type PaperLogDocument
+	Syntax error on token "(", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error on token "(", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error on token "(", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error on token "(", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error on token "(", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error on token "(", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error on token "(", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error on token "(", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error on token "(", ; expected
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error, insert "}" to complete ClassBody
+
+	at com.sinosoft.efiling.service.FileManualhandleService.<init>(FileManualhandleService.java:77)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:39)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:513)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:148)
+	... 51 more
+[ERROR][2017-11-20 12:54:19,391] org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:319)
+	Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in ServletContext resource [/WEB-INF/classes/applicationContext.xml]: Invocation of init method failed; nested exception is org.hibernate.InvalidMappingException: Unable to read XML
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1486)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:524)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:461)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:295)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:223)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:292)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:194)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:608)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:932)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:479)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:389)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:294)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:112)
+	at weblogic.servlet.internal.EventsManager$FireContextListenerAction.run(EventsManager.java:481)
+	at weblogic.security.acl.internal.AuthenticatedSubject.doAs(AuthenticatedSubject.java:321)
+	at weblogic.security.service.SecurityManager.runAs(SecurityManager.java:121)
+	at weblogic.servlet.internal.EventsManager.notifyContextCreatedEvent(EventsManager.java:181)
+	at weblogic.servlet.internal.WebAppServletContext.preloadResources(WebAppServletContext.java:1863)
+	at weblogic.servlet.internal.WebAppServletContext.start(WebAppServletContext.java:3126)
+	at weblogic.servlet.internal.WebAppModule.startContexts(WebAppModule.java:1512)
+	at weblogic.servlet.internal.WebAppModule.start(WebAppModule.java:486)
+	at weblogic.application.internal.flow.ModuleStateDriver$3.next(ModuleStateDriver.java:425)
+	at weblogic.application.utils.StateMachineDriver.nextState(StateMachineDriver.java:41)
+	at weblogic.application.internal.flow.ModuleStateDriver.start(ModuleStateDriver.java:119)
+	at weblogic.application.internal.flow.ScopedModuleDriver.start(ScopedModuleDriver.java:200)
+	at weblogic.application.internal.flow.ModuleListenerInvoker.start(ModuleListenerInvoker.java:247)
+	at weblogic.application.internal.flow.ModuleStateDriver$3.next(ModuleStateDriver.java:425)
+	at weblogic.application.utils.StateMachineDriver.nextState(StateMachineDriver.java:41)
+	at weblogic.application.internal.flow.ModuleStateDriver.start(ModuleStateDriver.java:119)
+	at weblogic.application.internal.flow.StartModulesFlow.activate(StartModulesFlow.java:27)
+	at weblogic.application.internal.BaseDeployment$2.next(BaseDeployment.java:1267)
+	at weblogic.application.utils.StateMachineDriver.nextState(StateMachineDriver.java:41)
+	at weblogic.application.internal.BaseDeployment.activate(BaseDeployment.java:409)
+	at weblogic.application.internal.SingleModuleDeployment.activate(SingleModuleDeployment.java:43)
+	at weblogic.application.internal.DeploymentStateChecker.activate(DeploymentStateChecker.java:161)
+	at weblogic.deploy.internal.targetserver.AppContainerInvoker.activate(AppContainerInvoker.java:79)
+	at weblogic.deploy.internal.targetserver.BasicDeployment.activate(BasicDeployment.java:184)
+	at weblogic.deploy.internal.targetserver.BasicDeployment.activateFromServerLifecycle(BasicDeployment.java:361)
+	at weblogic.management.deploy.internal.DeploymentAdapter$1.doActivate(DeploymentAdapter.java:51)
+	at weblogic.management.deploy.internal.DeploymentAdapter.activate(DeploymentAdapter.java:200)
+	at weblogic.management.deploy.internal.AppTransition$2.transitionApp(AppTransition.java:30)
+	at weblogic.management.deploy.internal.ConfiguredDeployments.transitionApps(ConfiguredDeployments.java:240)
+	at weblogic.management.deploy.internal.ConfiguredDeployments.activate(ConfiguredDeployments.java:169)
+	at weblogic.management.deploy.internal.ConfiguredDeployments.deploy(ConfiguredDeployments.java:123)
+	at weblogic.management.deploy.internal.DeploymentServerService.resume(DeploymentServerService.java:180)
+	at weblogic.management.deploy.internal.DeploymentServerService.start(DeploymentServerService.java:96)
+	at weblogic.t3.srvr.SubsystemRequest.run(SubsystemRequest.java:64)
+	at weblogic.work.ExecuteThread.execute(ExecuteThread.java:201)
+	at weblogic.work.ExecuteThread.run(ExecuteThread.java:173)
+Caused by: org.hibernate.InvalidMappingException: Unable to read XML
+	at org.hibernate.util.xml.MappingReader.readMappingDocument(MappingReader.java:101)
+	at org.hibernate.cfg.Configuration.add(Configuration.java:513)
+	at org.hibernate.cfg.Configuration.add(Configuration.java:509)
+	at org.hibernate.cfg.Configuration.addFile(Configuration.java:504)
+	at org.hibernate.cfg.Configuration.addDirectory(Configuration.java:929)
+	at org.springframework.orm.hibernate3.LocalSessionFactoryBean.buildSessionFactory(LocalSessionFactoryBean.java:713)
+	at org.springframework.orm.hibernate3.AbstractSessionFactoryBean.afterPropertiesSet(AbstractSessionFactoryBean.java:188)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1545)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1483)
+	... 48 more
+Caused by: org.xml.sax.SAXParseException: The content of element type "class" must match "(meta*,subselect?,cache?,synchronize*,comment?,tuplizer*,(id|composite-id),discriminator?,natural-id?,(version|timestamp)?,(property|many-to-one|one-to-one|component|dynamic-component|properties|any|map|set|list|bag|idbag|array|primitive-array)*,((join*,subclass*)|joined-subclass*|union-subclass*),loader?,sql-insert?,sql-update?,sql-delete?,filter*,fetch-profile*,resultset*,(query|sql-query)*)".
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:195)
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.error(ErrorHandlerWrapper.java:131)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:384)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:318)
+	at com.sun.org.apache.xerces.internal.impl.dtd.XMLDTDValidator.handleEndElement(XMLDTDValidator.java:2017)
+	at com.sun.org.apache.xerces.internal.impl.dtd.XMLDTDValidator.endElement(XMLDTDValidator.java:901)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanEndElement(XMLDocumentFragmentScannerImpl.java:1782)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:2938)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:648)
+	at com.sun.org.apache.xerces.internal.impl.XMLNSDocumentScannerImpl.next(XMLNSDocumentScannerImpl.java:140)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:511)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:808)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:737)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:119)
+	at com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.parse(AbstractSAXParser.java:1205)
+	at com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser.parse(SAXParserImpl.java:522)
+	at weblogic.xml.jaxp.WebLogicXMLReader.parse(WebLogicXMLReader.java:133)
+	at weblogic.xml.jaxp.RegistryXMLReader.parse(RegistryXMLReader.java:173)
+	at org.dom4j.io.SAXReader.read(SAXReader.java:465)
+	at org.hibernate.util.xml.MappingReader.readMappingDocument(MappingReader.java:75)
+	... 56 more
+[ERROR][2017-11-20 13:41:53,089] org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:319)
+	Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator#0' defined in ServletContext resource [/WEB-INF/classes/applicationContext.xml]: Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Could not instantiate bean class [org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator]: Constructor threw exception; nested exception is java.lang.OutOfMemoryError: PermGen space
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1011)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:957)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:490)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:461)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:295)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:223)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:292)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:198)
+	at org.springframework.context.support.AbstractApplicationContext.registerBeanPostProcessors(AbstractApplicationContext.java:741)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:464)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:389)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:294)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:112)
+	at weblogic.servlet.internal.EventsManager$FireContextListenerAction.run(EventsManager.java:481)
+	at weblogic.security.acl.internal.AuthenticatedSubject.doAs(AuthenticatedSubject.java:321)
+	at weblogic.security.service.SecurityManager.runAs(SecurityManager.java:121)
+	at weblogic.servlet.internal.EventsManager.notifyContextCreatedEvent(EventsManager.java:181)
+	at weblogic.servlet.internal.WebAppServletContext.reloadServletClassLoader(WebAppServletContext.java:3078)
+	at weblogic.servlet.internal.FilterWrapper.reloadFilter(FilterWrapper.java:63)
+	at weblogic.servlet.internal.FilterWrapper.checkForReload(FilterWrapper.java:104)
+	at weblogic.servlet.internal.FilterWrapper.getFilter(FilterWrapper.java:41)
+	at weblogic.servlet.internal.FilterChainImpl.add(FilterChainImpl.java:35)
+	at weblogic.servlet.internal.FilterManager.getFilterChain(FilterManager.java:244)
+	at weblogic.servlet.internal.WebAppServletContext$ServletInvocationAction.doIt(WebAppServletContext.java:3681)
+	at weblogic.servlet.internal.WebAppServletContext$ServletInvocationAction.run(WebAppServletContext.java:3650)
+	at weblogic.security.acl.internal.AuthenticatedSubject.doAs(AuthenticatedSubject.java:321)
+	at weblogic.security.service.SecurityManager.runAs(SecurityManager.java:121)
+	at weblogic.servlet.internal.WebAppServletContext.securedExecute(WebAppServletContext.java:2268)
+	at weblogic.servlet.internal.WebAppServletContext.execute(WebAppServletContext.java:2174)
+	at weblogic.servlet.internal.ServletRequestImpl.run(ServletRequestImpl.java:1446)
+	at weblogic.work.ExecuteThread.execute(ExecuteThread.java:201)
+	at weblogic.work.ExecuteThread.run(ExecuteThread.java:173)
+Caused by: org.springframework.beans.BeanInstantiationException: Could not instantiate bean class [org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator]: Constructor threw exception; nested exception is java.lang.OutOfMemoryError: PermGen space
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:163)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:87)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1004)
+	... 31 more
+Caused by: java.lang.OutOfMemoryError: PermGen space
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClassCond(ClassLoader.java:632)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:616)
+	at java.security.SecureClassLoader.defineClass(SecureClassLoader.java:141)
+	at weblogic.utils.classloaders.GenericClassLoader.defineClass(GenericClassLoader.java:328)
+	at weblogic.utils.classloaders.GenericClassLoader.findLocalClass(GenericClassLoader.java:285)
+	at weblogic.utils.classloaders.GenericClassLoader.findClass(GenericClassLoader.java:253)
+	at weblogic.utils.classloaders.ChangeAwareClassLoader.findClass(ChangeAwareClassLoader.java:56)
+	at weblogic.utils.classloaders.ChangeAwareClassLoader.loadClass(ChangeAwareClassLoader.java:42)
+	at org.springframework.aop.framework.adapter.GlobalAdvisorAdapterRegistry.<clinit>(GlobalAdvisorAdapterRegistry.java:32)
+	at org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator.<init>(AbstractAutoProxyCreator.java:116)
+	at org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator.<init>(BeanNameAutoProxyCreator.java:46)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:39)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:513)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:148)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:87)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1004)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:957)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:490)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:461)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:295)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:223)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:292)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:198)
+	at org.springframework.context.support.AbstractApplicationContext.registerBeanPostProcessors(AbstractApplicationContext.java:741)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:464)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:389)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:294)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:112)
+	at weblogic.servlet.internal.EventsManager$FireContextListenerAction.run(EventsManager.java:481)
+[ERROR][2017-11-21 13:58:32,409] org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:319)
+	Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in ServletContext resource [/WEB-INF/classes/applicationContext.xml]: Invocation of init method failed; nested exception is java.lang.OutOfMemoryError: PermGen space
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1486)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:524)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:461)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:295)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:223)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:292)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:194)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:608)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:932)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:479)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:389)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:294)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:112)
+	at weblogic.servlet.internal.EventsManager$FireContextListenerAction.run(EventsManager.java:481)
+	at weblogic.security.acl.internal.AuthenticatedSubject.doAs(AuthenticatedSubject.java:321)
+	at weblogic.security.service.SecurityManager.runAs(SecurityManager.java:121)
+	at weblogic.servlet.internal.EventsManager.notifyContextCreatedEvent(EventsManager.java:181)
+	at weblogic.servlet.internal.WebAppServletContext.reloadServletClassLoader(WebAppServletContext.java:3078)
+	at weblogic.servlet.internal.FilterWrapper.reloadFilter(FilterWrapper.java:63)
+	at weblogic.servlet.internal.FilterWrapper.checkForReload(FilterWrapper.java:104)
+	at weblogic.servlet.internal.FilterWrapper.getFilter(FilterWrapper.java:41)
+	at weblogic.servlet.internal.FilterChainImpl.add(FilterChainImpl.java:35)
+	at weblogic.servlet.internal.FilterManager.getFilterChain(FilterManager.java:244)
+	at weblogic.servlet.internal.WebAppServletContext$ServletInvocationAction.doIt(WebAppServletContext.java:3681)
+	at weblogic.servlet.internal.WebAppServletContext$ServletInvocationAction.run(WebAppServletContext.java:3650)
+	at weblogic.security.acl.internal.AuthenticatedSubject.doAs(AuthenticatedSubject.java:321)
+	at weblogic.security.service.SecurityManager.runAs(SecurityManager.java:121)
+	at weblogic.servlet.internal.WebAppServletContext.securedExecute(WebAppServletContext.java:2268)
+	at weblogic.servlet.internal.WebAppServletContext.execute(WebAppServletContext.java:2174)
+	at weblogic.servlet.internal.ServletRequestImpl.run(ServletRequestImpl.java:1446)
+	at weblogic.work.ExecuteThread.execute(ExecuteThread.java:201)
+	at weblogic.work.ExecuteThread.run(ExecuteThread.java:173)
+Caused by: java.lang.OutOfMemoryError: PermGen space
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClassCond(ClassLoader.java:632)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:616)
+	at java.security.SecureClassLoader.defineClass(SecureClassLoader.java:141)
+	at weblogic.utils.classloaders.GenericClassLoader.defineClass(GenericClassLoader.java:328)
+	at weblogic.utils.classloaders.GenericClassLoader.findLocalClass(GenericClassLoader.java:285)
+	at weblogic.utils.classloaders.GenericClassLoader.findClass(GenericClassLoader.java:253)
+	at weblogic.utils.classloaders.ChangeAwareClassLoader.findClass(ChangeAwareClassLoader.java:56)
+	at weblogic.utils.classloaders.ChangeAwareClassLoader.loadClass(ChangeAwareClassLoader.java:42)
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClassCond(ClassLoader.java:632)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:616)
+	at java.security.SecureClassLoader.defineClass(SecureClassLoader.java:141)
+	at weblogic.utils.classloaders.GenericClassLoader.defineClass(GenericClassLoader.java:328)
+	at weblogic.utils.classloaders.GenericClassLoader.findLocalClass(GenericClassLoader.java:285)
+	at weblogic.utils.classloaders.GenericClassLoader.findClass(GenericClassLoader.java:253)
+	at weblogic.utils.classloaders.ChangeAwareClassLoader.findClass(ChangeAwareClassLoader.java:56)
+	at weblogic.utils.classloaders.ChangeAwareClassLoader.loadClass(ChangeAwareClassLoader.java:42)
+	at org.hibernate.persister.PersisterFactory.createCollectionPersister(PersisterFactory.java:104)
+	at org.hibernate.impl.SessionFactoryImpl.<init>(SessionFactoryImpl.java:307)
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1872)
+	at org.springframework.orm.hibernate3.LocalSessionFactoryBean.newSessionFactory(LocalSessionFactoryBean.java:863)
+	at org.springframework.orm.hibernate3.LocalSessionFactoryBean.buildSessionFactory(LocalSessionFactoryBean.java:782)
+	at org.springframework.orm.hibernate3.AbstractSessionFactoryBean.afterPropertiesSet(AbstractSessionFactoryBean.java:188)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1545)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1483)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:524)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:461)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:295)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:223)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:292)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:194)
+[ERROR][2017-11-21 15:36:01,335] org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:319)
+	Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'documentService' defined in ServletContext resource [/WEB-INF/classes/applicationContext.xml]: Cannot resolve reference to bean 'documentAuditService' while setting bean property 'documentAuditService'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'documentAuditService' defined in ServletContext resource [/WEB-INF/classes/applicationContext.xml]: Instantiation of bean failed; nested exception is java.lang.OutOfMemoryError: PermGen space
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:329)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:107)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1391)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1132)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:461)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:295)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:223)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:292)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:194)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:626)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:932)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:479)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:389)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:294)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:112)
+	at weblogic.servlet.internal.EventsManager$FireContextListenerAction.run(EventsManager.java:481)
+	at weblogic.security.acl.internal.AuthenticatedSubject.doAs(AuthenticatedSubject.java:321)
+	at weblogic.security.service.SecurityManager.runAs(SecurityManager.java:121)
+	at weblogic.servlet.internal.EventsManager.notifyContextCreatedEvent(EventsManager.java:181)
+	at weblogic.servlet.internal.WebAppServletContext.reloadServletClassLoader(WebAppServletContext.java:3078)
+	at weblogic.servlet.internal.FilterWrapper.reloadFilter(FilterWrapper.java:63)
+	at weblogic.servlet.internal.FilterWrapper.checkForReload(FilterWrapper.java:104)
+	at weblogic.servlet.internal.FilterWrapper.getFilter(FilterWrapper.java:41)
+	at weblogic.servlet.internal.FilterChainImpl.add(FilterChainImpl.java:35)
+	at weblogic.servlet.internal.FilterManager.getFilterChain(FilterManager.java:244)
+	at weblogic.servlet.internal.WebAppServletContext$ServletInvocationAction.doIt(WebAppServletContext.java:3681)
+	at weblogic.servlet.internal.WebAppServletContext$ServletInvocationAction.run(WebAppServletContext.java:3650)
+	at weblogic.security.acl.internal.AuthenticatedSubject.doAs(AuthenticatedSubject.java:321)
+	at weblogic.security.service.SecurityManager.runAs(SecurityManager.java:121)
+	at weblogic.servlet.internal.WebAppServletContext.securedExecute(WebAppServletContext.java:2268)
+	at weblogic.servlet.internal.WebAppServletContext.execute(WebAppServletContext.java:2174)
+	at weblogic.servlet.internal.ServletRequestImpl.run(ServletRequestImpl.java:1446)
+	at weblogic.work.ExecuteThread.execute(ExecuteThread.java:201)
+	at weblogic.work.ExecuteThread.run(ExecuteThread.java:173)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'documentAuditService' defined in ServletContext resource [/WEB-INF/classes/applicationContext.xml]: Instantiation of bean failed; nested exception is java.lang.OutOfMemoryError: PermGen space
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1011)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:957)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:490)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:461)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:295)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:223)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:292)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:194)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:323)
+	... 34 more
+Caused by: java.lang.OutOfMemoryError: PermGen space
+	at java.lang.Class.getDeclaredConstructors0(Native Method)
+	at java.lang.Class.privateGetDeclaredConstructors(Class.java:2389)
+	at java.lang.Class.getConstructor0(Class.java:2699)
+	at java.lang.Class.getDeclaredConstructor(Class.java:1985)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:78)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1004)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:957)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:490)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:461)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:295)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:223)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:292)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:194)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:323)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:107)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1391)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1132)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:461)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:295)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:223)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:292)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:194)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:626)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:932)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:479)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:389)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:294)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:112)
+	at weblogic.servlet.internal.EventsManager$FireContextListenerAction.run(EventsManager.java:481)
+	at weblogic.security.acl.internal.AuthenticatedSubject.doAs(AuthenticatedSubject.java:321)
+	at weblogic.security.service.SecurityManager.runAs(SecurityManager.java:121)
+[ERROR][2017-11-21 18:00:36,145] org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:324)
+	Context initialization failed
+java.lang.OutOfMemoryError: PermGen space
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClassCond(ClassLoader.java:632)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:616)
+	at java.security.SecureClassLoader.defineClass(SecureClassLoader.java:141)
+	at weblogic.utils.classloaders.GenericClassLoader.defineClass(GenericClassLoader.java:328)
+	at weblogic.utils.classloaders.GenericClassLoader.findLocalClass(GenericClassLoader.java:285)
+	at weblogic.utils.classloaders.GenericClassLoader.findClass(GenericClassLoader.java:253)
+	at weblogic.utils.classloaders.ChangeAwareClassLoader.findClass(ChangeAwareClassLoader.java:56)
+	at weblogic.utils.classloaders.ChangeAwareClassLoader.loadClass(ChangeAwareClassLoader.java:42)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.<init>(XmlBeanDefinitionReader.java:123)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:83)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:537)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:451)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:389)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:294)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:112)
+	at weblogic.servlet.internal.EventsManager$FireContextListenerAction.run(EventsManager.java:481)
+	at weblogic.security.acl.internal.AuthenticatedSubject.doAs(AuthenticatedSubject.java:321)
+	at weblogic.security.service.SecurityManager.runAs(SecurityManager.java:121)
+	at weblogic.servlet.internal.EventsManager.notifyContextCreatedEvent(EventsManager.java:181)
+	at weblogic.servlet.internal.WebAppServletContext.reloadServletClassLoader(WebAppServletContext.java:3078)
+	at weblogic.servlet.internal.FilterWrapper.reloadFilter(FilterWrapper.java:63)
+	at weblogic.servlet.internal.FilterWrapper.checkForReload(FilterWrapper.java:104)
+	at weblogic.servlet.internal.FilterWrapper.getFilter(FilterWrapper.java:41)
+	at weblogic.servlet.internal.FilterChainImpl.add(FilterChainImpl.java:35)
+	at weblogic.servlet.internal.FilterManager.getFilterChain(FilterManager.java:244)
+	at weblogic.servlet.internal.WebAppServletContext$ServletInvocationAction.doIt(WebAppServletContext.java:3681)
+	at weblogic.servlet.internal.WebAppServletContext$ServletInvocationAction.run(WebAppServletContext.java:3650)
+	at weblogic.security.acl.internal.AuthenticatedSubject.doAs(AuthenticatedSubject.java:321)
+	at weblogic.security.service.SecurityManager.runAs(SecurityManager.java:121)
+	at weblogic.servlet.internal.WebAppServletContext.securedExecute(WebAppServletContext.java:2268)

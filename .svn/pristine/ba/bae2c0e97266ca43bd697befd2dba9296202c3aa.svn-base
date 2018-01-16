@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-7-1 18:58:05 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="com.sinosoft.efiling.hibernate.entity.PrpDUwmtypes" table="PRPDUWMTYPES">
+        <composite-id name="id" class="com.sinosoft.efiling.hibernate.entity.PrpDUwmtypesId">
+            <key-property name="policyno" type="string">
+                <column name="POLICYNO" length="30" />
+            </key-property>
+            <key-property name="type" type="string">
+                <column name="TYPE" length="3" />
+            </key-property>
+        </composite-id>
+        <property name="typEName" type="string">
+            <column name="TYPENAME" length="80" />
+        </property>
+        <property name="sort" type="string">
+            <column name="SORT" length="1" />
+        </property>
+        <property name="attribute1" type="string">
+            <column name="ATTRIBUTE1" />
+        </property>
+        <property name="attribute2" type="string">
+            <column name="ATTRIBUTE2" />
+        </property>
+        <property name="attribute3" type="string">
+            <column name="ATTRIBUTE3" />
+        </property>
+    </class>
+</hibernate-mapping>

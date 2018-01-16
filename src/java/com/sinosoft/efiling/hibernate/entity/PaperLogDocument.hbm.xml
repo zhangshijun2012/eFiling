@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.sinosoft.efiling.hibernate.entity.PaperLogDocument" table="T_F_PAPER_DOCUMENT_LOG">
+        <id name="id" type="string">
+            <column name="ID" length="22" />
+            <generator class="assigned" />
+        </id>
+        <property name="no" type="string">
+            <column name="NO" length="32" />
+        </property>
+        <property name="fileTypeCode" type="string">
+            <column name="FILE_TYPE_CODE" length="22" />
+        </property>
+        <many-to-one name="fileType" class="com.sinosoft.efiling.hibernate.entity.FileType" fetch="select">
+            <column name="FILE_TYPE_ID" length="22" not-null="true" />
+        </many-to-one>
+        <property name="status" type="string">
+            <column name="STATUS" length="2" not-null="true" />
+        </property>
+        <many-to-one name="user" class="com.sinosoft.efiling.hibernate.entity.User" fetch="select">
+            <column name="USER_ID" length="10" />
+        </many-to-one>
+		<many-to-one name="company" class="com.sinosoft.efiling.hibernate.entity.Company" fetch="select">
+            <column name="COMPANY_ID" length="8" />
+        </many-to-one>
+        <property name="dueTime" type="timestamp">
+            <column name="DUE_TIME" length="7" />
+        </property>
+        <property name="remarks" type="string">
+            <column name="REMARKS" length="2000" />
+        </property>
+    </class>
+</hibernate-mapping>

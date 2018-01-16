@@ -1,0 +1,85 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%--显示档案盒装盒明细view--%>
+<%-- <s:iterator id="entity" value="list">
+	<s:property value="entity"/>
+    <s:property value="type"/>
+</s:iterator> --%>
+<s:iterator id="entity" value="list">
+	<s:form name="viewForm" id="viewForm" method="post">
+		<s:hidden name="id" value="%{id}" />
+		<s:hidden name="riskType" value="%{riskType}" />
+		<s:hidden name="status" value="%{status}" />
+		<s:hidden name="fileStatus" value="%{fileStatus}" />
+		<s:hidden name="no" value="%{no}" />
+		<s:hidden name="applicant" value="%{applicant}" />
+		<s:hidden name="insured" value="%{insured}" />
+		<s:hidden name="effectiveTime" value="%{formatDate(effectiveTime)}" />
+		<s:hidden name="dueTime" value="%{formatDate(dueTime)}" />
+		<s:if test="type!='V'">
+			<p>
+				<s:text name="file.document.no" />
+				: ${ no } &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+				<s:text name="global.policy.holder" />
+				: <span id="viewPolicyApplicant">${ applicant }</span>
+			</p>
+			<p>
+				<s:text name="file.list" />
+				:
+			</p>
+		</s:if>
+		<table class="list nowrap">
+			<thead>
+				<tr>
+					<td width="2%"><input type="checkbox"
+						onclick="Main.service.checkAllDetails(this.checked)"
+						name="checkAllDetails" />
+					</td>
+					<td><s:text name="file.type" />
+					</td>
+					<td width="15%"><s:text name="file.no" />
+					</td>
+					<td><s:text name="global.user" />
+					</td>
+					<td width="10%"><s:text name="file.time" />
+					</td>
+					<td width="5%"><s:text name="file.status" />
+					</td>
+					<td width="5%"><s:text name="global.attachment" />
+					</td>
+				</tr>
+			</thead>
+			<tbody id="viewDialogFilesTbody">
+				<s:iterator value="documentFiles" var="documentFile" status="st">
+					<s:if test="status != 'D'">
+					<tr <s:if test="#st.even">class="even"</s:if>
+						id="documentFile${ id }"
+						handleStatus="<s:property value="@com.sinosoft.efiling.util.SystemUtils@DOCUMENT_FILE_STATUS_DISABLED != status" />"
+						fileId="${ id }" fileTypeId="${ fileType.id }">
+						<td><input type="checkbox" name="ids" value="${ id }"
+							onclick="Main.service.checkDetail(this.checked)"
+							no="<s:if test="file.no == null"></s:if><s:else>${ file.no }</s:else>"
+							fileStatus="<s:if test="file.fileApproveStatus == null"></s:if><s:else>${ file.fileApproveStatus }</s:else>"
+							documentStatus="<s:if test="status == null"></s:if><s:else>${ status }</s:else>" />
+						</td>
+						<td>${ fileType.name }</td>
+						<td><s:if test="file.no == null">e-Document</s:if>
+							<s:else>${ file.no }</s:else>
+						</td>
+						<td>${ file.user.name }</td>
+						<td class="date"><s:property value="formatDate(fileTime)" />
+						</td>
+						<td><s:property value="getTextMap('DOCUMENT_FILE_STATUS').get(status)" />
+						</td>
+						<td><s:if
+								test="file.fileId != null && file.fileApproveStatus != 3">
+								<a href="#" onclick="FileIndexService.view('${ file.fileId }')">附件</a>
+							</s:if></td>
+					</tr>
+					</s:if>
+				</s:iterator>
+			</tbody>
+		</table>
+	</s:form>
+</s:iterator>

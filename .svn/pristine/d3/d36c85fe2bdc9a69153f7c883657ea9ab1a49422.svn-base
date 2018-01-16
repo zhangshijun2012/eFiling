@@ -1,0 +1,40 @@
+/** 档案查询 */
+var FileQuery = Service.create({
+	namespace : 'file/query/',
+	dataHeader: [
+  		{ html: "file.document.no", attributes: { style: { width: "10%" } } }, 
+  		{ html: "file.document.type", attributes: { style: { width: "5%" } } }, 
+  		{ html: "global.policy.holder", attributes: { style: { width: "8%" } } }, 
+  		{ html: "file.document.status", attributes: { style: { width: "5%" } } }, 
+  		{ html: "file.document.lacks" }, 
+  		{ html: "file.document.salesman", attributes: { style: { width: "5%" } } }, 
+  		{ html: "file.document.business.no", attributes: { style: { width: "5%" } } }, 
+  		{ html: "file.document.business.department", attributes: { style: { width: "8%" } } }, 
+  		{ html: "file.document.agent", attributes: { style: { width: "8%" } } },  
+  		{ html: "file.document.business.user", attributes: { style: { width: "8%" } } }, 
+  		{ html: "file.document.b2c", attributes: { style: { width: "5%" } } },
+  		{ html: "file.time", attributes: { style: { width: "5%" } } }, 
+  		{ html: "file.loan.status", attributes: { style: { width: "5%" } } },
+  		{ html: "file.user", attributes: { style: { width: "5%" } } }
+	],
+  	dataHandler: [null, function(cell, value, index, values, data) {
+  		// 显示单证类型的文字描述
+  		cell.innerHTML = this.getText('file.document.type.' + value);
+  	}, null, function(cell, value, index, values, data) {
+  		// 归档状态
+  		cell.innerHTML = this.getText('file.document.status.' + value);
+  	}, null, null, null, null, null, null, function(cell, value, index, values, data) {
+  		// 是否电子商务
+  		if (value) cell.innerHTML = this.getText(value === '1' ? 'global.yes' : 'global.no');
+  	}, null, function(cell, value, index, values, data) {
+  		// 是否借出
+  		if (value) cell.innerHTML = this.getText(value === '1' ? 'global.yes' : 'global.no');
+  	}],
+	initialize : function() {
+  		this.urls['index'] = 'index.do';
+	},
+	
+	view: function() {
+		FileService.view.apply(FileService, arguments);
+	}
+});

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-4-25 20:00:27 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="com.sinosoft.efiling.hibernate.entity.FileLendingDetail" table="T_F_FILE_LENDING_DETAIL">
+        <comment>&#189;&#232;&#212;&#196;&#195;&#247;&#207;&#184;&#208;&#197;&#207;&#162;</comment>
+        <composite-id name="id" class="com.sinosoft.efiling.hibernate.entity.FileLendingDetailId">
+            <key-property name="lendingId" type="string">
+                <column name="LENDING_ID" length="32" />
+            </key-property>
+            <key-property name="fileId" type="string">
+                <column name="FILE_ID" length="32" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="fileLending" class="com.sinosoft.efiling.hibernate.entity.FileLending" update="false" insert="false" fetch="select">
+            <column name="LENDING_ID" length="32" not-null="true" />
+        </many-to-one>
+        <many-to-one name="fileLendingReturn" class="com.sinosoft.efiling.hibernate.entity.FileLendingReturn" fetch="select">
+            <column name="RETURN_ID" length="32" />
+        </many-to-one>
+        <many-to-one name="documentFile" class="com.sinosoft.efiling.hibernate.entity.DocumentFile" fetch="select">
+            <column name="DOCUMENT_FILE_ID" length="32" not-null="true" />
+        </many-to-one>
+        <many-to-one name="file" class="com.sinosoft.efiling.hibernate.entity.File" update="false" insert="false" fetch="select">
+            <column name="FILE_ID" length="32" not-null="true" />
+        </many-to-one>
+        <property name="status" type="string">
+            <column name="STATUS" length="1" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

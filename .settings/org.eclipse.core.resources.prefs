@@ -1,0 +1,8 @@
+#Fri Nov 17 11:08:31 CST 2017
+eclipse.preferences.version=1
+encoding//src/resources/config.properties=UTF-8
+encoding//src/resources/hibernate.properties=UTF-8
+encoding//src/resources/log4j.properties=UTF-8
+encoding//src/resources/mail.properties=UTF-8
+encoding//src/resources/sql.properties=UTF-8
+encoding/<project>=UTF-8

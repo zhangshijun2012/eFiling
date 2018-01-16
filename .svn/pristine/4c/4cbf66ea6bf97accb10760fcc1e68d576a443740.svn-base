@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-7-31 18:53:19 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="com.sinosoft.efiling.hibernate.entity.PrppCustomer" table="PRPPCUSTOMER">
+        <comment>&#197;&#250;&#181;&#165;&#181;&#196;&#191;&#205;&#187;&#167;&#208;&#197;&#207;&#162;&#177;&#237;</comment>
+        <composite-id name="id" class="com.sinosoft.efiling.hibernate.entity.PrppCustomerId">
+            <key-property name="endorseno" type="java.lang.String">
+                <column name="ENDORSENO" length="25" />
+            </key-property>
+            <key-property name="serialno" type="double">
+                <column name="SERIALNO" precision="15" scale="0" />
+            </key-property>
+        </composite-id>
+        <property name="policyno" type="java.lang.String">
+            <column name="POLICYNO" length="22" not-null="true" />
+        </property>
+        <property name="riskcode" type="java.lang.String">
+            <column name="RISKCODE" length="4" not-null="true" />
+        </property>
+        <property name="language" type="java.lang.String">
+            <column name="LANGUAGE" length="1" />
+        </property>
+        <property name="insuredtype" type="java.lang.String">
+            <column name="INSUREDTYPE" length="1" />
+        </property>
+        <property name="insuredcode" type="java.lang.String">
+            <column name="INSUREDCODE" length="20" />
+        </property>
+        <property name="insuredname" type="java.lang.String">
+            <column name="INSUREDNAME" length="400" />
+        </property>
+        <property name="insuredaddress" type="java.lang.String">
+            <column name="INSUREDADDRESS" />
+        </property>
+        <property name="insurednature" type="java.lang.String">
+            <column name="INSUREDNATURE" length="12" />
+        </property>
+        <property name="insuredflag" type="java.lang.String">
+            <column name="INSUREDFLAG" length="1" />
+        </property>
+        <property name="insuredidentity" type="java.lang.String">
+            <column name="INSUREDIDENTITY" length="2" />
+        </property>
+        <property name="relateserialno" type="java.lang.Double">
+            <column name="RELATESERIALNO" precision="15" scale="0" />
+        </property>
+        <property name="identifytype" type="java.lang.String">
+            <column name="IDENTIFYTYPE" length="2" />
+        </property>
+        <property name="identifynumber" type="java.lang.String">
+            <column name="IDENTIFYNUMBER" length="20" />
+        </property>
+        <property name="creditlevel" type="java.lang.String">
+            <column name="CREDITLEVEL" length="1" />
+        </property>
+        <property name="possessnature" type="java.lang.String">
+            <column name="POSSESSNATURE" length="4" />
+        </property>
+        <property name="businesssource" type="java.lang.String">
+            <column name="BUSINESSSOURCE" length="4" />
+        </property>
+        <property name="businesssort" type="java.lang.String">
+            <column name="BUSINESSSORT" length="4" />
+        </property>
+        <property name="occupationcode" type="java.lang.String">
+            <column name="OCCUPATIONCODE" length="6" />
+        </property>
+        <property name="educationcode" type="java.lang.String">
+            <column name="EDUCATIONCODE" length="4" />
+        </property>
+        <property name="bank" type="java.lang.String">
+            <column name="BANK" length="150" />
+        </property>
+        <property name="accountname" type="java.lang.String">
+            <column name="ACCOUNTNAME" length="150" />
+        </property>
+        <property name="account" type="java.lang.String">
+            <column name="ACCOUNT" length="50" />
+        </property>
+        <property name="linkername" type="java.lang.String">
+            <column name="LINKERNAME" length="120" />
+        </property>
+        <property name="postaddress" type="java.lang.String">
+            <column name="POSTADDRESS" />
+        </property>
+        <property name="postcode" type="java.lang.String">
+            <column name="POSTCODE" length="6" />
+        </property>
+        <property name="phonenumber" type="java.lang.String">
+            <column name="PHONENUMBER" length="30" />
+        </property>
+        <property name="mobile" type="java.lang.String">
+            <column name="MOBILE" length="15" />
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="EMAIL" length="60" />
+        </property>
+        <property name="benefitflag" type="java.lang.String">
+            <column name="BENEFITFLAG" length="1" />
+        </property>
+        <property name="benefitrate" type="java.lang.Double">
+            <column name="BENEFITRATE" precision="5" />
+        </property>
+        <property name="flag" type="java.lang.String">
+            <column name="FLAG" length="2" />
+        </property>
+        <property name="occupationgrade" type="java.lang.String">
+            <column name="OCCUPATIONGRADE" length="1" />
+        </property>
+        <property name="waysofpayment" type="java.lang.String">
+            <column name="WAYSOFPAYMENT" length="1" />
+        </property>
+        <property name="payeename" type="java.lang.String">
+            <column name="PAYEENAME" length="100" />
+        </property>
+        <property name="payeeidentifynumber" type="java.lang.String">
+            <column name="PAYEEIDENTIFYNUMBER" length="20" />
+        </property>
+        <property name="refundreason" type="java.lang.String">
+            <column name="REFUNDREASON" length="100" />
+        </property>
+        <property name="receiver" type="java.lang.String">
+            <column name="RECEIVER" length="2" />
+        </property>
+        <property name="branchaccount" type="java.lang.String">
+            <column name="BRANCHACCOUNT" length="150" />
+        </property>
+        <property name="industry" type="java.lang.String">
+            <column name="INDUSTRY" length="4" />
+        </property>
+    </class>
+</hibernate-mapping>

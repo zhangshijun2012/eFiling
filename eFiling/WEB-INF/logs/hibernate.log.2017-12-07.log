@@ -1,0 +1,115 @@
+[ERROR][2017-12-07 09:21:23,521] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	weblogic.common.resourcepool.ResourceDisabledException: Pool licDataSource is Suspended, cannot allocate resources to applications..
+[ERROR][2017-12-07 09:21:23,718] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	Cannot obtain connection: driverURL = jdbc:weblogic:pool:licDataSource, props = {EmulateTwoPhaseCommit=false, connectionPoolID=licDataSource, jdbcTxDataSource=true, LoggingLastResource=false, dataSourceName=licDataSource}
+[ERROR][2017-12-07 09:21:23,815] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	weblogic.common.resourcepool.ResourceDisabledException: Pool licDataSource is Suspended, cannot allocate resources to applications..
+[ERROR][2017-12-07 09:21:23,816] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	Cannot obtain connection: driverURL = jdbc:weblogic:pool:licDataSource, props = {EmulateTwoPhaseCommit=false, connectionPoolID=licDataSource, jdbcTxDataSource=true, LoggingLastResource=false, dataSourceName=licDataSource}
+[ERROR][2017-12-07 09:21:23,823] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	weblogic.common.resourcepool.ResourceDisabledException: Pool licDataSource is Suspended, cannot allocate resources to applications..
+[ERROR][2017-12-07 09:21:23,824] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	Cannot obtain connection: driverURL = jdbc:weblogic:pool:licDataSource, props = {EmulateTwoPhaseCommit=false, connectionPoolID=licDataSource, jdbcTxDataSource=true, LoggingLastResource=false, dataSourceName=licDataSource}
+[ERROR][2017-12-07 09:21:23,825] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	weblogic.common.resourcepool.ResourceDisabledException: Pool licDataSource is Suspended, cannot allocate resources to applications..
+[ERROR][2017-12-07 09:21:23,826] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	Cannot obtain connection: driverURL = jdbc:weblogic:pool:licDataSource, props = {EmulateTwoPhaseCommit=false, connectionPoolID=licDataSource, jdbcTxDataSource=true, LoggingLastResource=false, dataSourceName=licDataSource}
+[ERROR][2017-12-07 15:40:48,718] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 15:40:48,743] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 15:40:48,862] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 15:54:50,339] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 15:54:50,355] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 15:54:50,372] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:08:38,191] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:08:38,235] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:08:38,249] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:10:52,669] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:10:52,683] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:10:52,701] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:11:17,984] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:11:18,001] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:11:18,018] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:14:14,503] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:14:14,525] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:14:14,539] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:15:02,976] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:15:03,003] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:15:03,021] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:15:35,767] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:15:35,786] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:15:35,801] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:15:54,587] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:15:54,610] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:15:54,627] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:21:44,986] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:21:45,001] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:21:45,014] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:38:57,243] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:38:57,257] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
+[ERROR][2017-12-07 16:38:57,269] org.hibernate.util.JDBCExceptionReporter.logExceptions(JDBCExceptionReporter.java:234)
+	ORA-00923: 未找到要求的 FROM 关键字
+
